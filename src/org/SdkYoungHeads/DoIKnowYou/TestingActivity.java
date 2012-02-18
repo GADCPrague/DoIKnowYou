@@ -1,10 +1,14 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
-import java.util.UUID;
-
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -18,20 +22,33 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.testing);
 		setChoices();
+		
+		Button btn = (Button)findViewById(R.id.testingSubmit);
+		btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+            	check();
+            }
+		});
 	}
 	
 	public void setChoices() {
-		guessing = ((Application)getApplication()).currentTester.getTestCase();
+		Tester tester = ((Application)getApplication()).currentTester; 
+		guessing = tester.getTestCase();
 		if (guessing == null) {
 			finish();
+			Intent i = new Intent(this, TestResultsActivity.class);
+			startActivity(i);
 		} else {
 			RadioGroup rg = (RadioGroup)findViewById(R.id.testingChoices);
 			rg.removeAllViews();
-			RadioButton rb = new RadioButton(this);
-			rb.setText(guessing.getName());
+			
+			for (Person p: tester.getChoices()) {
+				RadioButton rb = new RadioButton(this);
+				rb.setText(p.getName());
 		
-			rg.addView(rb);
-			rg.setOnCheckedChangeListener(this);
+				rg.addView(rb);
+				rg.setOnCheckedChangeListener(this);
+			}
 		
 			ImageView iw = (ImageView)findViewById(R.id.imageView1);
 			Bitmap bmp = guessing.getSomePhoto();
@@ -41,13 +58,29 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		}
 	}
 
+	protected RadioButton selected;
 	public void onCheckedChanged(RadioGroup paramRadioGroup, int paramInt) {
-		RadioButton rb = (RadioButton)paramRadioGroup.findViewById(paramInt);
-		Toast.makeText(getBaseContext(), rb.getText(), 2000).show();
-		// TODO: poslat testeru, jak to vyslo
-		// TODO: poprosit tester o dalsi...
+		selected =  (RadioButton)paramRadioGroup.findViewById(paramInt);
+	}
+	
+	protected void check() {
+		if (selected == null) {
+			Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Please, make your guess.").
+			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           }); // TODO: resource
+			builder.show();
+			return;
+		}
+		Boolean ok = guessing.getName() == selected.getText();
+		if (!ok) {
+			Toast.makeText(getBaseContext(), guessing.getName(), 2000).show();
+		}
 		Tester t = ((Application)getApplication()).currentTester;
-		t.putResult(true); // TODO
+		t.putResult(ok);
 		setChoices();
 	}
 }

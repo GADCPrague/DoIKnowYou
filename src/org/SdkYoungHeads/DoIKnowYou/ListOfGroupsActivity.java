@@ -1,6 +1,8 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +12,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.content.Context;
-import android.content.Intent;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ListOfGroupsActivity extends Activity implements OnItemClickListener {
@@ -29,11 +28,6 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 		setContentView(R.layout.listofgroups);
 		
 		groups = (ListView) this.findViewById(R.id.list_of_groups);
-		
-		((Application)getApplication()).getDatabase().createExampleData();
-		
-		groups.setAdapter(new MyGroupAdapter(this.getBaseContext(), ((Application)getApplication()).getDatabase()));
-		groups.setOnItemClickListener(this);
 		
 		/*
 		 * listener pro tlacitko na pridani nove osoby
@@ -55,6 +49,18 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 	            }
 
 	        });
+	}
+	
+	public void onResume() {
+		super.onResume();
+		refill();
+	}
+	
+	protected void refill() {
+		// TODO: tohle neni hezky...
+		groups.clearChoices();
+		groups.setAdapter(new MyGroupAdapter(this.getBaseContext(), ((Application)getApplication()).getDatabase()));
+		groups.setOnItemClickListener(this);
 	}
 	
 	class MyGroupAdapter extends ArrayAdapter<Group> {

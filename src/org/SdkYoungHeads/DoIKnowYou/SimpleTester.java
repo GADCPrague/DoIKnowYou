@@ -7,14 +7,18 @@ import java.util.List;
 public class SimpleTester implements Tester {
 	List<Person> people;
 	int index;
+	Group group;
+	int countOk;
 
 	@Override
 	public void setGroup(Group group) {
 		people = new ArrayList<Person>();
 		people.addAll(group.getPeopleList());
+		this.group = group;
 		Collections.shuffle(people);
 		
 		index = 0;
+		countOk = 0;
 	}
 
 	@Override
@@ -27,7 +31,36 @@ public class SimpleTester implements Tester {
 
 	@Override
 	public void putResult(Boolean ok) {
-		index++; // TODO: do something with the result
+		index++;
+		if (ok) {
+			countOk++;
+		}
+	}
+	
+	@Override
+	public List<Person> getChoices() {
+		List<Person> p = new ArrayList<Person>();
+		p.addAll(group.getPeopleList());
+		Collections.shuffle(p);
+		List<Person> sl = p.subList(0, 3);
+		if (!sl.contains(getTestCase())) {
+			sl.add(getTestCase());
+		}
+		return sl;
 	}
 
+	@Override
+	public int getMaximumPoints() {
+		return group.getCount();
+	}
+	
+	@Override
+	public int getPoints() {
+		return countOk;
+	}
+	
+	@Override
+	public int getPercent() {
+		return (int)(((double)getPoints() / (double)getMaximumPoints()) * 100.0);
+	}
 }

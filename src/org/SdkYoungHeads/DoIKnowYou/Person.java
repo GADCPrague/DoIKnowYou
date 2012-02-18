@@ -16,11 +16,22 @@ import android.graphics.BitmapFactory;
 
 public class Person {
 	private UUID uuid;
+	private Group group;
 	
 	public Person() {
 		photoPaths = new ArrayList<String>();
 		photos = null;
 		uuid = UUID.randomUUID();
+	}
+	
+	public void setGroup(Group g) {
+		group = g;
+	}
+	
+	public void save() {
+		if (group != null) {
+			group.save();
+		}
 	}
 	
 	private String name;
@@ -31,6 +42,7 @@ public class Person {
 	
 	public void setName(String name) {
 		this.name = name;
+		save();
 	}
 	
 	// TODO: add photo
@@ -54,6 +66,8 @@ public class Person {
 			loadPhotos();
 		}
 	}
+	
+	// TODO: add photo, remove photo, reorder
 
 	public Bitmap getMainPhoto() {
 		ensurePhotosLoaded();
