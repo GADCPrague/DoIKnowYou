@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"  >
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/select_persons"
+	        android:textColor="#fff"
+	        />
+        <Button 
+            android:text="@string/saveSelectedTxt"
+            android:id="@+id/saveSelectedBtn"
+            android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+    </LinearLayout>
+        
+     <ListView
+         android:id="@+id/listOfPersonsToSelect"
+         android:background="#f00"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:divider="#fff"
+         />
+</LinearLayout>

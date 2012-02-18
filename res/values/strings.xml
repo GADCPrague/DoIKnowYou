@@ -20,5 +20,7 @@
 	<string name="addNewPerson_textEdit">Name or Nickname</string>
 	<string name="addNewPerson_spinner">Select group</string>
 	<string name="addNewPerson_submit">Done, add me!</string>
+	<string name="select_persons">Select persons</string>
+	<string name="saveSelectedTxt">OK</string>
 	
 </resources>

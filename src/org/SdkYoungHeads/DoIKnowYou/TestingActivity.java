@@ -1,7 +1,5 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
-import java.util.UUID;
-
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -21,17 +19,21 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 	}
 	
 	public void setChoices() {
-		guessing = ((Application)getApplication()).currentTester.getTestCase();
+		Tester tester = ((Application)getApplication()).currentTester; 
+		guessing = tester.getTestCase();
 		if (guessing == null) {
 			finish();
 		} else {
 			RadioGroup rg = (RadioGroup)findViewById(R.id.testingChoices);
 			rg.removeAllViews();
-			RadioButton rb = new RadioButton(this);
-			rb.setText(guessing.getName());
+			
+			for (Person p: tester.getChoices()) {
+				RadioButton rb = new RadioButton(this);
+				rb.setText(p.getName());
 		
-			rg.addView(rb);
-			rg.setOnCheckedChangeListener(this);
+				rg.addView(rb);
+				rg.setOnCheckedChangeListener(this);
+			}
 		
 			ImageView iw = (ImageView)findViewById(R.id.imageView1);
 			Bitmap bmp = guessing.getSomePhoto();
@@ -43,11 +45,9 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 
 	public void onCheckedChanged(RadioGroup paramRadioGroup, int paramInt) {
 		RadioButton rb = (RadioButton)paramRadioGroup.findViewById(paramInt);
-		Toast.makeText(getBaseContext(), rb.getText(), 2000).show();
-		// TODO: poslat testeru, jak to vyslo
-		// TODO: poprosit tester o dalsi...
+		Toast.makeText(getBaseContext(), guessing.getName(), 2000).show();
 		Tester t = ((Application)getApplication()).currentTester;
-		t.putResult(true); // TODO
+		t.putResult(guessing.getName() == rb.getText()); // TODO
 		setChoices();
 	}
 }
