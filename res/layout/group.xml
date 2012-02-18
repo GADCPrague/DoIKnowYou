@@ -11,4 +11,10 @@
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+     <ListView
+         android:id="@+id/list_of_people"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:divider="#fff"
+         />
 </LinearLayout>

@@ -12,7 +12,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.content.Context;
 import android.content.Intent;
+<<<<<<< HEAD
 import android.widget.ImageView;
+=======
+>>>>>>> c5b8e518240cde17d89f7888bb954e4211f2df81
 import android.widget.TextView;
 
 public class ListOfGroupsActivity extends Activity implements OnItemClickListener {
