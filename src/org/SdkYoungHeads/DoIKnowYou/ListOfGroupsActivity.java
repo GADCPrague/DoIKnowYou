@@ -29,8 +29,6 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 		
 		groups = (ListView) this.findViewById(R.id.list_of_groups);
 		
-		
-		
 		/*
 		 * listener pro tlacitko na pridani nove osoby
 		 */

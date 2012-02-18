@@ -1,9 +1,13 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,6 +21,13 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.testing);
 		setChoices();
+		
+		Button btn = (Button)findViewById(R.id.testingSubmit);
+		btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+            	check();
+            }
+		});
 	}
 	
 	public void setChoices() {
@@ -46,11 +57,24 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		}
 	}
 
+	protected RadioButton selected;
 	public void onCheckedChanged(RadioGroup paramRadioGroup, int paramInt) {
-		RadioButton rb = (RadioButton)paramRadioGroup.findViewById(paramInt);
-		Toast.makeText(getBaseContext(), guessing.getName(), 2000).show();
+		selected =  (RadioButton)paramRadioGroup.findViewById(paramInt);
+	}
+	
+	protected void check() {
+		if (selected == null) {
+			Builder builder = new AlertDialog.Builder(getBaseContext());
+			builder.setMessage("Please, make your guess."); // TODO: resource
+			builder.create();
+			return;
+		}
+		Boolean ok = guessing.getName() == selected.getText();
+		if (!ok) {
+			Toast.makeText(getBaseContext(), guessing.getName(), 2000).show();
+		}
 		Tester t = ((Application)getApplication()).currentTester;
-		t.putResult(guessing.getName() == rb.getText());
+		t.putResult(ok);
 		setChoices();
 	}
 }

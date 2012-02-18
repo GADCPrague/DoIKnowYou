@@ -23,6 +23,14 @@ public class TestResultsActivity extends Activity {
 		
 		TextView tv = (TextView)findViewById(R.id.testResultString);
 		tv.setText("You were " + tester.getPercent() + "% successful!");
+		// TODO: right, wrong, who, ...
+
+	     Button okay = (Button) findViewById(R.id.testResultsOkay);
+        okay.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+            	finish();
+            }
+        });
 	}
 
 }
