@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,7 +27,17 @@ public class GroupActivity extends Activity {
 		people = (ListView) this.findViewById(R.id.list_of_people);
 
 		people.setAdapter(new MyPeopleAdapter(this.getBaseContext(), ((Application)getApplication()).selectedGroup));
-		// TODO: pridani cloveka
+		/*
+		 * listener pro tlacitko na pridani nove osoby
+		 */
+		 Button next = (Button) findViewById(R.id.addNewPersonButton);
+	        next.setOnClickListener(new View.OnClickListener() {
+	            public void onClick(View view) {
+	                Intent myIntent = new Intent(view.getContext(), AddNewPersonActivity.class);
+	                startActivityForResult(myIntent, 0);
+	            }
+
+	        });
 	}
 	
 	class MyPeopleAdapter extends ArrayAdapter<Person> {

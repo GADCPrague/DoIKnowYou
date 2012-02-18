@@ -43,6 +43,9 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 
 	        });
 	        
+			/*
+			 * listener pro tlacitko na pridani nove skupiny
+			 */
 	     Button newGroup = (Button) findViewById(R.id.addNewGroupButton);
 	        newGroup.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View view) {

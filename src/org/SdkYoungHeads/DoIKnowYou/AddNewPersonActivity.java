@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,12 +14,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class AddNewPersonActivity extends Activity {
 
 	ArrayList<String> listItems = new ArrayList<String>();
 	protected ArrayAdapter<String> adapter;
 	private GroupContainer groupContainer;
+	
+	TextView textTargetUri;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,6 +44,39 @@ public class AddNewPersonActivity extends Activity {
 		//s.setSelection(2);
 		//Group selectedGroup = ((Application) getApplication()).selectedGroup;
 		
+		
+		Button buttonLoadImage = (Button)findViewById(R.id.loadimage);
+		 textTargetUri = (TextView)findViewById(R.id.targeturi);
+	      buttonLoadImage.setOnClickListener(new Button.OnClickListener(){
+
+	  @Override
+	  public void onClick(View arg0) {
+	   // TODO Auto-generated method stub
+	   Intent intent = new Intent(Intent.ACTION_PICK,
+	     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+	   startActivityForResult(intent, 0);
+	  }});
+		
+	}
+	
+
+	  public void getPhoto() {
+		   // TODO Auto-generated method stub
+		   Intent intent = new Intent(Intent.ACTION_PICK,
+		     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		   startActivityForResult(intent, 0);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	 // TODO Auto-generated method stub
+	 super.onActivityResult(requestCode, resultCode, data);
+
+	 if (resultCode == RESULT_OK){
+	  Uri targetUri = data.getData();
+	  EditText nameField = (EditText) findViewById(R.id.editTextName);
+	  nameField.setText(targetUri.toString());
+	 }
 	}
 
 	/*
