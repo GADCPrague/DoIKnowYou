@@ -22,9 +22,7 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		if (extras == null) {
 			throw new RuntimeException();
 		}
-		UUID uuid = UUID.fromString(extras.getString("group_uuid"));
-		GroupContainer gc = ((Application)getApplication()).getDatabase();
-		Group g = gc.findGroup(uuid);
+		Group g = ((Application)getApplication()).selectedGroup;
 		guessing = g.getPeople()[0]; // TODO: tohle by se melo vyplnit pri hadani cloveka...
 		
 		RadioButton rb = new RadioButton(this);
