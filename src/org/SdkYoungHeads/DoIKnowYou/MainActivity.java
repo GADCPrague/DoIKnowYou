@@ -22,14 +22,14 @@ public class MainActivity extends Activity { // ListActivity {
 
 		String s;
 		try {
-	    XmlSerializer serializer = Xml.newSerializer();
-	    StringWriter writer = new StringWriter();
-	    serializer.setOutput(writer);
-	    serializer.startDocument("UTF-8", true);
-	    GroupContainer gc = new GroupContainer();
-	    gc.serialize(serializer);
-	    serializer.endDocument();
-	    s=writer.toString();
+			XmlSerializer serializer = Xml.newSerializer();
+			StringWriter writer = new StringWriter();
+			serializer.setOutput(writer);
+			serializer.startDocument("UTF-8", true);
+			GroupContainer gc = new GroupContainer();
+			gc.serialize(serializer);
+			serializer.endDocument();
+			s=writer.toString();
 		} catch (Exception e) {
 			s="!!!";
 		}
