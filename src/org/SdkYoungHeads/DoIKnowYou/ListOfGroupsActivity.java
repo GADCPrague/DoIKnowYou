@@ -74,12 +74,14 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 	   public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
 	super.onCreateContextMenu(menu, v, menuInfo);  
 	    menu.setHeaderTitle("Group actions");  
+	    menu.add(0, v.getId(), 0, "Edit");
 	    menu.add(0, v.getId(), 0, "Delete");  
 	}
 	
     @Override  
     public boolean onContextItemSelected(MenuItem item) {  
-        if(item.getTitle()=="Delete"){function1(item.getItemId());}  
+        if(item.getTitle()=="Delete"){function1(item.getItemId());}   // TODO: make group deleting work
+        else if (item.getTitle()=="Edit"){function1(item.getItemId());} // TODO: make group editing work
         else {return false;}  
     return true;  
     }  
@@ -118,7 +120,10 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 				groupIcon.setImageBitmap(b);
 			}
 			
-			ListOfGroupsActivity.this.registerForContextMenu(rowView);
+			//ListOfGroupsActivity.this.registerForContextMenu(rowView); <-- po tomhle nefunguje single click :(
+			
+			
+			
 			// Change the icon for Windows and iPhone
 //			String s = values[position];
 //			if (s.startsWith("iPhone")) {

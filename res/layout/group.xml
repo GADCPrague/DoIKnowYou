@@ -9,7 +9,7 @@
         	android:layout_height="wrap_content">
 
 	    <Button
-	        android:id="@+id/button1"
+	        android:id="@+id/runTestButton"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentRight="true"
@@ -26,6 +26,15 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_centerVertical="true"
 	        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	    <Button
+	        android:id="@+id/addPersonGroupButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_toLeftOf="@+id/runTestButton"
+	        android:onClick="addPerson"
+	        android:text="@string/add_person" />
 
 	</RelativeLayout>
      <ListView

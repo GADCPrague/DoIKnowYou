@@ -22,7 +22,11 @@ public class AddNewPersonActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnewperson);
+	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
 		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
 				this, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -36,10 +40,15 @@ public class AddNewPersonActivity extends Activity {
 		Spinner s = (Spinner) findViewById(R.id.groupSpinner);
 		s.setAdapter(adapter);
 		
+		setGroupSelection();
+	}
+	protected void setGroupSelection() {
+		Spinner s = (Spinner) findViewById(R.id.groupSpinner);
 		Group selectedGroup = ((Application) getApplication()).selectedGroup;
+		GroupContainer groupContainer = ((Application)getApplication()).getDatabase();
 		if (selectedGroup != null) {
 			int position = 0;
-			for (Group g: groupContainer.getGroups()){
+			for (Group g: groupContainer .getGroups()){
 				if (g == selectedGroup) {
 					s.setSelection(position++);
 					break;
@@ -47,7 +56,6 @@ public class AddNewPersonActivity extends Activity {
 			}
 		}	
 	}
-
 	/*
 	 * handler formulare pro pridani osoby, volan po kliku na tlacitko Pridat osobu. Provadi pridani osoby do skupiny.
 	 * 
