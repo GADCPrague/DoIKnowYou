@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ListOfGroupsActivity extends Activity implements OnItemClickListener {
@@ -41,6 +42,15 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 	        next.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View view) {
 	                Intent myIntent = new Intent(view.getContext(), AddNewPersonActivity.class);
+	                startActivityForResult(myIntent, 0);
+	            }
+
+	        });
+	        
+	     Button newGroup = (Button) findViewById(R.id.addNewGroupButton);
+	        newGroup.setOnClickListener(new View.OnClickListener() {
+	            public void onClick(View view) {
+	                Intent myIntent = new Intent(view.getContext(), AddNewGroupActivity.class);
 	                startActivityForResult(myIntent, 0);
 	            }
 
