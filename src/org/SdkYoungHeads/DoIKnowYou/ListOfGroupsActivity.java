@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +36,18 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 		
 		groups.setAdapter(new MyGroupAdapter(this.getBaseContext(), ((Application)getApplication()).getDatabase()));
 		groups.setOnItemClickListener(this);
+		
+		/*
+		 * listener pro tlaèítko pøidání nové osoby
+		 */
+		 Button next = (Button) findViewById(R.id.addNewPersonButton);
+	        next.setOnClickListener(new View.OnClickListener() {
+	            public void onClick(View view) {
+	                Intent myIntent = new Intent(view.getContext(), AddNewPersonActivity.class);
+	                startActivityForResult(myIntent, 0);
+	            }
+
+	        });
 	}
 	
 	class MyGroupAdapter extends ArrayAdapter<Group> {
