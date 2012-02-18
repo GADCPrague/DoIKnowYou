@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ListOfGroupsActivity extends Activity implements OnItemClickListener {
 
@@ -66,6 +70,24 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 		groups.setOnItemClickListener(this);
 	}
 	
+	@Override  
+	   public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
+	super.onCreateContextMenu(menu, v, menuInfo);  
+	    menu.setHeaderTitle("Group actions");  
+	    menu.add(0, v.getId(), 0, "Delete");  
+	}
+	
+    @Override  
+    public boolean onContextItemSelected(MenuItem item) {  
+        if(item.getTitle()=="Delete"){function1(item.getItemId());}  
+        else {return false;}  
+    return true;  
+    }  
+  
+    public void function1(int id){  
+        Toast.makeText(this, "function 1 called", Toast.LENGTH_SHORT).show();  
+    }  
+	
 	class MyGroupAdapter extends ArrayAdapter<Group> {
 		
 		protected Context context;
@@ -96,7 +118,7 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 				groupIcon.setImageBitmap(b);
 			}
 			
-		
+			ListOfGroupsActivity.this.registerForContextMenu(rowView);
 			// Change the icon for Windows and iPhone
 //			String s = values[position];
 //			if (s.startsWith("iPhone")) {
