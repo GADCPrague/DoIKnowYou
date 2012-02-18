@@ -68,6 +68,7 @@ public class Person {
 	}
 	
 	public Bitmap getSomePhoto() {
+		if (getPhotos().length == 0) return null;
 		Random r = new Random();
 		return getPhotos()[r.nextInt(getPhotos().length)];
 	}
