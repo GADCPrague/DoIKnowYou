@@ -2,16 +2,17 @@
 <resources>
 
     <string name="hello">Hello World, MainActivity!</string>
-    <string name="submit">Vybrat</string>
+    <string name="submit">Submit</string>
     <string name="addNewPerson">Add new person</string>
     
     <string name="new_group_title">New group</string>
     <string name="name">Name:</string>
-    <string name="persons">Persons:</string>
+    <string name="persons">People:</string>
     <string name="add_group">+ G</string>
     <string name="add_person">+ P</string>
     <string name="back">back</string>
     <string name="app_name">Do I Know You?</string>
 	<string name="enter_group_name">Enter name</string>
+	<string name="start_test">Test</string>
 	
 </resources>
