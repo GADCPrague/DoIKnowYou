@@ -92,8 +92,7 @@ public class GroupContainer {
 		OutputStreamWriter writer = new OutputStreamWriter(fos);
 	    serializer.setOutput(writer);
 	    serializer.startDocument("UTF-8", true);
-	    GroupContainer gc = new GroupContainer();
-	    gc.serialize(serializer);
+	    serialize(serializer);
 	    serializer.endDocument();
 	    fos.close();
 	}
