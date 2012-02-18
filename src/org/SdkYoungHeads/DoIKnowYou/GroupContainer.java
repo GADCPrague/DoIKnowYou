@@ -97,8 +97,21 @@ public class GroupContainer {
 	    fos.close();
 	}
 
-	
 	public Group findGroup(UUID uuid) {
 		return groupsByUuid.get(uuid);
+	}
+	
+	public void createExampleData() {
+		groups = new ArrayList<Group>();
+		for (int i = 0; i < 5; i++) {
+			Group g = new Group();
+			g.setName("Skupina " + i);
+			for (int j = 0; j < 10; j++) {
+				Person p = new Person();
+				p.setName("Jan Novak " + i);
+				g.addPerson(p);
+			}
+			addGroup(g);
+		}
 	}
 }
