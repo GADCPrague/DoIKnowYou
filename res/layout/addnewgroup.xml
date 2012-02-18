@@ -39,11 +39,21 @@
 	        android:text="@string/persons"
 	        android:textColor="#fff"
 	        />  
+	 <Button 
+            android:text="@string/add_person_to_group_btn"
+            android:id="@+id/addPersonToGroupBtn"
+            android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
      <ListView
          android:id="@+id/list_of_groups"
          android:background="#f00"
          android:layout_width="fill_parent"
-         android:layout_height="fill_parent"
+         android:layout_height="wrap_content"
          android:divider="#fff"
          />
+     <Button 
+            android:text="@string/create_group_btn"
+            android:id="@+id/createGroupBtn"
+            android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
 </LinearLayout>

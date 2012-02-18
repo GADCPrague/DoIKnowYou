@@ -12,10 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.content.Context;
 import android.content.Intent;
-<<<<<<< HEAD
 import android.widget.ImageView;
-=======
->>>>>>> c5b8e518240cde17d89f7888bb954e4211f2df81
 import android.widget.TextView;
 
 public class ListOfGroupsActivity extends Activity implements OnItemClickListener {
@@ -53,7 +50,7 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 	     Button newGroup = (Button) findViewById(R.id.addNewGroupButton);
 	        newGroup.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View view) {
-	                Intent myIntent = new Intent(view.getContext(), AddNewGroupActivity.class);
+	                Intent myIntent = new Intent(view.getContext(), SelectPersonsActivity.class);
 	                startActivityForResult(myIntent, 0);
 	            }
 
