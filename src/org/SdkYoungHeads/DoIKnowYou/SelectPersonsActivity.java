@@ -43,17 +43,23 @@ public class SelectPersonsActivity extends Activity {
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
             	ArrayList<Person> list = new ArrayList<Person>();
+            	Log.d("for1", "" + adapter.checked.length);
             	for(int i = 0; i < adapter.checked.length; i++) {
-                	if(adapter.checked[i]) {
+            		Log.d("for1", "" + i + " / " + adapter.checked.length);
+                	if(adapter.checked[i] == true) {
                 		list.add(adapter.persons[i]);
                 	}
                 }
+            	Log.d("for1", "List Size = " + adapter.checked.length);
+            	Log.d("for1", "List Size = " + list.size());
             	//Log.d(">>>>>>>>> ", list.get(1).getName());
             	
             	//((Application)getApplication()).selectedPersons = (Person[]) list.toArray();
-            	
+//            	int size = list.size();
+//            	Log.d("for1", "List Size = " + size);
             	Person[] p = new Person[list.size()];
             	for(int i = 0; i < list.size(); i++) {
+            		Log.d("for2", "aaa");
             		p[i] = list.get(i);
             	}
             	((Application)getApplication()).selectedPersons = p;
@@ -93,6 +99,7 @@ class MyPersonAdapter extends ArrayAdapter<Person> {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					CheckBox c = (CheckBox) v;
+					checked[position] = c.isChecked();
 					Log.d("", "" + c.isChecked() + " " + position);
 				}
 			});
