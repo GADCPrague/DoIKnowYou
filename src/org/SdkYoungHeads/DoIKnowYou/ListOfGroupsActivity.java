@@ -56,6 +56,7 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 	public void onResume() {
 		super.onResume();
 		refill();
+		((Application)getApplication()).selectedGroup = null;
 	}
 	
 	protected void refill() {

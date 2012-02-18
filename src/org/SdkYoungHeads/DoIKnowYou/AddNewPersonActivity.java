@@ -1,5 +1,6 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -18,8 +19,6 @@ public class AddNewPersonActivity extends Activity {
 
 	ArrayList<String> listItems = new ArrayList<String>();
 	protected ArrayAdapter<String> adapter;
-	private GroupContainer groupContainer;
-
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnewperson);
@@ -36,10 +35,17 @@ public class AddNewPersonActivity extends Activity {
 		
 		Spinner s = (Spinner) findViewById(R.id.groupSpinner);
 		s.setAdapter(adapter);
-		//@ToDo nastavit defaultní selekt 
-		//s.setSelection(2);
-		//Group selectedGroup = ((Application) getApplication()).selectedGroup;
 		
+		Group selectedGroup = ((Application) getApplication()).selectedGroup;
+		if (selectedGroup != null) {
+			int position = 0;
+			for (Group g: groupContainer.getGroups()){
+				if (g == selectedGroup) {
+					s.setSelection(position++);
+					break;
+				}
+			}
+		}	
 	}
 
 	/*
@@ -48,7 +54,7 @@ public class AddNewPersonActivity extends Activity {
 	 * @param View button
 	 * @return void
 	 */
-	public void addPerson(View button) {
+	public void addPerson(View button) throws IllegalArgumentException, IllegalStateException, IOException {
 		final EditText nameField = (EditText) findViewById(R.id.editTextName);
 		String personName = nameField.getText().toString();
 
@@ -62,6 +68,7 @@ public class AddNewPersonActivity extends Activity {
 		groupContainer = ((Application) getApplication()).getDatabase();
 		
 		groupContainer.getGroupByName(groupName).addPerson(person);
+		groupContainer.save(this);
 
 		this.createDialog();
 	
@@ -79,7 +86,7 @@ public class AddNewPersonActivity extends Activity {
 				.setCancelable(false)
 				.setNegativeButton("No", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						// Action for ‘NO’ Button
+						// Action for ï¿½NOï¿½ Button
 						finish();
 						dialog.cancel();
 					}
@@ -87,7 +94,7 @@ public class AddNewPersonActivity extends Activity {
 				})
 				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						// Action for ‘YES’ Button
+						// Action for ï¿½YESï¿½ Button
 						Intent intent = getIntent();
 						finish();
 						startActivity(intent);
