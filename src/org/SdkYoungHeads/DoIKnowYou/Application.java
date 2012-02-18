@@ -4,6 +4,7 @@ public class Application extends android.app.Application {
 	private GroupContainer data;
 	public Group selectedGroup;
 	public Tester currentTester;
+	public Person[] selectedPersons = null;
 	
 	public Application() {
 		data = new GroupContainer();
