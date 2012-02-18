@@ -6,8 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.content.Context;
+<<<<<<< HEAD
+=======
+import android.content.Intent;
+import android.widget.ImageView;
+>>>>>>> 98d8643cfb7f774e6aa0625012ff54090b634a12
 import android.widget.TextView;
 
 public class ListOfGroupsActivity extends Activity {
@@ -29,7 +35,21 @@ public class ListOfGroupsActivity extends Activity {
 		listItems = ((Application)getApplication()).getDatabase().getGroups();
 		
 		groups.setAdapter(new MyGroupAdapter(this.getBaseContext(), listItems));
+		
+		/*
+		 * listener pro tlaèítko pøidání nové osoby
+		 */
+		 Button next = (Button) findViewById(R.id.addNewPersonButton);
+	        next.setOnClickListener(new View.OnClickListener() {
+	            public void onClick(View view) {
+	                Intent myIntent = new Intent(view.getContext(), AddNewPersonActivity.class);
+	                startActivityForResult(myIntent, 0);
+	            }
+
+	        });
 	}
+	
+
 	
 	class MyGroupAdapter extends ArrayAdapter<Group> {
 		

@@ -41,7 +41,6 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		// TODO: accept group to test...
 	}
 
-	@Override
 	public void onCheckedChanged(RadioGroup paramRadioGroup, int paramInt) {
 		RadioButton rb = (RadioButton)paramRadioGroup.findViewById(paramInt);
 		Toast.makeText(getBaseContext(), rb.getText(), 2000).show();

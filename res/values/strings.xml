@@ -10,5 +10,6 @@
     <string name="persons">Persons:</string>
     <string name="add_group">+ G</string>
     <string name="add_person">+ P</string>
+    <string name="back">back</string>
 
 </resources>
