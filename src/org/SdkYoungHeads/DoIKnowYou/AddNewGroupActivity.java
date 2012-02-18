@@ -35,7 +35,7 @@ public class AddNewGroupActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnewgroup);
 		
-Person[] p = ((Application)getApplication()).selectedPersons;
+		Person[] p = ((Application)getApplication()).selectedPersons;
 		
 		if(p == null) {
 			p = new Person[1];
@@ -45,7 +45,7 @@ Person[] p = ((Application)getApplication()).selectedPersons;
 		
 		personList = (ListView) this.findViewById(R.id.list_of_groups);
 		adapter = new SelectedPersonsAdapter(this.getBaseContext(), p);
-		setAdapter();
+		//setAdapter();
 		
 		Button addPerson = (Button) findViewById(R.id.addPersonToGroupBtn);
         addPerson.setOnClickListener(new View.OnClickListener() {
@@ -93,9 +93,9 @@ Person[] p = ((Application)getApplication()).selectedPersons;
 	}
 	
 	@Override
-	protected void onStart() {
+	protected void onResume() {
 		// TODO Auto-generated method stub
-		super.onStart();
+		super.onResume();
 		setAdapter();
 	}
 	
@@ -103,7 +103,7 @@ Person[] p = ((Application)getApplication()).selectedPersons;
 		
 		Person[] p = ((Application)getApplication()).selectedPersons;
 		
-		if(p == null) {
+		if(p == null || p.length == 0) {
 			p = new Person[1];
 			p[0] = new Person();
 			p[0].setName("No record");
@@ -111,7 +111,7 @@ Person[] p = ((Application)getApplication()).selectedPersons;
 		Log.d("????? >>>>>>", ">>>>>>>>>>>>>>>>>>>>>>>>" + p.length);
 		
 		adapter.setData(p);
-		
+		personList.invalidate();
 		adapter.notifyDataSetChanged();
 		
 	}
