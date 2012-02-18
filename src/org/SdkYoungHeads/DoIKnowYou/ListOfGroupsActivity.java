@@ -3,6 +3,7 @@ package org.SdkYoungHeads.DoIKnowYou;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -81,15 +83,17 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 			View rowView = inflater.inflate(R.layout.listofgroups_row, parent, false);
 			
 			TextView groupName = (TextView) rowView.findViewById(R.id.group_name);
-			TextView groupDescription = (TextView) rowView.findViewById(R.id.group_description);
 			TextView groupCount = (TextView) rowView.findViewById(R.id.group_count);
-//			ImageView groupIcon = (ImageView) rowView.findViewById(R.id.group_icon);
+			ImageView groupIcon = (ImageView) rowView.findViewById(R.id.group_icon);
 //			ImageView groupArrow = (ImageView) rowView.findViewById(R.id.group_arrow);
 			
 			Group g = gc.getGroups()[position];
 			groupName.setText(g.getName());
-			groupDescription.setText("[ Description ]");
 			groupCount.setText(Integer.toString(g.getCount()));
+			Bitmap b = g.getIcon();
+			if (b != null) {
+				groupIcon.setImageBitmap(b);
+			}
 			
 		
 			// Change the icon for Windows and iPhone

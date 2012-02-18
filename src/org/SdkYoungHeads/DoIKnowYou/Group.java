@@ -10,6 +10,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.graphics.Bitmap;
+
 public class Group {
 	private String name;
 	private UUID uuid;
@@ -75,7 +77,7 @@ public class Group {
 	}
 	
 	public void deserialize(Node node) {
-        NodeList people = node.getChildNodes();
+        NodeList people = (node.getChildNodes().item(0)).getChildNodes();
         NamedNodeMap attributes = node.getAttributes();
         setName(attributes.getNamedItem(NAME).getTextContent());
         uuid = UUID.fromString(attributes.getNamedItem(UUID_ATTR).getTextContent());
@@ -93,5 +95,10 @@ public class Group {
 	
 	public int getCount() {
 		return people.size();
+	}
+
+	public Bitmap getIcon() {
+		if (people.size() == 0) return null;
+		return people.get(0).getMainPhoto(); // TODO: maybe some other one...
 	}
 }

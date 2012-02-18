@@ -110,7 +110,7 @@ public class Person {
 	}
 
 	public void deserialize(Node node) {
-        NodeList photos = node.getChildNodes();
+        NodeList photos = node.getChildNodes().item(0).getChildNodes();
         NamedNodeMap attributes = node.getAttributes();
         setName(attributes.getNamedItem(NAME).getTextContent());
         uuid = UUID.fromString(attributes.getNamedItem(UUID_ATTR).getTextContent());
