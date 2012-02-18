@@ -13,10 +13,15 @@ import org.xmlpull.v1.XmlSerializer;
 public class Group {
 	private String name;
 	private UUID uuid;
+	private GroupContainer gc;
 	
 	public Group() {
 		people = new ArrayList<Person>();
 		uuid = UUID.randomUUID();
+	}
+	
+	public void setGroupContainer(GroupContainer gc) {
+		this.gc = gc;
 	}
 	
 	public String getName() {
@@ -25,6 +30,7 @@ public class Group {
 	
 	public void setName(String name) {
 		this.name = name;
+		save();
 	}
 	
 	private List<Person> people;
@@ -37,12 +43,20 @@ public class Group {
 		return people;
 	}
 	
+	public void save() {
+		if (gc != null) {
+			gc.save();
+		}
+	}
+	
 	public void addPerson(Person person) {
 		people.add(person);
+		save();
 	}
 	
 	public void removePerson(Person person) {
 		people.remove(person);
+		save();
 	}
 	
 	private final String NAME = "name";

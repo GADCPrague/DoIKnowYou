@@ -37,11 +37,13 @@ public class GroupContainer {
 	public void addGroup(Group g) {
 		groups.add(g);
 		groupsByUuid.put(g.getUUID(), g);
+		save();
 	}
 	
 	public void removeGroup(Group g) {
 		groupsByUuid.remove(g.getUUID());
 		groups.remove(g);
+		save();
 	}
 	
 	public void serialize(XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
@@ -100,7 +102,7 @@ public class GroupContainer {
 			g.setName("Skupina " + i);
 			for (int j = 0; j < 10; j++) {
 				Person p = new Person();
-				p.setName("Jan Novak " + i);
+				p.setName("Jan Novak " + i + " " + j);
 				g.addPerson(p);
 			}
 			addGroup(g);
@@ -113,5 +115,9 @@ public class GroupContainer {
 			persons.addAll(g.getPeopleList());
 		}
 		return persons.toArray(new Person[persons.size()]);
+	}
+	
+	public void save() {
+		// TODO: SAVE THAT!
 	}
 }

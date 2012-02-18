@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal" >
-    
-    <ImageView 
+
+    <ImageView
+        android:id="@+id/person_arrow"
+        android:layout_width="32px"
+        android:layout_height="32px"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
         android:id="@+id/person_icon"
         android:layout_width="32px"
         android:layout_height="32px"
-        android:layout_marginLeft="4px"
-        android:layout_marginRight="10px"
-        android:layout_marginTop="4px"
-        android:src="@drawable/ic_launcher"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_launcher" />
+
     <TextView
         android:id="@+id/person_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="[ name ]"
-        android:textColor="#fff"
-        />
-    <ImageView 
-        android:id="@+id/person_arrow"
-        android:layout_width="32px"
-        android:layout_height="32px"
-        android:layout_marginLeft="4px"
-        android:layout_marginRight="10px"
-        android:layout_marginTop="4px"
-        android:src="@drawable/ic_launcher"/>
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff" />
 
-</LinearLayout>
+</RelativeLayout>
