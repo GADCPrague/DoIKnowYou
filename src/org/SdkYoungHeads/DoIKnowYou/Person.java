@@ -17,6 +17,7 @@ import android.graphics.BitmapFactory;
 public class Person {
 	private UUID uuid;
 	private Group group;
+	private String name;
 	
 	public Person() {
 		photoPaths = new ArrayList<String>();
@@ -33,8 +34,6 @@ public class Person {
 			group.save();
 		}
 	}
-	
-	private String name;
 	
 	public String getName() {
 		return name;
