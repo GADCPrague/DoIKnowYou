@@ -33,6 +33,10 @@ public class Group {
 		return people.toArray(new Person[people.size()]);
 	}
 	
+	public List<Person> getPeopleList() {
+		return people;
+	}
+	
 	public void addPerson(Person person) {
 		people.add(person);
 	}
