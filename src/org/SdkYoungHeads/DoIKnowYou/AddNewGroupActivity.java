@@ -3,6 +3,9 @@ package org.SdkYoungHeads.DoIKnowYou;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -34,7 +37,18 @@ public class AddNewGroupActivity extends Activity {
         	public void onClick(View view) {
         		group.setName(name.getText().toString());
         		GroupContainer gc = ((Application)getApplication()).getDatabase();
-        		gc.addGroup(group);
+        		if (gc.getGroupByName(name.getText().toString()) != null) {
+        			Builder builder = new AlertDialog.Builder(AddNewGroupActivity.this);
+        			builder.setMessage("A group with this name already exists. Please choose another one.").
+        			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+        	               public void onClick(DialogInterface dialog, int id) {
+        	                    dialog.cancel();
+        	               }
+        	           }); // TODO: resource
+        			builder.show();
+        			return;
+        		}
+            	gc.addGroup(group);
 				try {
 					gc.save(getBaseContext());
 				} catch (IllegalArgumentException e) {

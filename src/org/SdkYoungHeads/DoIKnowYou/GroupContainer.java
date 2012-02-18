@@ -46,6 +46,13 @@ public class GroupContainer {
 		save();
 	}
 	
+	public Group getGroupByName(String name) {
+		for (Group g: groups) {
+			if (g.getName() == name) return g;
+		}
+		return null;
+	}
+	
 	public void serialize(XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
 		serializer.startTag("", "groups");
 		for (Group g: getGroups()) {

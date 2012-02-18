@@ -3,6 +3,7 @@ package org.SdkYoungHeads.DoIKnowYou;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -64,9 +65,14 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 	
 	protected void check() {
 		if (selected == null) {
-			Builder builder = new AlertDialog.Builder(getBaseContext());
-			builder.setMessage("Please, make your guess."); // TODO: resource
-			builder.create();
+			Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Please, make your guess.").
+			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           }); // TODO: resource
+			builder.show();
 			return;
 		}
 		Boolean ok = guessing.getName() == selected.getText();
