@@ -19,34 +19,28 @@ public class ListOfGroupsActivity extends Activity {
 	protected ListView groups;
 	
 	Group[] listItems;
-	protected ArrayAdapter<String> adapter;
+	protected ArrayAdapter<Group> adapter;
 		
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO: Tady vypsat seznam skupin...
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listofgroups);
 		
-		GroupContainer gc = ((Application)getApplication()).getDatabase();
-		
 		groups = (ListView) this.findViewById(R.id.list_of_groups);
-			
-//		listItems = new String[3];
-//		listItems[0] = "ALL";
-//		listItems[1] = "WOR";
-//		listItems[2] = "SCH";
 		
-//		groups.setAdapter(new MyGroupAdapter(this.getBaseContext(), listItems));
+		((Application)getApplication()).getDatabase().createExampleData();
+		listItems = ((Application)getApplication()).getDatabase().getGroups();
 		
-		//GroupContainer gc = ((Application)getApplication()).getDatabasePath(name)
+		groups.setAdapter(new MyGroupAdapter(this.getBaseContext(), listItems));
 	}
 	
-	class MyGroupAdapter extends ArrayAdapter<String> {
+	class MyGroupAdapter extends ArrayAdapter<Group> {
 		
 		protected Context context;
-		protected String[] names;
+		protected Group[] names;
 		
 
-		public MyGroupAdapter(Context context, String[] names) {
+		public MyGroupAdapter(Context context, Group[] names) {
 			super(ListOfGroupsActivity.this, R.layout.listofgroups_row, names);
 			this.context = context;
 			this.names = names;
@@ -63,7 +57,7 @@ public class ListOfGroupsActivity extends Activity {
 //			ImageView groupIcon = (ImageView) rowView.findViewById(R.id.group_icon);
 //			ImageView groupArrow = (ImageView) rowView.findViewById(R.id.group_arrow);
 			
-			groupName.setText(names[position]);
+			groupName.setText(names[position].getName());
 			groupDescription.setText("[ Description ]");
 			groupCount.setText("[ Count ]");
 			
