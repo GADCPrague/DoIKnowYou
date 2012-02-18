@@ -17,14 +17,14 @@
 	        />
     </LinearLayout>
     <TextView
-	        android:id="@+id/name"
+	        android:id="@+id/enter_group_name"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/name"
 	        android:textColor="#fff"
 	        />
     <EditText 
-        android:id="@+id/edtInput"
+        android:id="@+id/groupNameEdit"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content"
         android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"

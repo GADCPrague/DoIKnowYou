@@ -13,6 +13,7 @@ public class Application extends android.app.Application {
 	public void onCreate() {
 		super.onCreate();
 		data.load(getBaseContext());
+		getDatabase().createExampleData();
 	}
 	
 	public GroupContainer getDatabase() {

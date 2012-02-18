@@ -29,10 +29,7 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 		
 		groups = (ListView) this.findViewById(R.id.list_of_groups);
 		
-		((Application)getApplication()).getDatabase().createExampleData();
 		
-		groups.setAdapter(new MyGroupAdapter(this.getBaseContext(), ((Application)getApplication()).getDatabase()));
-		groups.setOnItemClickListener(this);
 		
 		/*
 		 * listener pro tlacitko na pridani nove osoby
@@ -54,6 +51,18 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 	            }
 
 	        });
+	}
+	
+	public void onResume() {
+		super.onResume();
+		refill();
+	}
+	
+	protected void refill() {
+		// TODO: tohle neni hezky...
+		groups.clearChoices();
+		groups.setAdapter(new MyGroupAdapter(this.getBaseContext(), ((Application)getApplication()).getDatabase()));
+		groups.setOnItemClickListener(this);
 	}
 	
 	class MyGroupAdapter extends ArrayAdapter<Group> {

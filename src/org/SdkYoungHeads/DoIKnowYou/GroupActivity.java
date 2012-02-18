@@ -26,7 +26,6 @@ public class GroupActivity extends Activity {
 		people = (ListView) this.findViewById(R.id.list_of_people);
 
 		people.setAdapter(new MyPeopleAdapter(this.getBaseContext(), ((Application)getApplication()).selectedGroup));
-		// TODO: seznam lidi
 		// TODO: pridani cloveka
 	}
 	

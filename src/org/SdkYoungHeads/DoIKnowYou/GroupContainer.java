@@ -118,6 +118,7 @@ public class GroupContainer {
 	}
 	
 	public void save() {
-		// TODO: SAVE THAT!
+		// This is called when anything is changed.
+		// This DOESN'T SAVE yet. A context would be needed...
 	}
 }

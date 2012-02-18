@@ -50,7 +50,7 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		RadioButton rb = (RadioButton)paramRadioGroup.findViewById(paramInt);
 		Toast.makeText(getBaseContext(), guessing.getName(), 2000).show();
 		Tester t = ((Application)getApplication()).currentTester;
-		t.putResult(guessing.getName() == rb.getText()); // TODO
+		t.putResult(guessing.getName() == rb.getText());
 		setChoices();
 	}
 }
