@@ -1,6 +1,7 @@
 package org.SdkYoungHeads.DoIKnowYou;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class GroupActivity extends Activity {
-
 	protected ListView people;
-	
-	Group[] listItems;
-	protected ArrayAdapter<Group> adapter;
-	
+		
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.group);
@@ -67,5 +64,13 @@ public class GroupActivity extends Activity {
 
 			return rowView;
 		}
+	}
+	
+	public void runTest(View view) {
+		Application app = ((Application)getApplication());
+		app.currentTester = new SimpleTester();
+		app.currentTester.setGroup(app.selectedGroup);
+		Intent i = new Intent(this, TestingActivity.class);
+		startActivity(i);
 	}
 }

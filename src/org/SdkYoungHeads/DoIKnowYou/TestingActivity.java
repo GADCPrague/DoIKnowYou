@@ -3,6 +3,7 @@ package org.SdkYoungHeads.DoIKnowYou;
 import java.util.UUID;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -12,35 +13,41 @@ import android.widget.Toast;
 
 public class TestingActivity extends Activity implements OnCheckedChangeListener {
 	private Person guessing;
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.testing);
+		setChoices();
+	}
+	
+	public void setChoices() {
+		guessing = ((Application)getApplication()).currentTester.getTestCase();
+		if (guessing == null) {
+			finish();
+		} else {
+			RadioGroup rg = (RadioGroup)findViewById(R.id.testingChoices);
+			rg.removeAllViews();
+			RadioButton rb = new RadioButton(this);
+			rb.setText(guessing.getName());
 		
-		Bundle extras = getIntent().getExtras();
-		if (extras == null) {
-			throw new RuntimeException();
+			rg.addView(rb);
+			rg.setOnCheckedChangeListener(this);
+		
+			ImageView iw = (ImageView)findViewById(R.id.imageView1);
+			Bitmap bmp = guessing.getSomePhoto();
+			if (bmp != null) {
+				iw.setImageBitmap(guessing.getSomePhoto());
+			}
 		}
-		Group g = ((Application)getApplication()).selectedGroup;
-		guessing = g.getPeople()[0]; // TODO: tohle by se melo vyplnit pri hadani cloveka...
-		
-		RadioButton rb = new RadioButton(this);
-		rb.setText(guessing.getName());
-		
-		RadioGroup rg = (RadioGroup)(this.findViewById(R.id.radioGroup1));
-		rg.addView(rb);
-		rg.setOnCheckedChangeListener(this);
-		
-		ImageView iw = (ImageView)findViewById(R.id.imageView1);
-		iw.setImageBitmap(guessing.getSomePhoto());
-		
-		// TODO: add choices...
-		// TODO: accept group to test...
 	}
 
 	public void onCheckedChanged(RadioGroup paramRadioGroup, int paramInt) {
 		RadioButton rb = (RadioButton)paramRadioGroup.findViewById(paramInt);
 		Toast.makeText(getBaseContext(), rb.getText(), 2000).show();
+		// TODO: poslat testeru, jak to vyslo
+		// TODO: poprosit tester o dalsi...
+		Tester t = ((Application)getApplication()).currentTester;
+		t.putResult(true); // TODO
+		setChoices();
 	}
 }

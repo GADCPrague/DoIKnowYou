@@ -106,4 +106,12 @@ public class GroupContainer {
 			addGroup(g);
 		}
 	}
+	
+	public Person[] getAllPersons() {
+		List<Person> persons = new ArrayList<Person>();
+		for (Group g: getGroups()) {
+			persons.addAll(g.getPeopleList());
+		}
+		return persons.toArray(new Person[persons.size()]);
+	}
 }
