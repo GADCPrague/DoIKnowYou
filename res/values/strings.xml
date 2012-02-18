@@ -16,4 +16,7 @@
 	<string name="start_test">Test</string>
 	<string name="create_group_btn">Create</string>
 	<string name="add_person_to_group_btn">Add person</string>
+	<string name="select_persons">Select persons</string>
+	<string name="saveSelectedTxt">OK</string>
+	
 </resources>
