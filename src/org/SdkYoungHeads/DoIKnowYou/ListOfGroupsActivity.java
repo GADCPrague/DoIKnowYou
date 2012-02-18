@@ -50,7 +50,7 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 	     Button newGroup = (Button) findViewById(R.id.addNewGroupButton);
 	        newGroup.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View view) {
-	                Intent myIntent = new Intent(view.getContext(), SelectPersonsActivity.class);
+	                Intent myIntent = new Intent(view.getContext(), AddNewGroupActivity.class);
 	                startActivityForResult(myIntent, 0);
 	            }
 

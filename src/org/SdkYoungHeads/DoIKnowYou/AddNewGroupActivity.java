@@ -16,7 +16,7 @@ public class AddNewGroupActivity extends Activity {
 		Button addPerson = (Button) findViewById(R.id.addPersonToGroupBtn);
         addPerson.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), AddNewGroupActivity.class);
+                Intent myIntent = new Intent(view.getContext(), SelectPersonsActivity.class);
                 startActivityForResult(myIntent, 0);
             }
 
