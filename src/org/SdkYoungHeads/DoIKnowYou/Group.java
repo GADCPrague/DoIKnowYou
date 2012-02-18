@@ -15,4 +15,12 @@ public class Group {
 		
 		return people;
 	}
+	
+	public void addPerson(Person person) {
+		// TODO: implementovat
+	}
+	
+	public void removePerson(Person person) {
+		// TODO: implementovat
+	}
 }
