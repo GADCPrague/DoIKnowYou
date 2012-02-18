@@ -3,5 +3,6 @@
 
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">DoIKnowYou</string>
+    <string name="submit">Vybrat</string>
 
 </resources>
