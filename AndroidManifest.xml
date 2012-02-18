@@ -49,6 +49,11 @@
             android:label="@string/app_name" 
             android:theme="@android:style/Theme.Black.NoTitleBar">
         </activity>
+        <activity
+            android:name=".TestResultsActivity"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar">
+        </activity>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -23,6 +24,8 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		guessing = tester.getTestCase();
 		if (guessing == null) {
 			finish();
+			Intent i = new Intent(this, TestResultsActivity.class);
+			startActivity(i);
 		} else {
 			RadioGroup rg = (RadioGroup)findViewById(R.id.testingChoices);
 			rg.removeAllViews();

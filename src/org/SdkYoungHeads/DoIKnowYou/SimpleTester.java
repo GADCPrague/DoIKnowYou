@@ -8,6 +8,7 @@ public class SimpleTester implements Tester {
 	List<Person> people;
 	int index;
 	Group group;
+	int countOk;
 
 	@Override
 	public void setGroup(Group group) {
@@ -17,6 +18,7 @@ public class SimpleTester implements Tester {
 		Collections.shuffle(people);
 		
 		index = 0;
+		countOk = 0;
 	}
 
 	@Override
@@ -29,7 +31,10 @@ public class SimpleTester implements Tester {
 
 	@Override
 	public void putResult(Boolean ok) {
-		index++; // TODO: do something with the result
+		index++;
+		if (ok) {
+			countOk++;
+		}
 	}
 	
 	@Override
@@ -44,4 +49,18 @@ public class SimpleTester implements Tester {
 		return sl;
 	}
 
+	@Override
+	public int getMaximumPoints() {
+		return group.getCount();
+	}
+	
+	@Override
+	public int getPoints() {
+		return countOk;
+	}
+	
+	@Override
+	public int getPercent() {
+		return (int)(((double)getPoints() / (double)getMaximumPoints()) * 100.0);
+	}
 }

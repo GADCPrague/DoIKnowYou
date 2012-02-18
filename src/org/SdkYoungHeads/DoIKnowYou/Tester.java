@@ -7,4 +7,7 @@ public interface Tester {
 	public Person getTestCase();
 	public void putResult(Boolean ok);
 	public List<Person> getChoices();
+	public int getMaximumPoints();
+	public int getPoints();
+	public int getPercent();
 }
