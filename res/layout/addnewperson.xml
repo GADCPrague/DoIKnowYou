@@ -18,7 +18,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/TextViewTitle"
+        android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addNewPerson_description"
@@ -26,7 +26,7 @@
     </TextView>
 
     <EditText
-        android:id="@+id/EditTextName"
+        android:id="@+id/editTextName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/addNewPerson_textEdit"
@@ -34,18 +34,17 @@
     </EditText>
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/groupSpinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:drawSelectorOnTop="true"
         android:prompt="@string/addNewPerson_spinner" />
 
     <Button
-        android:id="@+id/ButtonSendFeedback"
+        android:id="@+id/buttonAddPerson"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:onClick="sendFeedback"
-        android:text="@string/addNewPerson_submit" >
-    </Button>
+        android:onClick="addPerson"
+        android:text="@string/addNewPerson_submit" />
 
 </LinearLayout>
