@@ -5,6 +5,9 @@
     <string name="submit">Vybrat</string>
     <string name="app_name">Do I Know You?</string>
     
+    <string name="new_group_title">New group</string>
+    <string name="name">Name:</string>
+    <string name="persons">Persons:</string>
     <string name="add_group">+ G</string>
     <string name="add_person">+ P</string>
 
