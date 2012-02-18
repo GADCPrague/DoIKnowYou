@@ -38,7 +38,7 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 		groups.setOnItemClickListener(this);
 		
 		/*
-		 * listener pro tlaèítko pøidání nové osoby
+		 * listener pro tlacitko na pridani nove osoby
 		 */
 		 Button next = (Button) findViewById(R.id.addNewPersonButton);
 	        next.setOnClickListener(new View.OnClickListener() {

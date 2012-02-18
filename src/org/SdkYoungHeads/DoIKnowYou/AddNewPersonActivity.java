@@ -24,7 +24,7 @@ public class AddNewPersonActivity extends Activity {
 		
 		
 		/*
-		 * listener pro tlaèítko zpìt
+		 * listener pro tlacitko zpet
 		 */
 		 Button next = (Button) findViewById(R.id.back);
 	        next.setOnClickListener(new View.OnClickListener() {
