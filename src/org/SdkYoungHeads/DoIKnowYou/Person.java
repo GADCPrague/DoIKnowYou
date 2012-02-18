@@ -3,6 +3,7 @@ package org.SdkYoungHeads.DoIKnowYou;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -13,9 +14,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 public class Person {
+	private UUID uuid;
+	
 	public Person() {
 		photoPaths = new ArrayList<String>();
 		photos = null;
+		uuid = UUID.randomUUID();
 	}
 	
 	private String name;
@@ -69,10 +73,12 @@ public class Person {
 		
 	final static String NAME = "name";
 	final static String PATH = "path";
+	final static String UUID_ATTR = "uuid";
 
 	public void serialize(XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
 		serializer.startTag("", "person");
 		serializer.attribute("", NAME, getName());
+		serializer.attribute("", UUID_ATTR, uuid.toString());
 		serializer.startTag("", "photos");
 		for (String path : photoPaths) {
 			serializer.startTag("", "photo");
@@ -87,6 +93,7 @@ public class Person {
         NodeList photos = node.getChildNodes();
         NamedNodeMap attributes = node.getAttributes();
         setName(attributes.getNamedItem(NAME).getTextContent());
+        uuid = UUID.fromString(attributes.getNamedItem(UUID_ATTR).getTextContent());
         List<String> p = new ArrayList<String>();
         
         for (int i = 0; i < photos.getLength(); i++) {

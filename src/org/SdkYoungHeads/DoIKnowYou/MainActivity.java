@@ -27,7 +27,6 @@ public class MainActivity extends Activity { // ListActivity {
 				android.R.layout.simple_list_item_1, values);
 		setListAdapter(adapter);
 		*/
-		
 
 		String s;
 		try {
