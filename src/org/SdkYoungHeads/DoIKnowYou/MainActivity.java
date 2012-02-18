@@ -5,12 +5,8 @@ import java.io.StringWriter;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Xml;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity { // ListActivity {
@@ -19,24 +15,6 @@ public class MainActivity extends Activity { // ListActivity {
 		// TODO: Tady vypsat seznam skupin...
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-<<<<<<< HEAD
-//		String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-//				"Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-//				"Linux", "OS/2" };
-//		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//				android.R.layout.simple_list_item_1, values);
-//		setListAdapter(adapter);
-	}
-=======
-		/*
-		String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-				"Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-				"Linux", "OS/2" };
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, values);
-		setListAdapter(adapter);
-		*/
->>>>>>> 507a8dc78a4d5f65cac73d6c2b04455a2489a230
 
 		String s;
 		try {
