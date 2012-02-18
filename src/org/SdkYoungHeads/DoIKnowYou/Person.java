@@ -3,6 +3,7 @@ package org.SdkYoungHeads.DoIKnowYou;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import org.w3c.dom.NamedNodeMap;
@@ -64,6 +65,11 @@ public class Person {
 			return null;
 		}
 		return photos[0];
+	}
+	
+	public Bitmap getSomePhoto() {
+		Random r = new Random();
+		return getPhotos()[r.nextInt(getPhotos().length)];
 	}
 	
 	public Bitmap[] getPhotos() {

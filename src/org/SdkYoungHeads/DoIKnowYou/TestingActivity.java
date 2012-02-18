@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -32,6 +33,9 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		RadioGroup rg = (RadioGroup)(this.findViewById(R.id.radioGroup1));
 		rg.addView(rb);
 		rg.setOnCheckedChangeListener(this);
+		
+		ImageView iw = (ImageView)findViewById(R.id.imageView1);
+		iw.setImageBitmap(guessing.getSomePhoto());
 		
 		// TODO: add choices...
 		// TODO: accept group to test...
