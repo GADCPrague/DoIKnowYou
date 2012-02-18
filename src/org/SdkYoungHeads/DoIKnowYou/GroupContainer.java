@@ -95,12 +95,12 @@ public class GroupContainer {
 		XmlSerializer serializer = Xml.newSerializer();
 		FileOutputStream fos = ctx.openFileOutput(FILE, Context.MODE_PRIVATE);
 		OutputStreamWriter writer = new OutputStreamWriter(fos);
-		serializer.setOutput(writer);
-		serializer.startDocument("UTF-8", true);
-		GroupContainer gc = new GroupContainer();
-		gc.serialize(serializer);
-		serializer.endDocument();
-		fos.close();
+
+	    serializer.setOutput(writer);
+	    serializer.startDocument("UTF-8", true);
+	    serialize(serializer);
+	    serializer.endDocument();
+	    fos.close();
 	}
 
 	public Group findGroup(UUID uuid) {
