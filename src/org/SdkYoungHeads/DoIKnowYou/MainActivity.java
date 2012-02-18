@@ -12,12 +12,12 @@ public class MainActivity extends ListActivity {
 		// TODO: Tady vypsat seznam skupin...
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-				"Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-				"Linux", "OS/2" };
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, values);
-		setListAdapter(adapter);
+//		String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
+//				"Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
+//				"Linux", "OS/2" };
+//		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//				android.R.layout.simple_list_item_1, values);
+//		setListAdapter(adapter);
 	}
 
 	@Override
