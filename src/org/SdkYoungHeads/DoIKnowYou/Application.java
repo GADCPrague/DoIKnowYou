@@ -12,4 +12,8 @@ public class Application extends android.app.Application {
 		super.onCreate();
 		data.load(getBaseContext());
 	}
+	
+	public GroupContainer getDatabase() {
+		return data;
+	}
 }

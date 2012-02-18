@@ -6,7 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,9 +23,11 @@ import android.util.Xml;
 
 public class GroupContainer {
 	private List<Group> groups;
+	private HashMap<UUID, Group> groupsByUuid;
 	
 	public GroupContainer() {
 		groups = new ArrayList<Group>();
+		groupsByUuid = new HashMap<UUID, Group>();
 	}
 	
 	public Group[] getGroups() {
@@ -43,7 +47,10 @@ public class GroupContainer {
 	
 	public void addGroup(Group g) {
 		groups.add(g);
+		groupsByUuid.put(g.getUUID(), g);
 	}
+
+	// TODO: removeGroup()
 	
 	public void serialize(XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
 		serializer.startTag("", "groups");
@@ -88,5 +95,23 @@ public class GroupContainer {
 	    gc.serialize(serializer);
 	    serializer.endDocument();
 	    fos.close();
+	}
+
+	public Group findGroup(UUID uuid) {
+		return groupsByUuid.get(uuid);
+	}
+	
+	public void createExampleData() {
+		groups = new ArrayList<Group>();
+		for (int i = 0; i < 5; i++) {
+			Group g = new Group();
+			g.setName("Skupina " + i);
+			for (int j = 0; j < 10; j++) {
+				Person p = new Person();
+				p.setName("Jan Novak " + i);
+				g.addPerson(p);
+			}
+			addGroup(g);
+		}
 	}
 }

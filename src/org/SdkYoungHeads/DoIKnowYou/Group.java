@@ -68,4 +68,8 @@ public class Group {
         	addPerson(p);
         }
 	}
+	
+	public UUID getUUID() {
+		return uuid;
+	}
 }

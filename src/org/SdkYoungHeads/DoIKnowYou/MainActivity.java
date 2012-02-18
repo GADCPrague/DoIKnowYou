@@ -5,12 +5,8 @@ import java.io.StringWriter;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Xml;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity { // ListActivity {

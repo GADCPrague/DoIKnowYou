@@ -20,12 +20,13 @@ public class ListOfGroupsActivity extends Activity {
 	
 	Group[] listItems;
 	protected ArrayAdapter<String> adapter;
-	
-	
+		
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO: Tady vypsat seznam skupin...
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listofgroups);
+		
+		GroupContainer gc = ((Application)getApplication()).getDatabase();
 		
 		groups = (ListView) this.findViewById(R.id.list_of_groups);
 			
@@ -44,6 +45,7 @@ public class ListOfGroupsActivity extends Activity {
 		protected Context context;
 		protected String[] names;
 		
+
 		public MyGroupAdapter(Context context, String[] names) {
 			super(ListOfGroupsActivity.this, R.layout.listofgroups_row, names);
 			this.context = context;
@@ -77,5 +79,4 @@ public class ListOfGroupsActivity extends Activity {
 			return rowView;
 		}
 	}
-	
 }
