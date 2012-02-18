@@ -13,16 +13,10 @@ import android.widget.Toast;
 
 public class TestingActivity extends Activity implements OnCheckedChangeListener {
 	private Person guessing;
-	private Group group;
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
-		// TODO: add choices...
-		// TODO: accept group to test...
-		group = ((Application)getApplication()).selectedGroup;
 		setChoices();
 	}
 	
