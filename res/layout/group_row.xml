@@ -10,7 +10,7 @@
         android:layout_height="32px"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/ic_launcher" />
+        android:src="@android:drawable/ic_media_play" />
 
     <ImageView
         android:id="@+id/person_icon"

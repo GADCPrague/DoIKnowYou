@@ -15,7 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="@string/add_group" />
+            android:text="@string/add_group"
+            /><!--   android:drawableLeft="@android:drawable/ic_menu_add" -->
 
         <Button
             android:id="@+id/addNewPersonButton"
@@ -23,7 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/addNewGroupButton"
-            android:text="@string/add_person" />
+            android:text="@string/add_person"
+			/>
 
         <TextView
             android:id="@+id/text"
