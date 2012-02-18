@@ -2,7 +2,10 @@
 <resources>
 
     <string name="hello">Hello World, MainActivity!</string>
-    <string name="app_name">DoIKnowYou</string>
     <string name="submit">Vybrat</string>
+    <string name="app_name">Do I Know You?</string>
+    
+    <string name="add_group">+ G</string>
+    <string name="add_person">+ P</string>
 
 </resources>
