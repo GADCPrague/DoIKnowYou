@@ -13,12 +13,13 @@ public class ListOfGroupsActivity extends Activity {
 	
 	ArrayList<String> listItems=new ArrayList<String>();
 	protected ArrayAdapter<String> adapter;
-	
-	
+		
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO: Tady vypsat seznam skupin...
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listofgroups);
+		
+		GroupContainer gc = ((Application)getApplication()).getDatabase();
 		
 		groups = (ListView) this.findViewById(R.id.list_of_groups);
 		
@@ -28,11 +29,11 @@ public class ListOfGroupsActivity extends Activity {
 		
 		groups.setAdapter(adapter);
 		
-		listItems.add("ALL");
-		listItems.add("WORK");
-		listItems.add("SCHOOL");
-		
+		for (Group g: gc.getGroups()) {
+			listItems.add(g.getName());
+		}
+		//listItems.add("ALL");
+		//listItems.add("WORK");
+		//listItems.add("SCHOOL");
 	}
-	
-	
 }
