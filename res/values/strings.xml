@@ -19,5 +19,6 @@
 	<string name="select_persons">Select persons</string>
 	<string name="saveSelectedTxt">OK</string>
 	<string name="test_results">Test results</string>
+	<string name="test_result_ok">OK</string>
 	
 </resources>
