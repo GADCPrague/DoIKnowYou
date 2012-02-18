@@ -72,4 +72,8 @@ public class Group {
 	public UUID getUUID() {
 		return uuid;
 	}
+	
+	public int getCount() {
+		return people.size();
+	}
 }

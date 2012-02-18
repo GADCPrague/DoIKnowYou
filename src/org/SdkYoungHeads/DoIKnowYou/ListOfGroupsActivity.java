@@ -7,13 +7,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ListOfGroupsActivity extends Activity {
+public class ListOfGroupsActivity extends Activity implements OnItemClickListener {
 
 
 	protected ListView groups;
@@ -29,21 +32,21 @@ public class ListOfGroupsActivity extends Activity {
 		groups = (ListView) this.findViewById(R.id.list_of_groups);
 		
 		((Application)getApplication()).getDatabase().createExampleData();
-		listItems = ((Application)getApplication()).getDatabase().getGroups();
 		
-		groups.setAdapter(new MyGroupAdapter(this.getBaseContext(), listItems));
+		groups.setAdapter(new MyGroupAdapter(this.getBaseContext(), ((Application)getApplication()).getDatabase()));
+		groups.setOnItemClickListener(this);
 	}
 	
 	class MyGroupAdapter extends ArrayAdapter<Group> {
 		
 		protected Context context;
-		protected Group[] names;
+		protected GroupContainer gc;
 		
 
-		public MyGroupAdapter(Context context, Group[] names) {
-			super(ListOfGroupsActivity.this, R.layout.listofgroups_row, names);
+		public MyGroupAdapter(Context context, GroupContainer gc) {
+			super(ListOfGroupsActivity.this, R.layout.listofgroups_row, gc.getGroups());
 			this.context = context;
-			this.names = names;
+			this.gc = gc;
 		}
 		
 		public View getView(int position, View convertView, ViewGroup parent) {
@@ -57,9 +60,10 @@ public class ListOfGroupsActivity extends Activity {
 //			ImageView groupIcon = (ImageView) rowView.findViewById(R.id.group_icon);
 //			ImageView groupArrow = (ImageView) rowView.findViewById(R.id.group_arrow);
 			
-			groupName.setText(names[position].getName());
+			Group g = gc.getGroups()[position];
+			groupName.setText(g.getName());
 			groupDescription.setText("[ Description ]");
-			groupCount.setText("[ Count ]");
+			groupCount.setText(Integer.toString(g.getCount()));
 			
 		
 			// Change the icon for Windows and iPhone
@@ -72,5 +76,13 @@ public class ListOfGroupsActivity extends Activity {
 
 			return rowView;
 		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+		Application app = (Application)getApplication();
+		app.selectedGroup = app.getDatabase().getGroups()[position];
+		Intent i = new Intent(this, GroupActivity.class);
+		startActivity(i);
 	}
 }

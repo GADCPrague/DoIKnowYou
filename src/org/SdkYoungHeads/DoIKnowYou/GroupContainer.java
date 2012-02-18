@@ -31,26 +31,18 @@ public class GroupContainer {
 	}
 	
 	public Group[] getGroups() {
-		//Group[] categories = new Group[0];
-		/*
-		categories[0] = new Group();
-		categories[1] = new Group();
-		categories[2] = new Group();
-		categories[3] = new Group();
-		categories[4] = new Group();
-		 */
-		
-		//return categories;
 		return groups.toArray(new Group[groups.size()]);
-		//return groups.toArray();
 	}
 	
 	public void addGroup(Group g) {
 		groups.add(g);
 		groupsByUuid.put(g.getUUID(), g);
 	}
-
-	// TODO: removeGroup()
+	
+	public void removeGroup(Group g) {
+		groupsByUuid.remove(g.getUUID());
+		groups.remove(g);
+	}
 	
 	public void serialize(XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
 		serializer.startTag("", "groups");

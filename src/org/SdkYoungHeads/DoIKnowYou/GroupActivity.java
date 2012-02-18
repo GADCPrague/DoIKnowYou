@@ -10,13 +10,7 @@ public class GroupActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.group);
 		
-		Bundle extras = getIntent().getExtras();
-		if (extras == null) {
-			throw new RuntimeException();
-		}
-		UUID uuid = UUID.fromString(extras.getString("group_uuid"));
-		GroupContainer gc = ((Application)getApplication()).getDatabase();
-		Group g = gc.findGroup(uuid);
+		Group g = ((Application)getApplication()).selectedGroup;
 		
 		TextView tv = (TextView)this.findViewById(R.id.group_name);
 		tv.setText(g.getName());
