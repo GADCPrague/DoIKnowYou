@@ -19,6 +19,13 @@
 	        
 	         />
 
+        <Button
+            android:id="@+id/addNewPersonButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/button1"
+            android:text="@string/add_person" />
+
 	    <TextView
 	        android:id="@+id/group_name"
 	        android:layout_width="wrap_content"
@@ -26,6 +33,16 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_centerVertical="true"
 	        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	    <TextView
+	        android:id="@+id/text"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/addNewPersonButton"
+	        android:layout_alignBottom="@+id/addNewPersonButton"
+	        android:layout_alignParentLeft="true"
+	        android:text="@string/app_name"
+	        android:textColor="#fff" />
 
 	    <Button
 	        android:id="@+id/addPersonGroupButton"
@@ -35,6 +52,7 @@
 	        android:layout_toLeftOf="@+id/runTestButton"
 	        android:onClick="addPerson"
 	        android:text="@string/add_person" />
+
 
 	</RelativeLayout>
      <ListView

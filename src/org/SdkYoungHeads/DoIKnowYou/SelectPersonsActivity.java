@@ -52,17 +52,12 @@ public class SelectPersonsActivity extends Activity {
                 }
             	Log.d("for1", "List Size = " + adapter.checked.length);
             	Log.d("for1", "List Size = " + list.size());
-            	//Log.d(">>>>>>>>> ", list.get(1).getName());
-            	
-            	//((Application)getApplication()).selectedPersons = (Person[]) list.toArray();
-//            	int size = list.size();
-//            	Log.d("for1", "List Size = " + size);
             	Person[] p = new Person[list.size()];
             	for(int i = 0; i < list.size(); i++) {
             		Log.d("for2", "aaa");
             		p[i] = list.get(i);
             	}
-            	((Application)getApplication()).selectedPersons = p;
+//            	((Application)getApplication()).selectedPersons = p;
             	Log.d(">>>>>>>", "" + p.length);
             	finish();
             }
@@ -105,15 +100,6 @@ class MyPersonAdapter extends ArrayAdapter<Person> {
 			});
 			
 			personName.setText(persons[position].getName());
-			
-		
-			// Change the icon for Windows and iPhone
-//			String s = values[position];
-//			if (s.startsWith("iPhone")) {
-//				imageView.setImageResource(R.drawable.no);
-//			} else {
-//				imageView.setImageResource(R.drawable.ok);
-//			}
 
 			return rowView;
 		}
