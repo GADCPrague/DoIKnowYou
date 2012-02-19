@@ -141,8 +141,7 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
     @Override  
     public boolean onContextItemSelected(final MenuItem item) {  
         if(item.getTitle()=="Delete") {
-			Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Do you really want to delete this group?").
+			new AlertDialog.Builder(this).setMessage(R.string.really_delete_group).
 			setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	               public void onClick(DialogInterface dialog, int id) {
 	            	   // TODO: delete the group!
@@ -154,8 +153,7 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 	               public void onClick(DialogInterface dialog, int id) {
 	                    dialog.cancel();
 	               }
-	           }); // TODO: resource
-			builder.show();
+	           }).show();
         } else if (item.getTitle()=="Edit") {
         	function1(item.getItemId());
         } // TODO: make group editing work
