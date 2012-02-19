@@ -42,9 +42,13 @@ public class SimpleTester implements Tester {
 		List<Person> p = new ArrayList<Person>();
 		p.addAll(group.getPeopleList());
 		Collections.shuffle(p);
-		List<Person> sl = p.subList(0, 3);
+		int n = Math.min(4, p.size());
+		List<Person> sl = p.subList(0, n);
 		if (!sl.contains(getTestCase())) {
+			sl.remove(0);
 			sl.add(getTestCase());
+			
+			Collections.shuffle(sl);
 		}
 		return sl;
 	}

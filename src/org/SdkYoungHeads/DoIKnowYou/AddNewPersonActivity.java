@@ -11,7 +11,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,16 +21,15 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,9 +79,6 @@ public class AddNewPersonActivity extends Activity {
 
 		Spinner s = (Spinner) findViewById(R.id.groupSpinner);
 		s.setAdapter(adapter);
-
-		// @ToDo nastavit defaultni select
-		// s.setSelection(2);
 		// Group selectedGroup = ((Application) getApplication()).selectedGroup;
 
 		/* start tlacitka pro vyber fotky z galerie */
@@ -145,7 +140,7 @@ public class AddNewPersonActivity extends Activity {
 	}
 
 	/*
-	 * metoda pøidá URI do adaptéru
+	 * metoda preda URI do adapteru
 	 */
 	public void addToAdapter(Uri uri) {
 		myAdapter.add(uri);
@@ -164,9 +159,10 @@ public class AddNewPersonActivity extends Activity {
 			int position = 0;
 			for (Group g : groupContainer.getGroups()) {
 				if (g == selectedGroup) {
-					s.setSelection(position++);
+					s.setSelection(position);
 					break;
 				}
+				position++;
 			}
 		}
 	}
@@ -279,7 +275,7 @@ public class AddNewPersonActivity extends Activity {
 	}
 
 	public void myClickHandler(View v) {
-		Log.d("", " Práve kliknuto");
+		Log.d("", " Prï¿½ve kliknuto");
 		Log.d("View", v.toString());
 		// @ToDo tato metoda musi odtranit položku z myAdapter
 	}

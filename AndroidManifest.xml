@@ -12,11 +12,13 @@
 
     <application
         android:icon="@drawable/icon"
-        android:label="@string/app_name" android:name=".Application">
+        android:label="@string/app_name"
+        android:name=".Application">
         <activity
             android:name=".ListOfGroupsActivity"
             android:label="@string/app_name" 
-            android:theme="@android:style/Theme.Black.NoTitleBar">
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,35 +28,49 @@
         <activity
             android:name=".SelectPersonsActivity"
             android:label="@string/app_name" 
-            android:theme="@android:style/Theme.Black.NoTitleBar">
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AddNewPersonActivity"
-            android:label="@string/app_name" 
-            android:theme="@android:style/Theme.Black.NoTitleBar">
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AddNewGroupActivity"
-            android:label="@string/app_name" 
-            android:theme="@android:style/Theme.Black.NoTitleBar">
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" 
-            android:theme="@android:style/Theme.Black.NoTitleBar">
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".GroupActivity"
             android:label="@string/app_name" 
-            android:theme="@android:style/Theme.Black.NoTitleBar">
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".TestingActivity"
             android:label="@string/app_name" 
-            android:theme="@android:style/Theme.Black.NoTitleBar">
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".TestResultsActivity"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".PersonActivity"
             android:label="@string/app_name" 
             android:theme="@android:style/Theme.Black.NoTitleBar">
         </activity>

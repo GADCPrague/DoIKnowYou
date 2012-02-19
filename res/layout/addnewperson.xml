@@ -29,74 +29,79 @@
                 android:textColor="@color/white"
                 android:textSize="20dp" />
         </RelativeLayout>
+		<ScrollView 
+		    android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        >
+	        <LinearLayout
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="4dp"
+	            android:layout_marginRight="4dp"
+	            android:orientation="vertical" >
+	
+	            <EditText
+	                android:id="@+id/editTextName"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="10dp"
+	                android:hint="@string/addNewPerson_textEdit"
+	                android:inputType="textPersonName" >
+	            </EditText>
+	
+	            <TextView
+	                android:id="@+id/textViewTitle"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginBottom="7dp"
+	                android:layout_marginTop="10dp"
+	                android:text="@string/selectGroup"
+	                android:textSize="10pt" >
+	            </TextView>
+	
+	            <Spinner
+	                android:id="@+id/groupSpinner"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:drawSelectorOnTop="true"
+	                android:prompt="@string/addNewPerson_spinner" />
+	
+	            <Button
+	                android:id="@+id/loadimage"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:text="@string/addPhoto" />
+	
+	            <TextView
+	                android:id="@+id/targeturi"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content" />
+	
+	            <TextView
+	                android:id="@+id/listPhoto"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginBottom="7dp"
+	                android:layout_marginTop="10dp"
+	                android:text="@string/listPhoto"
+	                android:textSize="10pt" >
+	            </TextView>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:orientation="vertical" >
-
-            <EditText
-                android:id="@+id/editTextName"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="@string/addNewPerson_textEdit"
-                android:inputType="textPersonName" >
-            </EditText>
-
-            <TextView
-                android:id="@+id/textViewTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/selectGroup"
-                android:textSize="10pt" >
-            </TextView>
-
-            <Spinner
-                android:id="@+id/groupSpinner"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:drawSelectorOnTop="true"
-                android:prompt="@string/addNewPerson_spinner" />
-
-            <Button
-                android:id="@+id/loadimage"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/addPhoto" />
-
-            <TextView
-                android:id="@+id/targeturi"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/listPhoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/listPhoto"
-                android:textSize="10pt" >
-            </TextView>
-
-            <GridView
-                android:id="@+id/list_of_images"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@color/white"
-                android:columnWidth="90dp"
-                android:divider="#fff"
-                android:gravity="center"
-                android:horizontalSpacing="10dp"
-                android:numColumns="auto_fit"
-                android:stretchMode="columnWidth"
-                android:verticalSpacing="10dp" />
-        </LinearLayout>
+	            <GridView
+	                android:id="@+id/list_of_images"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:background="@color/white"
+	                android:columnWidth="90dp"
+	                android:divider="#fff"
+	                android:gravity="center"
+	                android:horizontalSpacing="10dp"
+	                android:numColumns="auto_fit"
+	                android:stretchMode="columnWidth"
+	                android:verticalSpacing="10dp"
+	                android:paddingBottom="50dp" />
+	        </LinearLayout>
+		</ScrollView>
     </LinearLayout>
 
     <Button

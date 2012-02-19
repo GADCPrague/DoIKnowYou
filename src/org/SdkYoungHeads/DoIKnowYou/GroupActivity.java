@@ -15,13 +15,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GroupActivity extends Activity {
+public class GroupActivity extends Activity implements OnItemClickListener {
 	protected ListView people;
 	protected Person currentlySelectedPerson;
 		
@@ -35,6 +38,15 @@ public class GroupActivity extends Activity {
 		tv.setText(g.getName());
 
 		people = (ListView) this.findViewById(R.id.list_of_people);
+		people.setOnItemClickListener(this);
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+		Application app = (Application)getApplication();
+		app.selectedPerson = app.selectedGroup.getPeople()[position];
+		Intent i = new Intent(this, PersonActivity.class);
+		startActivity(i);
 	}
 	
 	@Override
@@ -121,11 +133,24 @@ public void function1(int id){
 			View rowView = inflater.inflate(R.layout.group_row, parent, false);
 			
 			TextView name = (TextView) rowView.findViewById(R.id.person_name);
-//			ImageView groupIcon = (ImageView) rowView.findViewById(R.id.group_icon);
+			ImageView icon = (ImageView) rowView.findViewById(R.id.person_icon);
 //			ImageView groupArrow = (ImageView) rowView.findViewById(R.id.group_arrow);
 			
 			Person p = group.getPeople()[position];
 			name.setText(p.getName());
+			try {
+				if (p.getMainPhoto(getContext()) != null) {
+					try {
+						icon.setImageBitmap(p.getMainPhoto(getContext()));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			//GroupActivity.this.registerForContextMenu(rowView); <-- po tomhle nefunguje single click :(
 		
