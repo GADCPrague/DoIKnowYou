@@ -71,6 +71,7 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 				rb.setText(p.getName());
 				LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 				rb.setLayoutParams(params);
+				rb.setTextColor(R.color.radio_default);
 						
 				rg.addView(rb);
 				rg.setOnCheckedChangeListener(this);

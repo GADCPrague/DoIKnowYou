@@ -3,7 +3,8 @@ package org.SdkYoungHeads.DoIKnowYou;
 public class Application extends android.app.Application {
 	private GroupContainer data;
 	public Group selectedGroup;
-	//@ToDo selectGroup není duvod aby byla public, udelat settery a gettery
+	public Person selectedPerson;
+	//@ToDo selectGroup nenï¿½ duvod aby byla public, udelat settery a gettery
 	public Tester currentTester;
 
 //  vypnuto	

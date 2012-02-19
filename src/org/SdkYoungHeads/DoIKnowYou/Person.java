@@ -67,6 +67,8 @@ public class Person {
 		}
 	}
 	
+	// TODO: delete all photos when deleting the group.
+	
 	private void ensurePhotosLoaded(Context context) throws IOException {
 		if (!arePhotosLoaded()) {
 			loadPhotos(context);
@@ -104,11 +106,11 @@ public class Person {
 			Bitmap b = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(Uri.parse(s)));
 			int width = b.getWidth(), height = b.getHeight();
 			if (width > height) {
-				width = 50;
 				height = (int)(50 * (double)height / (double)width);
+				width = 50;
 			} else {
-				height = 50;
 				width = (int)(50 * (double)width / (double)height);
+				height = 50;
 			}
 			
 			String name = UUID.randomUUID().toString() + ".jpg";
