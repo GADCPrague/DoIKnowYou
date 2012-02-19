@@ -101,15 +101,17 @@ public class Person {
 	
 	public void setPhotoPaths(Context context, List<String> paths) throws IOException {
 		for (int i = 0; i < paths.size(); i++) {
+			int size = 150;
+			
 			String s = paths.get(i);
 			Bitmap b = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(Uri.parse(s)));
 			int width = b.getWidth(), height = b.getHeight();
 			if (width > height) {
-				height = (int)(50 * (double)height / (double)width);
-				width = 50;
+				height = (int)(size * (double)height / (double)width);
+				width = size;
 			} else {
-				width = (int)(50 * (double)width / (double)height);
-				height = 50;
+				width = (int)(size * (double)width / (double)height);
+				height = size;
 			}
 			
 			String name = UUID.randomUUID().toString() + ".jpg";

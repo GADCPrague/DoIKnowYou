@@ -58,8 +58,7 @@ public class PersonActivity extends Activity {
                 //when screen is released  
                 if(event.getAction() == MotionEvent.ACTION_UP)  
                 {  
-                    deltaX = event.getRawX() - initialX;  
-                    event.getRawY() - initialY; 
+                    deltaX = event.getRawX() - initialX;
                     
                     Application app = (Application)getApplication();
                     Group g = app.selectedGroup;

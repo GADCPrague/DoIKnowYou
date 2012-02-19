@@ -44,6 +44,7 @@ public class AddNewPersonActivity extends Activity {
 
 	private Group[] listItems;
 	protected ArrayAdapter<Group> adapter;
+	private TextView textTargetUri;
 	private List<Uri> imageArray;
 	private MyGroupAdapter myAdapter;
 	private Uri imageUri;
@@ -84,7 +85,7 @@ public class AddNewPersonActivity extends Activity {
 		/* start tlacitka pro vyber fotky z galerie */
 
 		Button buttonLoadImage = (Button) findViewById(R.id.loadimage);
-		(TextView) findViewById(R.id.targeturi);
+		textTargetUri = (TextView) findViewById(R.id.targeturi);
 		buttonLoadImage.setOnClickListener(new Button.OnClickListener() {
 
 			@Override

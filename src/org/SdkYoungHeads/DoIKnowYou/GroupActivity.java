@@ -74,7 +74,7 @@ public class GroupActivity extends Activity implements OnItemClickListener {
  @Override  
  public boolean onContextItemSelected(final MenuItem item) {  
      if(item.getTitle()=="Delete") {
-    	 new AlertDialog.Builder(this).setMessage(String.format(R.string.really_delete_person, currentlySelectedPerson.getName())). // TODO: format
+    	 new AlertDialog.Builder(this).setMessage(R.string.really_delete_person). // TODO: format
 		setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int id) {
 	        	try {
