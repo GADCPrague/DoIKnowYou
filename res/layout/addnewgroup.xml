@@ -1,67 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
-    
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="55dp"
+        android:background="@color/blue_light"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" >
+
         <TextView
-	        android:id="@+id/text"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/new_group_title"
-	        android:textColor="#fff"
-	        />
-    </LinearLayout>
-    <TextView
-	        android:id="@+id/enter_group_name"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/name"
-	        android:textColor="#fff"
-	        />
-    <EditText 
-        android:id="@+id/groupNameEdit"
-        android:layout_width="fill_parent" 
-        android:layout_height="wrap_content"
-        android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
-        android:imeOptions="actionSend|flagNoEnterAction" 
-        android:maxLines="1"
-        android:maxLength="50" 
-        android:hint="@string/enter_group_name"/>
-<!--     <RelativeLayout 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-		<TextView
-		        android:id="@+id/persons"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="@string/persons"
-		        android:textColor="#fff"
-		        />  
-		 <Button 
-	            android:text="@string/add_person_to_group_btn"
-	            android:id="@+id/addPersonToGroupBtn"
-	            android:layout_alignParentRight="true"
-	            android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"/>        
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            android:text="@string/new_group_title"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
     </RelativeLayout>
 
-     <ListView
-         android:id="@+id/list_of_groups"
-         android:background="#f00"
-         android:layout_width="fill_parent"
-         android:layout_height="100px"
-         android:divider="#fff"
-         />
--->
-     <Button 
-            android:text="@string/create_group_btn"
-            android:id="@+id/createGroupBtn"
-            android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/enter_group_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textColor="#fff" />
+
+    <EditText
+        android:id="@+id/groupNameEdit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_group_name"
+        android:imeOptions="actionSend|flagNoEnterAction"
+        android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
+        android:maxLength="50"
+        android:maxLines="1" />
+
+    <Button
+        android:id="@+id/createGroupBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_group_btn" />
+
 </LinearLayout>
