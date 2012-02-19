@@ -37,4 +37,12 @@
 	<string name="testing">Testing</string>
 	<string name="results">Result</string>
 	<string name="name_not_set">Please enter name! </string>
+	<string name="menuAboutString">About</string>
+	<string name="imageFromGallery">Gallery</string>
+	<string name="imageFromCamera">Camera</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+	<string name="addAnotherPerson_title">Person added</string>
+	<string name="addAnotherPerson_query">New person has been added. Add another one?</string>
+	<string name="addPhotoDialog_title">Add new photo</string>
 </resources>

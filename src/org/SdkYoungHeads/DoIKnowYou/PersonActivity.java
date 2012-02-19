@@ -3,6 +3,7 @@ package org.SdkYoungHeads.DoIKnowYou;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -27,14 +28,17 @@ public class PersonActivity extends Activity {
 		TextView tv = (TextView)findViewById(R.id.person_detail_name);
 		tv.setText(p.getName());
 		ImageView iv = (ImageView)findViewById(R.id.person_detail_image);
-		iv.setImageBitmap(p.getSomePhoto(getBaseContext())); // TODO: vic fotek..
+		Bitmap b = p.getSomePhoto(getBaseContext());
+		if (b != null) {
+			iv.setImageBitmap(b); // TODO: vic fotek..
+		} else {
+			iv.setImageResource(R.drawable.icon_person);
+		}
 	}
 	
     private float initialX = 0;  
     private float initialY = 0;  
     private float deltaX = 0;  
-    private float deltaY = 0;  
-  
     @Override  
     public boolean onTouchEvent(MotionEvent event)  
     {  
@@ -50,7 +54,7 @@ public class PersonActivity extends Activity {
                 if(event.getAction() == MotionEvent.ACTION_DOWN)  
                 {  
                     //reset deltaX and deltaY  
-                    deltaX = deltaY = 0;  
+                    deltaX = 0;  
   
                     //get initial positions  
                     initialX = event.getRawX();  
@@ -60,11 +64,9 @@ public class PersonActivity extends Activity {
                 //when screen is released  
                 if(event.getAction() == MotionEvent.ACTION_UP)  
                 {  
-                    deltaX = event.getRawX() - initialX;  
-                    deltaY = event.getRawY() - initialY; 
+                    deltaX = event.getRawX() - initialX;
                     
                     Application app = (Application)getApplication();
-                    GroupContainer gc = app.getDatabase();
                     Group g = app.selectedGroup;
                 	int id = -1;
                 	for (int i = 0; i < g.getCount(); i++) {

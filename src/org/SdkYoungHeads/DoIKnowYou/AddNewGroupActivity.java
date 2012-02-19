@@ -1,18 +1,13 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
 
-import org.SdkYoungHeads.DoIKnowYou.ListOfGroupsActivity.MyGroupAdapter;
-
-import android.app.Activity;
-import android.content.Context;
-
 import java.io.IOException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,9 +26,10 @@ public class AddNewGroupActivity extends Activity {
 	SelectedPersonsAdapter adapter;
 	
 	public void onCreate(Bundle savedInstanceState) {
-		group = new Group();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnewgroup);
+		
+		group = new Group();
 		
 //		Person[] p = ((Application)getApplication()).selectedPersons;
 //		
@@ -54,12 +51,14 @@ public class AddNewGroupActivity extends Activity {
 //
 //        });
         
-        final TextView name = (TextView)findViewById(R.id.groupNameEdit);
+        final EditText name = (EditText)findViewById(R.id.groupNameEdit);
                 
         Button addGroup = (Button) findViewById(R.id.createGroupBtn);
         addGroup.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View view) {
-        		if(name.getText().toString().trim() ==""){
+        		
+        		String trimName = name.getText().toString().trim();
+        		if("".equals(trimName)) {
         			Builder builder = new AlertDialog.Builder(AddNewGroupActivity.this);
         			builder.setMessage(R.string.group_empty).
         			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
@@ -68,12 +67,26 @@ public class AddNewGroupActivity extends Activity {
         	               }
         	           });
         			builder.show();
+        			return;
         		}
-        		
-        		group.setName(name.getText().toString().trim());
-        		GroupContainer gc = ((Application)getApplication()).getDatabase();
-        		
-        		if (gc.getGroupByName(name.getText().toString()) != null) {
+        		GroupContainer gc = ((Application)getApplication()).getDatabase();       		
+        		if(gc.getGroupByName(name.getText().toString())==null){        			
+        			group.setName(trimName);
+        			gc.addGroup(group);
+    				try {
+    					gc.save(getBaseContext());
+    					finish();
+    				} catch (IllegalArgumentException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				} catch (IllegalStateException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				} catch (IOException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				}
+        		}else{
         			Builder builder = new AlertDialog.Builder(AddNewGroupActivity.this);
         			builder.setMessage(R.string.group_already_exists).
         			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
@@ -84,20 +97,7 @@ public class AddNewGroupActivity extends Activity {
         			builder.show();
         			return;
         		}
-            	gc.addGroup(group);
-				try {
-					gc.save(getBaseContext());
-					finish();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+            	
         	}
         });
 	}
