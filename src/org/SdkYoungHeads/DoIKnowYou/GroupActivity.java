@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 public class GroupActivity extends Activity {
 	protected ListView people;
+	protected Person currentlySelectedPerson;
 		
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,17 +32,26 @@ public class GroupActivity extends Activity {
 		TextView tv = (TextView)this.findViewById(R.id.group_name);
 		tv.setText(g.getName());
 
-		
 		people = (ListView) this.findViewById(R.id.list_of_people);
-
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		refill();
+	}
+	
+	public void refill() {
+		people.clearChoices();
 		people.setAdapter(new MyPeopleAdapter(this.getBaseContext(), ((Application)getApplication()).selectedGroup));
-	        
 	    registerForContextMenu(people);
 	}
 	
 	@Override  
 	   public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
-	super.onCreateContextMenu(menu, v, menuInfo);  
+	super.onCreateContextMenu(menu, v, menuInfo); 
+	AdapterContextMenuInfo ami = (AdapterContextMenuInfo)menuInfo;
+    currentlySelectedPerson = ((Application)getApplication()).selectedGroup.getPeople()[ami.position];
 	    menu.setHeaderTitle("Person actions");  
 	    menu.add(0, 0, 0, "Edit");
 	    menu.add(0, 1, 1, "Delete");  
@@ -56,7 +67,7 @@ public class GroupActivity extends Activity {
     	 new AlertDialog.Builder(this).setMessage(R.string.really_delete_person). // TODO: format
 		setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int id) {
-	           	   GroupActivity.this.deletePersonByMenuItem(item);
+	        	deleteSelectedPerson();
 	           	   dialog.dismiss();
 	              }
 	           }).
@@ -71,7 +82,14 @@ public class GroupActivity extends Activity {
  return true;  
  }  
  
- public void function1(int id){  
+ protected void deleteSelectedPerson() {
+ 	((Application)getApplication()).selectedGroup.removePerson(currentlySelectedPerson);
+ 	currentlySelectedPerson = null;
+ 	refill();
+	
+}
+
+public void function1(int id){  
      Toast.makeText(this, "function 1 called", Toast.LENGTH_SHORT).show();  
  }  
 	
