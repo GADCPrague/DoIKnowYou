@@ -1,7 +1,10 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -134,16 +137,40 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 	    menu.add(0, v.getId(), 0, "Edit");
 	    menu.add(0, v.getId(), 0, "Delete");  
 	}
-	
+		
     @Override  
-    public boolean onContextItemSelected(MenuItem item) {  
-        if(item.getTitle()=="Delete"){function1(item.getItemId());}   // TODO: make group deleting work
-        else if (item.getTitle()=="Edit"){function1(item.getItemId());} // TODO: make group editing work
-        else {return false;}  
-    return true;  
+    public boolean onContextItemSelected(final MenuItem item) {  
+        if(item.getTitle()=="Delete") {
+			Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Do you really want to delete this group?").
+			setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	            	   // TODO: delete the group!
+	            	   ListOfGroupsActivity.this.deleteGroupByMenuItem(item);
+	            	   dialog.dismiss();
+	               }
+	           }).
+	        setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           }); // TODO: resource
+			builder.show();
+        } else if (item.getTitle()=="Edit") {
+        	function1(item.getItemId());
+        } // TODO: make group editing work
+        else {
+        	return false;
+        }  
+        return true;  
     }  
   
-    public void function1(int id){  
+    protected void deleteGroupByMenuItem(MenuItem item) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void function1(int id){  
         Toast.makeText(this, "function 1 called", Toast.LENGTH_SHORT).show();  
     }  
 }

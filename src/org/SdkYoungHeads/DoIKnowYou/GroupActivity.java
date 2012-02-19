@@ -1,6 +1,9 @@
 package org.SdkYoungHeads.DoIKnowYou;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -94,10 +97,23 @@ public class GroupActivity extends Activity {
 	
 	public void runTest(View view) {
 		Application app = ((Application)getApplication());
-		app.currentTester = new SimpleTester();
-		app.currentTester.setGroup(app.selectedGroup);
-		Intent i = new Intent(this, TestingActivity.class);
-		startActivity(i);
+		
+		if (app.selectedGroup.getCount() < 2) {
+			Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("This group has too few members.").
+			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           }); // TODO: resource
+			builder.show();
+			return;
+		} else {
+			app.currentTester = new SimpleTester();
+			app.currentTester.setGroup(app.selectedGroup);
+			Intent i = new Intent(this, TestingActivity.class);
+			startActivity(i);
+		}
 	}
 	
 	public void addPerson(View view) {
