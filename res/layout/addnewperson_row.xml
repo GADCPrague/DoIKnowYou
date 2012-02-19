@@ -13,7 +13,7 @@
         android:src="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/group_name"
+        android:id="@+id/photo_uri"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="26dp"
@@ -21,22 +21,5 @@
         android:layout_centerVertical="true"
         android:text="[ name ]"
         android:textColor="#fff" />
-
-    <TextView
-        android:id="@+id/group_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="[ counter ]"
-        android:textColor="#fff" />
-
-    <ImageView
-        android:id="@+id/group_arrow"
-        android:layout_width="32px"
-        android:layout_height="32px"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:src="@android:drawable/ic_media_play" />
 
 </RelativeLayout>
