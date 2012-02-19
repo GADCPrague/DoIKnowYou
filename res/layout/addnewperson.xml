@@ -1,37 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="55dp"
+        android:background="@color/blue_light"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" >
 
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
             android:text="@string/addNewPerson"
-            android:textColor="#fff" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/addNewPerson_description"
-        android:textSize="10pt" >
-    </TextView>
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:hint="@string/addNewPerson_textEdit"
         android:inputType="textPersonName" >
     </EditText>
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/selectGroup"
+        android:textSize="10pt" >
+    </TextView>
 
     <Spinner
         android:id="@+id/groupSpinner"
@@ -40,30 +51,39 @@
         android:drawSelectorOnTop="true"
         android:prompt="@string/addNewPerson_spinner" />
 
-
     <Button
         android:id="@+id/loadimage"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="add" />
+        android:text="@string/addPhoto" />
 
     <TextView
         android:id="@+id/targeturi"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
-    <GridView
+    <TextView
+        android:id="@+id/listPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/listPhoto"
+        android:textSize="10pt" >
+    </TextView>
+    <GridView
         android:id="@+id/photoGrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="3" >
     </GridView>
-
+
     <Button
         android:id="@+id/buttonAddPerson"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:onClick="addPerson"
         android:text="@string/addNewPerson_submit" />
 
-</LinearLayout>
+</RelativeLayout>

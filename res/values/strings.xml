@@ -16,14 +16,15 @@
 	<string name="start_test">Test</string>
 	<string name="create_group_btn">Create</string>
 	<string name="add_person_to_group_btn">Add person</string>
-	<string name="addNewPerson_description">Please fill in some details:</string>
-	<string name="addNewPerson_textEdit">Name or nickname:</string>
+	<string name="selectGroup">Please select group:</string>
+	<string name="addNewPerson_textEdit">Enter name</string>
 	<string name="addNewPerson_spinner">Select group</string>
-	<string name="addNewPerson_submit">Done, add me!</string>
+	<string name="addNewPerson_submit">Done</string>
 	<string name="select_persons">Select persons</string>
 	<string name="saveSelectedTxt">OK</string>
 	<string name="test_results">Test results</string>
 	<string name="test_result_ok">OK</string>
 	<string name="okay">OK</string>
-	
+	<string name="addPhoto">Add photo</string>
+	<string name="listPhoto">List of photos:</string>
 </resources>
