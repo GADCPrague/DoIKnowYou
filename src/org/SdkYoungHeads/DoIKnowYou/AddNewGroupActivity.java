@@ -9,6 +9,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ public class AddNewGroupActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnewgroup);
+		
+		group = new Group();
 		
 //		Person[] p = ((Application)getApplication()).selectedPersons;
 //		
@@ -55,12 +58,8 @@ public class AddNewGroupActivity extends Activity {
         	public void onClick(View view) {
         		
         		String trimName = name.getText().toString().trim();
-        		group.setName(trimName);
         		
-        		Log.d("","Pøidáváme skupiny");
-        		Log.d("",trimName);
         		if("".equals(trimName)) {
-        			Log.d("","Nullove jmeno skupiny");
         			Builder builder = new AlertDialog.Builder(AddNewGroupActivity.this);
         			builder.setMessage(R.string.group_empty).
         			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
@@ -71,11 +70,24 @@ public class AddNewGroupActivity extends Activity {
         			builder.show();
         			return;
         		}
-        		
-        		
-        		GroupContainer gc = ((Application)getApplication()).getDatabase();
-        		if (gc.getGroupByName(trimName) != null) {
-        			Log.d("","Jiz existujici jmeno skupiny");
+        		GroupContainer gc = ((Application)getApplication()).getDatabase();       		
+        		if(gc.getGroupByName(name.getText().toString())==null){        			
+        			group.setName(trimName);
+        			gc.addGroup(group);
+    				try {
+    					gc.save(getBaseContext());
+    					finish();
+    				} catch (IllegalArgumentException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				} catch (IllegalStateException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				} catch (IOException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				}
+        		}else{
         			Builder builder = new AlertDialog.Builder(AddNewGroupActivity.this);
         			builder.setMessage(R.string.group_already_exists).
         			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
@@ -86,20 +98,7 @@ public class AddNewGroupActivity extends Activity {
         			builder.show();
         			return;
         		}
-            	gc.addGroup(group);
-				try {
-					gc.save(getBaseContext());
-					finish();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+            	
         	}
         });
 	}
