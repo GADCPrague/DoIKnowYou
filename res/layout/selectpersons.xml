@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"  >
     
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -17,13 +17,14 @@
         <Button 
             android:text="@string/saveSelectedTxt"
             android:id="@+id/saveSelectedBtn"
+            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"/>
-    </LinearLayout>
+    </RelativeLayout>
         
      <ListView
          android:id="@+id/listOfPersonsToSelect"
-         android:background="#f00"
+         android:background="#000"
          android:layout_width="fill_parent"
          android:layout_height="fill_parent"
          android:divider="#fff"

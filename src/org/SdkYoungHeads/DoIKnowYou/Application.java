@@ -5,6 +5,7 @@ public class Application extends android.app.Application {
 	public Group selectedGroup;
 	//@ToDo selectGroup není duvod aby byla public, udelat settery a gettery
 	public Tester currentTester;
+	public Person[] selectedPersons = null;
 	
 	public Application() {
 		data = new GroupContainer();

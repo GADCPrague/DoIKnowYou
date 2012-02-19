@@ -1,5 +1,6 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -27,6 +28,7 @@ public class AddNewPersonActivity extends Activity {
 
 	ArrayList<String> listItems = new ArrayList<String>();
 	protected ArrayAdapter<String> adapter;
+
 	private GroupContainer groupContainer;
 
 	private GridView photoGrid;
@@ -35,7 +37,11 @@ public class AddNewPersonActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnewperson);
+	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
 		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
 				this, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -48,6 +54,7 @@ public class AddNewPersonActivity extends Activity {
 
 		Spinner s = (Spinner) findViewById(R.id.groupSpinner);
 		s.setAdapter(adapter);
+
 		// @ToDo nastavit defaultní selekt
 		// s.setSelection(2);
 		// Group selectedGroup = ((Application) getApplication()).selectedGroup;
@@ -90,7 +97,23 @@ public class AddNewPersonActivity extends Activity {
 		EditText nameField = (EditText) findViewById(R.id.editTextName);
 		nameField.setText(uri.toString());
 		
+
 		
+		setGroupSelection();
+	}
+	protected void setGroupSelection() {
+		Spinner s = (Spinner) findViewById(R.id.groupSpinner);
+		Group selectedGroup = ((Application) getApplication()).selectedGroup;
+		GroupContainer groupContainer = ((Application)getApplication()).getDatabase();
+		if (selectedGroup != null) {
+			int position = 0;
+			for (Group g: groupContainer .getGroups()){
+				if (g == selectedGroup) {
+					s.setSelection(position++);
+					break;
+				}
+			}
+		}	
 	}
 
 	@Override
@@ -112,7 +135,7 @@ public class AddNewPersonActivity extends Activity {
 	 * 
 	 * @return void
 	 */
-	public void addPerson(View button) {
+	public void addPerson(View button) throws IllegalArgumentException, IllegalStateException, IOException {
 		final EditText nameField = (EditText) findViewById(R.id.editTextName);
 		String personName = nameField.getText().toString();
 
@@ -126,6 +149,7 @@ public class AddNewPersonActivity extends Activity {
 		groupContainer = ((Application) getApplication()).getDatabase();
 
 		groupContainer.getGroupByName(groupName).addPerson(person);
+		groupContainer.save(this);
 
 		this.createDialog();
 	}
@@ -141,22 +165,23 @@ public class AddNewPersonActivity extends Activity {
 				.setCancelable(false)
 				.setNegativeButton("No", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						// Action for ‘NO’ Button
+						// Action for ï¿½NOï¿½ Button
 						finish();
 						dialog.cancel();
 					}
 
 				})
-				.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								// Action for ‘YES’ Button
-								Intent intent = getIntent();
-								finish();
-								startActivity(intent);
-								dialog.cancel();
-							}
-						});
+
+				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// Action for YES Button
+						Intent intent = getIntent();
+						finish();
+						startActivity(intent);
+						dialog.cancel();
+					}
+				});
+
 		AlertDialog alert = alt_bld.create();
 		// Title for AlertDialog
 		alert.setTitle("Person added");
