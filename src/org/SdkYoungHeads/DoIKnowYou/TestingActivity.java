@@ -18,6 +18,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class TestingActivity extends Activity implements OnCheckedChangeListener {
@@ -32,6 +33,9 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		TextView tv = (TextView) findViewById(R.id.text);
+		tv.setText(tv.getText() + " " + ((Application)getApplication()).selectedGroup.getName());
 		
 		Button btn = (Button)findViewById(R.id.testingSubmit);
 		btn.setOnClickListener(new View.OnClickListener() {
