@@ -1,21 +1,28 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,8 +34,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class AddNewPersonActivity extends Activity {
+
+	private static final int TAKE_PICTURE = 0;
 
 	protected GridView groups;
 
@@ -37,6 +48,7 @@ public class AddNewPersonActivity extends Activity {
 	private TextView textTargetUri;
 	private List<Uri> imageArray;
 	private MyGroupAdapter myAdapter;
+	private Uri imageUri;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,6 +60,9 @@ public class AddNewPersonActivity extends Activity {
 		myAdapter = new MyGroupAdapter(this.getBaseContext(), imageArray);
 
 		// groups.clearChoices();
+		Button loadImageBtn = null;
+		loadImageBtn = (Button) findViewById(R.id.loadimage);
+		registerForContextMenu(loadImageBtn);
 	}
 
 	@Override
@@ -72,6 +87,7 @@ public class AddNewPersonActivity extends Activity {
 		// Group selectedGroup = ((Application) getApplication()).selectedGroup;
 
 		/* start tlacitka pro vyber fotky z galerie */
+
 		Button buttonLoadImage = (Button) findViewById(R.id.loadimage);
 		textTargetUri = (TextView) findViewById(R.id.targeturi);
 		buttonLoadImage.setOnClickListener(new Button.OnClickListener() {
@@ -79,10 +95,16 @@ public class AddNewPersonActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(
-						Intent.ACTION_PICK,
-						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-				startActivityForResult(intent, 0);
+				/*
+				 * Intent intent = new Intent( Intent.ACTION_PICK,
+				 * android.provider
+				 * .MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				 * startActivityForResult(intent, 0);
+				 */
+				Button loadImageBtn = null;
+				loadImageBtn = (Button) findViewById(R.id.loadimage);
+				openContextMenu(loadImageBtn);
+
 			}
 		});
 		/* konec tlacitka pro vyber fotky z galerie */
@@ -90,6 +112,36 @@ public class AddNewPersonActivity extends Activity {
 		setGroupSelection();
 
 		groups.setAdapter(myAdapter);
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		AdapterContextMenuInfo ami = (AdapterContextMenuInfo) menuInfo;
+		menu.setHeaderTitle("Add new photo");
+		menu.add(0, v.getId(), 0, "Gallery");
+		menu.add(0, v.getId(), 0, "Camera");
+	}
+
+	@Override
+	public boolean onContextItemSelected(final MenuItem item) {
+		if (item.getTitle() == "Gallery") {
+			Intent intent = new Intent(
+					Intent.ACTION_PICK,
+					android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+			startActivityForResult(intent, 0);
+		} else if (item.getTitle() == "Camera") {
+			Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+			File photo = new File(Environment.getExternalStorageDirectory(),
+					"Pic.jpg");
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
+			imageUri = Uri.fromFile(photo);
+			startActivityForResult(intent, 3);
+		} else {
+			return false;
+		}
+		return true;
 	}
 
 	/*
@@ -124,10 +176,33 @@ public class AddNewPersonActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 
-		if (resultCode == RESULT_OK) {
-			Uri targetUri = data.getData();
-			addToAdapter(targetUri);
+		switch (requestCode) {
+		case 3:
+			if (resultCode == RESULT_OK) {
+				//Uri selectedImage = imageUri;
+				Log.d("", "photo taken");
+				Log.d("", imageUri.toString());
+				addToAdapter(imageUri);
+				/*
+				 * getContentResolver().notifyChange(selectedImage, null);
+				 * ImageView imageView = (ImageView)
+				 * findViewById(R.id.ImageView); ContentResolver cr =
+				 * getContentResolver(); Bitmap bitmap; try { bitmap =
+				 * android.provider.MediaStore.Images.Media .getBitmap(cr,
+				 * selectedImage);
+				 * 
+				 * imageView.setImageBitmap(bitmap); Toast.makeText(this,
+				 * selectedImage.toString(), Toast.LENGTH_LONG).show(); } catch
+				 * (Exception e) { Toast.makeText(this, "Failed to load",
+				 * Toast.LENGTH_SHORT) .show(); Log.e("Camera", e.toString()); }
+				 */
+			}
+		case 0:
+			if (resultCode == RESULT_OK) {
+				addToAdapter(data.getData());
+			}
 		}
+
 	}
 
 	/*
@@ -149,13 +224,13 @@ public class AddNewPersonActivity extends Activity {
 		Person person = new Person();
 		person.setName(personName);
 		myAdapter.getCount();
-		
+
 		List<String> pathArray = new ArrayList<String>();
-		for(int i=0;i<myAdapter.getCount();i++){
+		for (int i = 0; i < myAdapter.getCount(); i++) {
 			pathArray.add(myAdapter.getItem(i).toString());
-			//Log.d("",myAdapter.getItem(i).toString());
+			// Log.d("",myAdapter.getItem(i).toString());
 		}
-		person.setPhotoPaths(this.getBaseContext(),pathArray);
+		person.setPhotoPaths(this.getBaseContext(), pathArray);
 
 		GroupContainer groupContainer;
 		groupContainer = ((Application) getApplication()).getDatabase();
@@ -206,7 +281,7 @@ public class AddNewPersonActivity extends Activity {
 	public void myClickHandler(View v) {
 		Log.d("", " Práve kliknuto");
 		Log.d("View", v.toString());
-		// myAdapter.remove();
+		// @ToDo tato metoda musi odtranit položku z myAdapter
 	}
 
 	// http://xjaphx.wordpress.com/2011/06/12/custom-grid-view-of-applications/
