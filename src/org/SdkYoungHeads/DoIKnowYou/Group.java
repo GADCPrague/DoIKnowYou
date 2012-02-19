@@ -10,6 +10,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 public class Group {
@@ -97,8 +98,8 @@ public class Group {
 		return people.size();
 	}
 
-	public Bitmap getIcon() {
+	public Bitmap getIcon(Context context) throws IOException {
 		if (people.size() == 0) return null;
-		return people.get(0).getMainPhoto(); // TODO: maybe some other one...
+		return people.get(0).getMainPhoto(context); // TODO: maybe some other one...
 	}
 }
