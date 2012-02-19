@@ -1,5 +1,6 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,12 +26,22 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.testing);
-		setChoices();
+		try {
+			setChoices();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Button btn = (Button)findViewById(R.id.testingSubmit);
 		btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-            	check();
+            	try {
+					check();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
 		});
 	}
@@ -42,7 +53,7 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		startActivity(i);
 	}
 	
-	public void setChoices() {
+	public void setChoices() throws IOException {
 		Tester tester = ((Application)getApplication()).currentTester; 
 		guessing = tester.getTestCase();
 		if (guessing == null) {
@@ -62,9 +73,9 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 			}
 		
 			ImageView iw = (ImageView)findViewById(R.id.imageView1);
-			Bitmap bmp = guessing.getSomePhoto();
+			Bitmap bmp = guessing.getSomePhoto(getBaseContext());
 			if (bmp != null) {
-				iw.setImageBitmap(guessing.getSomePhoto());
+				iw.setImageBitmap(guessing.getSomePhoto(getBaseContext()));
 			}
 		}
 	}
@@ -93,7 +104,7 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		}
 	}
 	
-	protected void check() {
+	protected void check() throws IOException {
 		
 		Button b = (Button)findViewById(R.id.testingSubmit);
 		if (submitted) {

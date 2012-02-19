@@ -47,6 +47,8 @@ public class SimpleTester implements Tester {
 		if (!sl.contains(getTestCase())) {
 			sl.remove(0);
 			sl.add(getTestCase());
+			
+			Collections.shuffle(sl);
 		}
 		return sl;
 	}
