@@ -3,6 +3,7 @@ package org.SdkYoungHeads.DoIKnowYou;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -27,7 +28,12 @@ public class PersonActivity extends Activity {
 		TextView tv = (TextView)findViewById(R.id.person_detail_name);
 		tv.setText(p.getName());
 		ImageView iv = (ImageView)findViewById(R.id.person_detail_image);
-		iv.setImageBitmap(p.getSomePhoto(getBaseContext())); // TODO: vic fotek..
+		Bitmap b = p.getSomePhoto(getBaseContext());
+		if (b != null) {
+			iv.setImageBitmap(b); // TODO: vic fotek..
+		} else {
+			iv.setImageResource(R.drawable.icon_person);
+		}
 	}
 	
     private float initialX = 0;  
