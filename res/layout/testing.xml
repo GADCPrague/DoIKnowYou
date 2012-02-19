@@ -53,8 +53,7 @@
 
                 <RadioButton
                     android:layout_width="fill_parent"
-                    android:background="@color/wrong"
-                    android:text="XYZZY"/>
+                    android:background="@color/wrong"/>
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>

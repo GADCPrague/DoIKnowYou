@@ -44,7 +44,6 @@ public class AddNewPersonActivity extends Activity {
 
 	private Group[] listItems;
 	protected ArrayAdapter<Group> adapter;
-	private TextView textTargetUri;
 	private List<Uri> imageArray;
 	private MyGroupAdapter myAdapter;
 	private Uri imageUri;
@@ -85,7 +84,7 @@ public class AddNewPersonActivity extends Activity {
 		/* start tlacitka pro vyber fotky z galerie */
 
 		Button buttonLoadImage = (Button) findViewById(R.id.loadimage);
-		textTargetUri = (TextView) findViewById(R.id.targeturi);
+		(TextView) findViewById(R.id.targeturi);
 		buttonLoadImage.setOnClickListener(new Button.OnClickListener() {
 
 			@Override
@@ -289,7 +288,7 @@ public class AddNewPersonActivity extends Activity {
 	public void myClickHandler(View v) {
 		Log.d("", " Prï¿½ve kliknuto");
 		Log.d("View", v.toString());
-		// @ToDo tato metoda musi odtranit položku z myAdapter
+		// @ToDo tato metoda musi odtranit poloï¿½ku z myAdapter
 	}
 
 	// http://xjaphx.wordpress.com/2011/06/12/custom-grid-view-of-applications/
