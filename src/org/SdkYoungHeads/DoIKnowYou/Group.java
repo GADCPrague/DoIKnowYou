@@ -52,6 +52,7 @@ public class Group {
 	}
 	
 	public void addPerson(Person person) {
+		person.claimPhotos();
 		people.add(person);
 		save();
 	}

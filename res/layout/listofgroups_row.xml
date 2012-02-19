@@ -11,6 +11,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="4dp"
@@ -20,9 +21,8 @@
         android:id="@+id/group_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/group_icon"
         android:layout_centerVertical="true"
-         />
+        android:layout_toRightOf="@+id/group_icon" />
 
     <TextView
         android:id="@+id/group_count"
@@ -37,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
         android:layout_marginTop="4dp"
         android:src="@drawable/navigate_right" />

@@ -66,18 +66,18 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 	protected void check() {
 		if (selected == null) {
 			Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Please, make your guess.").
+			builder.setMessage(R.string.make_your_guess).
 			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
 	               public void onClick(DialogInterface dialog, int id) {
 	                    dialog.cancel();
 	               }
-	           }); // TODO: resource
+	           });
 			builder.show();
 			return;
 		}
 		Boolean ok = guessing.getName() == selected.getText();
 		if (!ok) {
-			Toast.makeText(getBaseContext(), guessing.getName(), 2000).show();
+			Toast.makeText(getBaseContext(), guessing.getName(), 1000).show(); // TODO: better notification
 		}
 		Tester t = ((Application)getApplication()).currentTester;
 		t.putResult(ok);
