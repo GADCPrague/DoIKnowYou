@@ -1,5 +1,8 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -31,13 +34,18 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		});
 	}
 	
+	protected void finishTesting() {
+
+		finish();
+		Intent i = new Intent(this, TestResultsActivity.class);
+		startActivity(i);
+	}
+	
 	public void setChoices() {
 		Tester tester = ((Application)getApplication()).currentTester; 
 		guessing = tester.getTestCase();
 		if (guessing == null) {
-			finish();
-			Intent i = new Intent(this, TestResultsActivity.class);
-			startActivity(i);
+			finishTesting();
 		} else {
 			RadioGroup rg = (RadioGroup)findViewById(R.id.testingChoices);
 			rg.removeAllViews();
@@ -63,7 +71,17 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		selected =  (RadioButton)paramRadioGroup.findViewById(paramInt);
 	}
 	
+	protected boolean submitted;
+	
 	protected void check() {
+		
+		Button b = (Button)findViewById(R.id.testingSubmit);
+		if (submitted) {
+			TestingActivity.this.setChoices();
+			submitted = false;
+			b.setText(R.string.submit);
+			return;
+		}
 		if (selected == null) {
 			Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.make_your_guess).
@@ -77,10 +95,22 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		}
 		Boolean ok = guessing.getName() == selected.getText();
 		if (!ok) {
-			Toast.makeText(getBaseContext(), guessing.getName(), 1000).show(); // TODO: better notification
+			selected.setBackgroundColor(R.color.wrong);
+		} else {
+			selected.setBackgroundColor(R.color.right);
 		}
+		selected.invalidate();
+		
 		Tester t = ((Application)getApplication()).currentTester;
 		t.putResult(ok);
-		setChoices();
+		//RadioGroup rg = (RadioGroup)findViewById(R.id.testingChoices);
+		//rg.setEnabled(false);
+		
+		if (t.getTestCase() == null) finishTesting();
+		else {
+		b.setText(R.string.test_next_question);
+		
+		submitted = true;
+		}
 	}
 }

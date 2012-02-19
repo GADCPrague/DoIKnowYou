@@ -6,4 +6,6 @@
     <color name="blue_light">#449def</color>
     <color name="green_dark">#53933f</color>
     <color name="green_light">#70c656</color>
+    <color name="right">#ee1111</color>
+    <color name="wrong">#11ee11</color>
 </resources>

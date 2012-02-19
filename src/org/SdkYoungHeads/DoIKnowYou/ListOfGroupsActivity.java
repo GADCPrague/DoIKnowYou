@@ -1,5 +1,7 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -60,6 +63,8 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 	            }
 
 	        });
+	        
+	    registerForContextMenu(groups);
 	}
 	
 	public void onResume() {
@@ -105,7 +110,6 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 				groupIcon.setImageBitmap(b);
 			}
 			
-			rowView.setTag(g);
 			// Change the icon for Windows and iPhone
 //			String s = values[position];
 //			if (s.startsWith("iPhone")) {
@@ -130,9 +134,10 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 	
 	@Override  
 	   public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
-	super.onCreateContextMenu(menu, v, menuInfo);  
+		super.onCreateContextMenu(menu, v, menuInfo);
+		AdapterContextMenuInfo ami = (AdapterContextMenuInfo)menuInfo;
 	    menu.setHeaderTitle("Group actions");  
-	    currentlySelectedGroup = (Group)v.getTag();
+	    currentlySelectedGroup = ((Application)getApplication()).getDatabase().getGroups()[ami.position];
 	    menu.add(0, v.getId(), 0, "Edit");
 	    menu.add(0, v.getId(), 0, "Delete");  
 	}
@@ -143,7 +148,18 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 			new AlertDialog.Builder(this).setMessage(R.string.really_delete_group).
 			setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	               public void onClick(DialogInterface dialog, int id) {
-	            	   ListOfGroupsActivity.this.deleteSelectedGroup();
+	            	   try {
+						ListOfGroupsActivity.this.deleteSelectedGroup();
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalStateException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 	            	   dialog.dismiss();
 	               }
 	           }).
@@ -161,8 +177,11 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
         return true;  
     }  
   
-    protected void deleteSelectedGroup() {
-    	((Application)getApplication()).getDatabase().removeGroup(currentlySelectedGroup);
+    protected void deleteSelectedGroup() throws IllegalArgumentException, IllegalStateException, IOException {
+    	GroupContainer gc = ((Application)getApplication()).getDatabase();
+    	gc.removeGroup(currentlySelectedGroup);
+    	currentlySelectedGroup = null;
+		gc.save(this);
     	refill();
 	}
 

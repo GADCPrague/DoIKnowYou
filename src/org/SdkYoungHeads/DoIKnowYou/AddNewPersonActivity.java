@@ -4,27 +4,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.SdkYoungHeads.DoIKnowYou.ListOfGroupsActivity.MyGroupAdapter;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.YuvImage;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -64,11 +56,11 @@ public class AddNewPersonActivity extends Activity {
 		Spinner s = (Spinner) findViewById(R.id.groupSpinner);
 		s.setAdapter(adapter);
 
-		// @ToDo nastavit defaultní selekt
+		// @ToDo nastavit defaultnï¿½ selekt
 		// s.setSelection(2);
 		// Group selectedGroup = ((Application) getApplication()).selectedGroup;
 
-		/* start tlaèítka pro výbìr fotky z galerie */
+		/* start tlaï¿½ï¿½tka pro vï¿½bï¿½r fotky z galerie */
 		Button buttonLoadImage = (Button) findViewById(R.id.loadimage);
 		textTargetUri = (TextView) findViewById(R.id.targeturi);
 		buttonLoadImage.setOnClickListener(new Button.OnClickListener() {
@@ -82,31 +74,38 @@ public class AddNewPersonActivity extends Activity {
 				startActivityForResult(intent, 0);
 			}
 		});
-		/* konec tlaèítka pro výbìr fotky z galerie */
+		/* konec tlaï¿½ï¿½tka pro vï¿½bï¿½r fotky z galerie */
 
 		setGroupSelection();
 
 		List<String> imageArray = new ArrayList<String>();
 		
-		MyGroupAdapter myAdapter = new MyGroupAdapter(this.getBaseContext(),imageArray);
-		myAdapter.add("polozka");
-		
+		myAdapter = new MyGroupAdapter(this.getBaseContext(),imageArray);	
 
 		//groups.clearChoices();
 		groups.setAdapter(myAdapter);
-
+		
+		addToAdapter("URI 2");
+		addToAdapter("URI 3");
 	}
 
+	/*
+	 * metoda pøidá URI do adaptéru
+	 */
+	public void addToAdapter(String string){
+		myAdapter.add(string);
+		myAdapter.notifyDataSetChanged();
+	}
+	
 	/*
 	 * metoda volana pridavacim tlacitkem pridava novou URI do listu obrazku
 	 */
 	private void addImageToGrid(Uri uri) {
-		// ToDo tady se namísto vložení do pole vloží do photoGrid
+		// ToDo tady se namï¿½sto vloï¿½enï¿½ do pole vloï¿½ï¿½ do photoGrid
 		EditText nameField = (EditText) findViewById(R.id.editTextName);
 		nameField.setText(uri.toString());
-		
-		myAdapter.add("polozka 2");
-		myAdapter.notifyDataSetChanged();
+		//myAdapter.add("polozka 2");
+		//myAdapter.notifyDataSetChanged();
 	}
 
 	/*
@@ -135,7 +134,8 @@ public class AddNewPersonActivity extends Activity {
 
 		if (resultCode == RESULT_OK) {
 			Uri targetUri = data.getData();
-			addImageToGrid(targetUri);
+			//targetUri.toString();
+			addToAdapter("URI");
 		}
 	}
 
