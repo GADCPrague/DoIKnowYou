@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -29,7 +30,7 @@ import android.widget.TextView;
 
 public class AddNewPersonActivity extends Activity {
 
-	protected ListView groups;
+	protected GridView groups;
 
 	private Group[] listItems;
 	protected ArrayAdapter<Group> adapter;
@@ -40,7 +41,7 @@ public class AddNewPersonActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnewperson);
-		groups = (ListView) this.findViewById(R.id.list_of_images);
+		groups = (GridView) this.findViewById(R.id.list_of_images);
 
 		List<Uri> imageArray = new ArrayList<Uri>();
 
