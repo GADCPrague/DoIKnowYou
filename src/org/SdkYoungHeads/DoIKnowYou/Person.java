@@ -105,10 +105,10 @@ public class Person {
 			int width = b.getWidth(), height = b.getHeight();
 			if (width > height) {
 				width = 50;
-				height = (int)(50 * ((double)height / (double)width));
+				height = (int)(50 * (double)height / (double)width);
 			} else {
 				height = 50;
-				width = (int)(50 * (double)(height) / (double)width);
+				width = (int)(50 * (double)width / (double)height);
 			}
 			
 			String name = UUID.randomUUID().toString() + ".jpg";
