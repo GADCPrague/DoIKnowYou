@@ -10,7 +10,7 @@ import android.widget.TextView;
 public class PersonActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.group);
+		setContentView(R.layout.person);
 		
 		try {
 			loadPerson();
