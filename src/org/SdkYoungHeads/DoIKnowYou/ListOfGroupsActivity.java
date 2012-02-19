@@ -105,7 +105,13 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 			Group g = gc.getGroups()[position];
 			groupName.setText(g.getName());
 			groupCount.setText(Integer.toString(g.getCount()));
-			Bitmap b = g.getIcon();
+			Bitmap b = null;
+			try {
+				b = g.getIcon(getBaseContext());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if (b != null) {
 				groupIcon.setImageBitmap(b);
 			}

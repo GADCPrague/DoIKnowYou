@@ -66,9 +66,6 @@ public class AddNewPersonActivity extends Activity {
 
 		Spinner s = (Spinner) findViewById(R.id.groupSpinner);
 		s.setAdapter(adapter);
-
-		// @ToDo nastavit defaultni select
-		// s.setSelection(2);
 		// Group selectedGroup = ((Application) getApplication()).selectedGroup;
 
 		/* start tlacitka pro vyber fotky z galerie */
@@ -93,7 +90,7 @@ public class AddNewPersonActivity extends Activity {
 	}
 
 	/*
-	 * metoda pøidá URI do adaptéru
+	 * metoda pï¿½idï¿½ URI do adaptï¿½ru
 	 */
 	public void addToAdapter(Uri uri) {
 		myAdapter.add(uri);
@@ -112,9 +109,10 @@ public class AddNewPersonActivity extends Activity {
 			int position = 0;
 			for (Group g : groupContainer.getGroups()) {
 				if (g == selectedGroup) {
-					s.setSelection(position++);
+					s.setSelection(position);
 					break;
 				}
+				position++;
 			}
 		}
 	}
@@ -204,7 +202,7 @@ public class AddNewPersonActivity extends Activity {
 	}
 
 	public void myClickHandler(View v) {
-		Log.d("", " Práve kliknuto");
+		Log.d("", " Prï¿½ve kliknuto");
 		Log.d("View", v.toString());
 		// myAdapter.remove();
 	}
