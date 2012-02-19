@@ -31,19 +31,8 @@ public class GroupActivity extends Activity {
 		people = (ListView) this.findViewById(R.id.list_of_people);
 
 		people.setAdapter(new MyPeopleAdapter(this.getBaseContext(), ((Application)getApplication()).selectedGroup));
-
-		/*
-		 * listener pro tlacitko na pridani nove osoby
-		 */
-		 Button next = (Button) findViewById(R.id.addNewPersonButton);
-	        next.setOnClickListener(new View.OnClickListener() {
-	            public void onClick(View view) {
-	                Intent myIntent = new Intent(view.getContext(), AddNewPersonActivity.class);
-	                startActivityForResult(myIntent, 0);
-	            }
-
-	        });
-
+	        
+	    registerForContextMenu(people);
 	}
 	
 	@Override  

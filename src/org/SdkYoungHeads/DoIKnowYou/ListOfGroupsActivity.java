@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -58,6 +59,8 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 	            }
 
 	        });
+	        
+	      registerForContextMenu(groups);
 	}
 	
 	public void onResume() {
@@ -73,25 +76,6 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 		groups.setOnItemClickListener(this);
 	}
 	
-	@Override  
-	   public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
-	super.onCreateContextMenu(menu, v, menuInfo);  
-	    menu.setHeaderTitle("Group actions");  
-	    menu.add(0, v.getId(), 0, "Edit");
-	    menu.add(0, v.getId(), 0, "Delete");  
-	}
-	
-    @Override  
-    public boolean onContextItemSelected(MenuItem item) {  
-        if(item.getTitle()=="Delete"){function1(item.getItemId());}   // TODO: make group deleting work
-        else if (item.getTitle()=="Edit"){function1(item.getItemId());} // TODO: make group editing work
-        else {return false;}  
-    return true;  
-    }  
-  
-    public void function1(int id){  
-        Toast.makeText(this, "function 1 called", Toast.LENGTH_SHORT).show();  
-    }  
 	
 	class MyGroupAdapter extends ArrayAdapter<Group> {
 		
@@ -123,10 +107,6 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 				groupIcon.setImageBitmap(b);
 			}
 			
-			//ListOfGroupsActivity.this.registerForContextMenu(rowView); <-- po tomhle nefunguje single click :(
-			
-			
-			
 			// Change the icon for Windows and iPhone
 //			String s = values[position];
 //			if (s.startsWith("iPhone")) {
@@ -146,4 +126,24 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 		Intent i = new Intent(this, GroupActivity.class);
 		startActivity(i);
 	}
+
+	@Override  
+	   public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
+	super.onCreateContextMenu(menu, v, menuInfo);  
+	    menu.setHeaderTitle("Group actions");  
+	    menu.add(0, v.getId(), 0, "Edit");
+	    menu.add(0, v.getId(), 0, "Delete");  
+	}
+	
+    @Override  
+    public boolean onContextItemSelected(MenuItem item) {  
+        if(item.getTitle()=="Delete"){function1(item.getItemId());}   // TODO: make group deleting work
+        else if (item.getTitle()=="Edit"){function1(item.getItemId());} // TODO: make group editing work
+        else {return false;}  
+    return true;  
+    }  
+  
+    public void function1(int id){  
+        Toast.makeText(this, "function 1 called", Toast.LENGTH_SHORT).show();  
+    }  
 }
