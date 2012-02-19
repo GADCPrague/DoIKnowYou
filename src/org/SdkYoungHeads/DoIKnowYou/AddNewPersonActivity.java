@@ -115,19 +115,19 @@ public class AddNewPersonActivity extends Activity {
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		AdapterContextMenuInfo ami = (AdapterContextMenuInfo) menuInfo;
-		menu.setHeaderTitle("Add new photo");
-		menu.add(0, v.getId(), 0, "Gallery");
-		menu.add(0, v.getId(), 0, "Camera");
+		menu.setHeaderTitle(R.string.addPhotoDialog_title);
+		menu.add(0, v.getId(), 0, R.string.imageFromGallery);
+		menu.add(0, v.getId(), 0, R.string.imageFromCamera);
 	}
 
 	@Override
 	public boolean onContextItemSelected(final MenuItem item) {
-		if (item.getTitle() == "Gallery") {
+		if (item.getTitle().equals(R.string.imageFromCamera)) {
 			Intent intent = new Intent(
 					Intent.ACTION_PICK,
 					android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 			startActivityForResult(intent, 0);
-		} else if (item.getTitle() == "Camera") {
+		} else if (item.getTitle().equals(R.string.imageFromGallery)) {
 			Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 			File photo = new File(Environment.getExternalStorageDirectory(),
 					"Pic.jpg");
@@ -256,18 +256,18 @@ public class AddNewPersonActivity extends Activity {
 	 */
 	protected void createDialog() {
 		AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
-		alt_bld.setMessage("New person has been added. Add another one?")
+		alt_bld.setMessage(R.string.addAnotherPerson_query)
 				.setCancelable(false)
-				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+				.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						// Action for �NO� Button
+						// Action for NO Button
 						finish();
 						dialog.cancel();
 					}
 
 				})
 
-				.setPositiveButton("Yes",
+				.setPositiveButton(R.string.yes,
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								// Action for YES Button
@@ -280,16 +280,16 @@ public class AddNewPersonActivity extends Activity {
 
 		AlertDialog alert = alt_bld.create();
 		// Title for AlertDialog
-		alert.setTitle("Person added");
+		alert.setTitle(R.string.addAnotherPerson_title);
 		// Icon for AlertDialog
 		alert.setIcon(R.drawable.ic_launcher);
 		alert.show();
 	}
 
 	public void myClickHandler(View v) {
-		Log.d("", " Prave kliknuto");
-		Log.d("View", v.toString());
-		// @ToDo tato metoda musi odtranit polo�ku z myAdapter
+		//Log.d("", " Prave kliknuto");
+		//Log.d("View", v.toString());
+		// @ToDo tato metoda musi odtranit polozku z myAdapter
 	}
 
 	// http://xjaphx.wordpress.com/2011/06/12/custom-grid-view-of-applications/
