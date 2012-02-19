@@ -54,9 +54,7 @@
                 <RadioButton
                     android:layout_width="fill_parent"
                     android:background="@color/wrong"
-                    android:text="XYZZY"
-                    android:textColor="@color/blue_dark"
-                    android:textColorHint="@color/blue_dark" />
+                    android:text="XYZZY"/>
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
