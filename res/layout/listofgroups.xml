@@ -2,12 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"  >
+    android:background="@color/white"
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:background="@color/blue_light"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp" 
+        android:paddingTop="5dp">
 
         <Button
             android:id="@+id/addNewGroupButton"
@@ -15,8 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="@string/add_group"
-            /><!--   android:drawableLeft="@android:drawable/ic_menu_add" -->
+            android:background="@drawable/group"
+             android:layout_marginRight="5dp" />
 
         <Button
             android:id="@+id/addNewPersonButton"
@@ -24,8 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/addNewGroupButton"
-            android:text="@string/add_person"
-			/>
+            android:background="@drawable/person"
+            android:layout_marginRight="5dp" />
 
         <TextView
             android:id="@+id/text"
@@ -33,16 +37,16 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
             android:text="@string/app_name"
-            android:textColor="#fff" />
-
+            android:textColor="@color/white"
+            android:textSize="20dp" />
     </RelativeLayout>
-        
-     <ListView
-         android:id="@+id/list_of_groups"
-         android:background="#000"
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent"
-         android:divider="#fff"
-         />
+
+    <ListView
+        android:id="@+id/list_of_groups"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@color/white" />
+
 </LinearLayout>

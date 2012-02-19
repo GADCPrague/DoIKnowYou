@@ -35,26 +35,25 @@ public class AddNewGroupActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnewgroup);
 		
-		Person[] p = ((Application)getApplication()).selectedPersons;
+//		Person[] p = ((Application)getApplication()).selectedPersons;
+//		
+//		if(p == null) {
+//			p = new Person[1];
+//			p[0] = new Person();
+//			p[0].setName("No record");
+//		}
 		
-		if(p == null) {
-			p = new Person[1];
-			p[0] = new Person();
-			p[0].setName("No record");
-		}
+//		personList = (ListView) this.findViewById(R.id.list_of_groups);
+//		adapter = new SelectedPersonsAdapter(this.getBaseContext(), p);
 		
-		personList = (ListView) this.findViewById(R.id.list_of_groups);
-		adapter = new SelectedPersonsAdapter(this.getBaseContext(), p);
-		//setAdapter();
-		
-		Button addPerson = (Button) findViewById(R.id.addPersonToGroupBtn);
-        addPerson.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), SelectPersonsActivity.class);
-                startActivityForResult(myIntent, 0);
-            }
-
-        });
+//		Button addPerson = (Button) findViewById(R.id.addPersonToGroupBtn);
+//        addPerson.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View view) {
+//                Intent myIntent = new Intent(view.getContext(), SelectPersonsActivity.class);
+//                startActivityForResult(myIntent, 0);
+//            }
+//
+//        });
         
         final TextView name = (TextView)findViewById(R.id.groupNameEdit);
                 
@@ -96,25 +95,29 @@ public class AddNewGroupActivity extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		setAdapter();
+//		setAdapter();
 	}
 	
-	protected void setAdapter() {
-		
-		Person[] p = ((Application)getApplication()).selectedPersons;
-		
-		if(p == null || p.length == 0) {
-			p = new Person[1];
-			p[0] = new Person();
-			p[0].setName("No record");
-		}
-		Log.d("????? >>>>>>", ">>>>>>>>>>>>>>>>>>>>>>>>" + p.length);
-		
-		adapter.setData(p);
-		personList.invalidate();
-		adapter.notifyDataSetChanged();
-		
-	}
+//	protected void setAdapter() {
+//		
+//		Person[] p = ((Application)getApplication()).selectedPersons;
+//		
+//		if(p == null || p.length == 0) {
+//			p = new Person[1];
+//			p[0] = new Person();
+//			p[0].setName("No record");
+//		}
+//		((Application)getApplication()).selectedPersons = null;
+//		Log.d("????? >>>>>>", ">>>>>>>>>>>>>>>>>>>>>>>>" + p.length);
+//		
+//		personList.clearChoices();
+//		adapter.setData(p);
+//		personList.setAdapter(adapter);
+//		
+////		personList.invalidate();
+////		adapter.notifyDataSetChanged();
+//		
+//	}
 	
 class SelectedPersonsAdapter extends ArrayAdapter<Person> {
 		
