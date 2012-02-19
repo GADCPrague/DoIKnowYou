@@ -40,11 +40,12 @@
         android:drawSelectorOnTop="true"
         android:prompt="@string/addNewPerson_spinner" />
 
+
     <Button
         android:id="@+id/loadimage"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Load Image" />
+        android:text="add" />
 
     <TextView
         android:id="@+id/targeturi"
@@ -52,7 +53,7 @@
         android:layout_height="wrap_content" />
 
     <GridView
-        android:id="@+id/gridView1"
+        android:id="@+id/photoGrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="3" >
