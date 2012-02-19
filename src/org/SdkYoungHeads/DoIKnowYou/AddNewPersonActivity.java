@@ -287,7 +287,7 @@ public class AddNewPersonActivity extends Activity {
 	}
 
 	public void myClickHandler(View v) {
-		Log.d("", " Prï¿½ve kliknuto");
+		Log.d("", " Prave kliknuto");
 		Log.d("View", v.toString());
 		// @ToDo tato metoda musi odtranit položku z myAdapter
 	}
