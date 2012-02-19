@@ -58,7 +58,6 @@ public class AddNewGroupActivity extends Activity {
         	public void onClick(View view) {
         		
         		String trimName = name.getText().toString().trim();
-        		
         		if("".equals(trimName)) {
         			Builder builder = new AlertDialog.Builder(AddNewGroupActivity.this);
         			builder.setMessage(R.string.group_empty).

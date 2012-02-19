@@ -43,7 +43,7 @@
                 android:layout_height="80dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="25dp"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/icon_person" />
 
             <RadioGroup
                 android:id="@+id/testingChoices"
