@@ -153,8 +153,9 @@ public class AddNewPersonActivity extends Activity {
 		List<String> pathArray = new ArrayList<String>();
 		for(int i=0;i<myAdapter.getCount();i++){
 			pathArray.add(myAdapter.getItem(i).toString());
+			//Log.d("",myAdapter.getItem(i).toString());
 		}
-		person.setPhotoPaths(pathArray);
+		person.setPhotoPaths(this.getBaseContext(),pathArray);
 
 		GroupContainer groupContainer;
 		groupContainer = ((Application) getApplication()).getDatabase();
