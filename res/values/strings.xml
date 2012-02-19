@@ -35,4 +35,5 @@
 	<string name="test_next_question">Next question&#8230;</string>
 	<string name="testing">Testing</string>
 	<string name="results">Result</string>
+	<string name="name_not_set">Please enter name! </string>
 </resources>
