@@ -5,7 +5,7 @@
     <string name="submit">Submit</string>
     <string name="addNewPerson">Add new person</string>
     
-    <string name="new_group_title">New group</string>
+    <string name="new_group_title">Add new group</string>
     <string name="name">Name:</string>
     <string name="persons">People:</string>
     <string name="add_group">+ G</string>

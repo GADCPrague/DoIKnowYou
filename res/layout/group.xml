@@ -1,57 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
 
-    <RelativeLayout android:orientation="horizontal"
-        	android:layout_width="match_parent"
-        	android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:background="@color/blue_light"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" >
 
-	    <Button
-	        android:id="@+id/runTestButton"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:layout_alignParentTop="true"
-	        android:text="@string/start_test"
-	        android:onClick="runTest"
-	        
-	         />
+        <Button
+            android:id="@+id/runTestButton"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/test"
+            android:onClick="runTest" />
 
-	    <TextView
-	        android:id="@+id/group_name"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_centerVertical="true"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
+        <Button
+            android:id="@+id/addPersonGroupButton"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/runTestButton"
+            android:background="@drawable/person"
+            android:onClick="addPerson" />
 
-	    <TextView
-	        android:id="@+id/text"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignBaseline="@+id/addNewPersonButton"
-	        android:layout_alignBottom="@+id/addNewPersonButton"
-	        android:layout_alignParentLeft="true"
-	        android:text="@string/app_name"
-	        android:textColor="#fff" />
-
-	    <Button
-	        android:id="@+id/addPersonGroupButton"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:layout_toLeftOf="@+id/runTestButton"
-	        android:onClick="addPerson"
-	        android:text="@string/add_person" />
+        <TextView
+            android:id="@+id/group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            android:text="@string/app_name"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+    </RelativeLayout>
 
 
-	</RelativeLayout>
-     <ListView
-         android:id="@+id/list_of_people"
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent"
-         android:divider="#fff"
-         />
+    <ListView
+        android:id="@+id/list_of_people"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@color/white" />
+
 </LinearLayout>
