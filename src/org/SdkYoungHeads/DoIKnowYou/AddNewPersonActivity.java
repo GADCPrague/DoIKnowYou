@@ -289,7 +289,7 @@ public class AddNewPersonActivity extends Activity {
 	public void myClickHandler(View v) {
 		Log.d("", " Prave kliknuto");
 		Log.d("View", v.toString());
-		// @ToDo tato metoda musi odtranit položku z myAdapter
+		// @ToDo tato metoda musi odtranit poloï¿½ku z myAdapter
 	}
 
 	// http://xjaphx.wordpress.com/2011/06/12/custom-grid-view-of-applications/
