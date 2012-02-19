@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -194,4 +196,22 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 	public void function1(int id){  
         Toast.makeText(this, "function 1 called", Toast.LENGTH_SHORT).show();  
     }  
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		new MenuInflater(getApplication()).inflate(R.menu.menu, menu);
+		
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		
+		Intent myIntent = new Intent(getApplication(), AboutActivity.class);
+        startActivityForResult(myIntent, 0);
+		
+		return super.onOptionsItemSelected(item);
+	}
 }

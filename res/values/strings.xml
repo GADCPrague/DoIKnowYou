@@ -37,4 +37,6 @@
 	<string name="testing">Testing</string>
 	<string name="results">Result</string>
 	<string name="name_not_set">Please enter name! </string>
+	<string name="menuAboutString">About</string>
+	
 </resources>
