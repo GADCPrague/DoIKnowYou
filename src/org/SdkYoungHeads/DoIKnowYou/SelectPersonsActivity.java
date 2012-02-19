@@ -1,5 +1,4 @@
-/*
- * package org.SdkYoungHeads.DoIKnowYou;
+package org.SdkYoungHeads.DoIKnowYou;
 
 import java.util.ArrayList;
 
@@ -25,6 +24,7 @@ public class SelectPersonsActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.selectpersons);
 		
@@ -86,9 +86,9 @@ class MyPersonAdapter extends ArrayAdapter<Person> {
 			
 //			ImageView personIcon = (ImageView) rowView.findViewById(R.id.group_icon);
 			TextView personName = (TextView) rowView.findViewById(R.id.person_name);
-//			CheckBox check = (CheckBox) rowView.findViewById(R.id.check);
+			CheckBox check = (CheckBox) rowView.findViewById(R.id.check);
 			
-//			check.setOnClickListener(new OnClickListener() {
+			check.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
@@ -98,10 +98,10 @@ class MyPersonAdapter extends ArrayAdapter<Person> {
 					Log.d("", "" + c.isChecked() + " " + position);
 				}
 			});
+			
 			personName.setText(persons[position].getName());
 
 			return rowView;
 		}
 	}
 }
-*/
