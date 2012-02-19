@@ -2,14 +2,19 @@ package org.SdkYoungHeads.DoIKnowYou;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.SdkYoungHeads.DoIKnowYou.ListOfGroupsActivity.MyGroupAdapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,25 +28,27 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-
 public class AddNewPersonActivity extends Activity {
 
-	ArrayList<String> listItems = new ArrayList<String>();
-	protected ArrayAdapter<String> adapter;
+	protected ListView groups;
 
-	private GroupContainer groupContainer;
-
-	private GridView photoGrid;
-	TextView textTargetUri;
+	private Group[] listItems;
+	protected ArrayAdapter<Group> adapter;
+	private TextView textTargetUri;
+	private List<String> imageArray;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnewperson);
+		groups = (ListView) this.findViewById(R.id.list_of_images);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
+		this.imageArray = new ArrayList<String>();
+		
+		
 		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
 				this, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -59,22 +66,7 @@ public class AddNewPersonActivity extends Activity {
 		// s.setSelection(2);
 		// Group selectedGroup = ((Application) getApplication()).selectedGroup;
 
-
-		
-	    GridView photoGrid = (GridView) findViewById(R.id.photoGrid);
-	    photoGrid.setAdapter(new ImageAdapter(getApplicationContext()));
-
-
-	    photoGrid.setOnItemClickListener(new GridView.OnItemClickListener() {
-	        public void onItemClick(AdapterView parent, View v, int position, long id) 
-	        {                
-	            //tady je nutné smazat obrázek
-	        }
-	    });   
-
-	    
-	    
-	    /* start tlaèítka pro výbìr fotky z galerie */
+		/* start tlaèítka pro výbìr fotky z galerie */
 		Button buttonLoadImage = (Button) findViewById(R.id.loadimage);
 		textTargetUri = (TextView) findViewById(R.id.targeturi);
 		buttonLoadImage.setOnClickListener(new Button.OnClickListener() {
@@ -90,30 +82,49 @@ public class AddNewPersonActivity extends Activity {
 		});
 		/* konec tlaèítka pro výbìr fotky z galerie */
 
+		setGroupSelection();
+		
+		
+		
+		groups.clearChoices();
+		groups.setAdapter(new MyGroupAdapter(this.getBaseContext()),this.imageArray);
+
+		//groups.add("ds");
 	}
 
-	private void addImageToGrid(Uri uri){
-		//ToDo tady se namísto vložení do pole vloží do photoGrid
+	/*
+	 * pøidá url do seznamu
+	 */
+	public void add(String uri){
+		imageArray.add(uri);
+	}
+	
+	/*
+	 * metoda volana pridavacim tlacitkem pridava novou URI do listu obrazku
+	 */
+	private void addImageToGrid(Uri uri) {
+		// ToDo tady se namísto vložení do pole vloží do photoGrid
 		EditText nameField = (EditText) findViewById(R.id.editTextName);
 		nameField.setText(uri.toString());
-		
-
-		
-		setGroupSelection();
 	}
+
+	/*
+	 * metoda nastavuje defaultni hodnotu spinneru
+	 */
 	protected void setGroupSelection() {
 		Spinner s = (Spinner) findViewById(R.id.groupSpinner);
 		Group selectedGroup = ((Application) getApplication()).selectedGroup;
-		GroupContainer groupContainer = ((Application)getApplication()).getDatabase();
+		GroupContainer groupContainer = ((Application) getApplication())
+				.getDatabase();
 		if (selectedGroup != null) {
 			int position = 0;
-			for (Group g: groupContainer .getGroups()){
+			for (Group g : groupContainer.getGroups()) {
 				if (g == selectedGroup) {
 					s.setSelection(position++);
 					break;
 				}
 			}
-		}	
+		}
 	}
 
 	@Override
@@ -135,7 +146,8 @@ public class AddNewPersonActivity extends Activity {
 	 * 
 	 * @return void
 	 */
-	public void addPerson(View button) throws IllegalArgumentException, IllegalStateException, IOException {
+	public void addPerson(View button) throws IllegalArgumentException,
+			IllegalStateException, IOException {
 		final EditText nameField = (EditText) findViewById(R.id.editTextName);
 		String personName = nameField.getText().toString();
 
@@ -172,15 +184,16 @@ public class AddNewPersonActivity extends Activity {
 
 				})
 
-				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						// Action for YES Button
-						Intent intent = getIntent();
-						finish();
-						startActivity(intent);
-						dialog.cancel();
-					}
-				});
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								// Action for YES Button
+								Intent intent = getIntent();
+								finish();
+								startActivity(intent);
+								dialog.cancel();
+							}
+						});
 
 		AlertDialog alert = alt_bld.create();
 		// Title for AlertDialog
@@ -190,54 +203,38 @@ public class AddNewPersonActivity extends Activity {
 		alert.show();
 	}
 
-	//http://xjaphx.wordpress.com/2011/06/12/custom-grid-view-of-applications/
-	//http://android-er.blogspot.com/2011/02/select-image-using-android-build-in.html
-	
-	public class ImageAdapter extends BaseAdapter 
-	{
-		//ToDo pøedìlat na ArrayAdapter nebo jinak dostat do Adaptéru metodu add
-	    private Context context;
+	// http://xjaphx.wordpress.com/2011/06/12/custom-grid-view-of-applications/
+	// http://android-er.blogspot.com/2011/02/select-image-using-android-build-in.html
 
-	    public ImageAdapter(Context c) 
-	    {
-	        context = c;
-	    }
+class MyGroupAdapter extends ArrayAdapter<Group> {
+		
+		protected Context context;
+		
 
-	    //---returns the number of images---
-	    public int getCount() {
-	        return imageIDs.length;
-	    }
+		public MyGroupAdapter(Context context,List<String> imageArray) {
+			super(AddNewPersonActivity.this, R.layout.addnewperson_row, imageArray);
+			this.context = context;
+		}
+		
 
-	    //---returns the ID of an item--- 
-	    public Object getItem(int position) {
-	        return position;
-	    }
+		
+		public View getView(int position, View convertView, ViewGroup parent) {
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			View rowView = inflater.inflate(R.layout.addnewperson_row, parent, false);
+			TextView groupName = (TextView) rowView.findViewById(R.id.group_name);
+			TextView groupCount = (TextView) rowView.findViewById(R.id.group_count);
+			//ImageView groupIcon = (ImageView) rowView.findViewById(R.id.group_icon);
 
-	    public long getItemId(int position) {
-	        return position;
-	    }
-
-	    //---returns an ImageView view---
-	    public View getView(int position, View convertView, ViewGroup parent) 
-	    {
-	        ImageView imageView;
-	        if (convertView == null) {
-	            imageView = new ImageView(context);
-	            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-	            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-	            imageView.setPadding(5, 5, 5, 5);
-	        } else {
-	            imageView = (ImageView) convertView;
-	        }
-	        imageView.setImageResource(imageIDs[position]);
-	        return imageView;
-	    }
-
-	    Integer[] imageIDs = {
-	            R.drawable.ic_launcher,
-	            R.drawable.ic_launcher
-	    };
-	}   
+			groupName.setText("text");
+			groupCount.setText("text");
+			/*
+			Bitmap b = g.getIcon();
+			if (b != null) {
+				groupIcon.setImageBitmap(b);
+			}
+			*/
+			return rowView;
+		}
+	}
 }
-
- 
