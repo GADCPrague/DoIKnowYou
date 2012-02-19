@@ -1,6 +1,9 @@
 package org.SdkYoungHeads.DoIKnowYou;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -31,19 +34,8 @@ public class GroupActivity extends Activity {
 		people = (ListView) this.findViewById(R.id.list_of_people);
 
 		people.setAdapter(new MyPeopleAdapter(this.getBaseContext(), ((Application)getApplication()).selectedGroup));
-
-		/*
-		 * listener pro tlacitko na pridani nove osoby
-		 */
-		 Button next = (Button) findViewById(R.id.addNewPersonButton);
-	        next.setOnClickListener(new View.OnClickListener() {
-	            public void onClick(View view) {
-	                Intent myIntent = new Intent(view.getContext(), AddNewPersonActivity.class);
-	                startActivityForResult(myIntent, 0);
-	            }
-
-	        });
-
+	        
+	    registerForContextMenu(people);
 	}
 	
 	@Override  
@@ -105,10 +97,23 @@ public class GroupActivity extends Activity {
 	
 	public void runTest(View view) {
 		Application app = ((Application)getApplication());
-		app.currentTester = new SimpleTester();
-		app.currentTester.setGroup(app.selectedGroup);
-		Intent i = new Intent(this, TestingActivity.class);
-		startActivity(i);
+		
+		if (app.selectedGroup.getCount() < 2) {
+			Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("This group has too few members.").
+			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           }); // TODO: resource
+			builder.show();
+			return;
+		} else {
+			app.currentTester = new SimpleTester();
+			app.currentTester.setGroup(app.selectedGroup);
+			Intent i = new Intent(this, TestingActivity.class);
+			startActivity(i);
+		}
 	}
 	
 	public void addPerson(View view) {
