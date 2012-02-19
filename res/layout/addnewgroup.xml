@@ -32,7 +32,7 @@
         android:maxLines="1"
         android:maxLength="50" 
         android:hint="@string/enter_group_name"/>
-    <RelativeLayout 
+<!--     <RelativeLayout 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -58,6 +58,7 @@
          android:layout_height="100px"
          android:divider="#fff"
          />
+-->
      <Button 
             android:text="@string/create_group_btn"
             android:id="@+id/createGroupBtn"
