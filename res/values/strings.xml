@@ -9,7 +9,7 @@
     <string name="name">Name:</string>
     <string name="persons">People:</string>
     <string name="add_group">+ G</string>
-    <string name="add_person">+ P</string>
+    <string name="add_person">+ P</string> <!--  TODO: neco lepsiho... -->
     <string name="back">back</string>
     <string name="app_name">Do I Know You?</string>
 	<string name="enter_group_name">Enter name</string>
@@ -17,7 +17,7 @@
 	<string name="create_group_btn">Create</string>
 	<string name="add_person_to_group_btn">Add person</string>
 	<string name="addNewPerson_description">Please fill in some details:</string>
-	<string name="addNewPerson_textEdit">Name or Nickname</string>
+	<string name="addNewPerson_textEdit">Name or nickname:</string>
 	<string name="addNewPerson_spinner">Select group</string>
 	<string name="addNewPerson_submit">Done, add me!</string>
 	<string name="select_persons">Select persons</string>

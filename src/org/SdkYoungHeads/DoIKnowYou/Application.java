@@ -3,7 +3,9 @@ package org.SdkYoungHeads.DoIKnowYou;
 public class Application extends android.app.Application {
 	private GroupContainer data;
 	public Group selectedGroup;
+	//@ToDo selectGroup není duvod aby byla public, udelat settery a gettery
 	public Tester currentTester;
+	public Person[] selectedPersons = null;
 	
 	public Application() {
 		data = new GroupContainer();
@@ -13,7 +15,6 @@ public class Application extends android.app.Application {
 	public void onCreate() {
 		super.onCreate();
 		data.load(getBaseContext());
-		getDatabase().createExampleData();
 	}
 	
 	public GroupContainer getDatabase() {
