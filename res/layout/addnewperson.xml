@@ -89,6 +89,7 @@
 	    </LinearLayout>
     </LinearLayout>
 
+
     <Button
         android:id="@+id/buttonAddPerson"
         android:layout_width="fill_parent"
