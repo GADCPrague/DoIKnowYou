@@ -15,7 +15,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="4dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/icon_group" />
 
     <TextView
         android:id="@+id/group_name"
