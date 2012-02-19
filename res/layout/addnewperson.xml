@@ -54,7 +54,8 @@
     <ListView
         android:id="@+id/list_of_images"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="173dp"
+        android:layout_weight="1.02"
         android:background="#000"
         android:divider="#fff" />
 

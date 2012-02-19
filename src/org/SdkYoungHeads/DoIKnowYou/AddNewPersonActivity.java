@@ -88,15 +88,22 @@ public class AddNewPersonActivity extends Activity {
 
 		List<String> imageArray = new ArrayList<String>();
 		
-		MyGroupAdapter myAdapter = new MyGroupAdapter(this.getBaseContext(),imageArray);
-		myAdapter.add("polozka");
-		
-
+		myAdapter = new MyGroupAdapter(this.getBaseContext(),imageArray);	
 		//groups.clearChoices();
 		groups.setAdapter(myAdapter);
-
+		
+		addToAdapter("URI 2");
+		addToAdapter("URI 3");
 	}
 
+	/*
+	 * metoda pøidá URI do adaptéru
+	 */
+	public void addToAdapter(String string){
+		myAdapter.add(string);
+		myAdapter.notifyDataSetChanged();
+	}
+	
 	/*
 	 * metoda volana pridavacim tlacitkem pridava novou URI do listu obrazku
 	 */
@@ -104,9 +111,8 @@ public class AddNewPersonActivity extends Activity {
 		// ToDo tady se namísto vložení do pole vloží do photoGrid
 		EditText nameField = (EditText) findViewById(R.id.editTextName);
 		nameField.setText(uri.toString());
-		
-		myAdapter.add("polozka 2");
-		myAdapter.notifyDataSetChanged();
+		//myAdapter.add("polozka 2");
+		//myAdapter.notifyDataSetChanged();
 	}
 
 	/*
@@ -135,7 +141,8 @@ public class AddNewPersonActivity extends Activity {
 
 		if (resultCode == RESULT_OK) {
 			Uri targetUri = data.getData();
-			addImageToGrid(targetUri);
+			//targetUri.toString();
+			addToAdapter("URI");
 		}
 	}
 
