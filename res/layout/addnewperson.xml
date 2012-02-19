@@ -27,6 +27,62 @@
             android:textColor="@color/white"
             android:textSize="20dp" />
     </RelativeLayout>
+<<<<<<< HEAD
+        <EditText
+	        android:id="@+id/editTextName"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp"
+	        android:hint="@string/addNewPerson_textEdit"
+	        android:inputType="textPersonName" >
+
+	    </EditText>
+	
+	    <TextView
+	        android:id="@+id/textViewTitle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="7dp"
+	        android:layout_marginTop="10dp"
+	        android:text="@string/selectGroup"
+	        android:textSize="10pt" >
+	    </TextView>
+	
+	    <Spinner
+	        android:id="@+id/groupSpinner"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:drawSelectorOnTop="true"
+	        android:prompt="@string/addNewPerson_spinner" />
+	
+	    <Button
+	        android:id="@+id/loadimage"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/addPhoto" />
+	
+	    <TextView
+	        android:id="@+id/targeturi"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content" />
+	
+	    <TextView
+	        android:id="@+id/listPhoto"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="7dp"
+	        android:layout_marginTop="10dp"
+	        android:text="@string/listPhoto"
+	        android:textSize="10pt" >
+	    </TextView>
+	
+	    <ListView
+	        android:id="@+id/list_of_images"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:background="@color/white"
+	        android:divider="#fff" />
+=======
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -88,6 +144,7 @@
 		        android:background="@color/white"
 		        android:divider="#fff" />
 	    </LinearLayout>
+>>>>>>> 67bdf37aa0e7ef8aa5bea5901b29c1c666fd93c5
     </LinearLayout>
 
     <Button
