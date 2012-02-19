@@ -1,4 +1,5 @@
-package org.SdkYoungHeads.DoIKnowYou;
+/*
+ * package org.SdkYoungHeads.DoIKnowYou;
 
 import java.util.ArrayList;
 
@@ -105,3 +106,4 @@ class MyPersonAdapter extends ArrayAdapter<Person> {
 		}
 	}
 }
+*/
