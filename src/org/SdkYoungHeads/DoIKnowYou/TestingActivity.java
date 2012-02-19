@@ -66,6 +66,7 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 			RadioGroup rg = (RadioGroup)findViewById(R.id.testingChoices);
 			rg.removeAllViews();
 			
+			selected = null;
 			for (Person p: tester.getChoices()) {
 				RadioButton rb = new RadioButton(this);
 				rb.setText(p.getName());
