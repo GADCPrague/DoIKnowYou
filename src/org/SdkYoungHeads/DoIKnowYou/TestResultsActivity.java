@@ -21,6 +21,9 @@ public class TestResultsActivity extends Activity {
 		pb.setMax(tester.getMaximumPoints());
 		pb.setProgress(tester.getPoints());
 		
+		TextView title = (TextView) findViewById(R.id.text);
+		title.setText(title.getText() + " " + ((Application)getApplication()).selectedGroup.getName());
+		
 		TextView tv = (TextView)findViewById(R.id.testResultString);
 		tv.setText("You were " + tester.getPercent() + "% successful!");
 		// TODO: right, wrong, who, ...
