@@ -1,3 +1,5 @@
+/*
+ *
 package org.SdkYoungHeads.DoIKnowYou;
 
 import java.util.ArrayList;
@@ -98,9 +100,11 @@ class MyPersonAdapter extends ArrayAdapter<Person> {
 					Log.d("", "" + c.isChecked() + " " + position);
 				}
 			});
+			
 			personName.setText(persons[position].getName());
 
 			return rowView;
 		}
 	}
 }
+*/

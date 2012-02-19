@@ -1,54 +1,72 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.SdkYoungHeads.DoIKnowYou.ListOfGroupsActivity.MyGroupAdapter;
-
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class AddNewPersonActivity extends Activity {
 
-	protected ListView groups;
+	private static final int TAKE_PICTURE = 0;
+
+	protected GridView groups;
 
 	private Group[] listItems;
 	protected ArrayAdapter<Group> adapter;
 	private TextView textTargetUri;
-	private List<String> imageArray;
+	private List<Uri> imageArray;
+	private MyGroupAdapter myAdapter;
+	private Uri imageUri;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnewperson);
-		groups = (ListView) this.findViewById(R.id.list_of_images);
+		groups = (GridView) this.findViewById(R.id.list_of_images);
+
+		List<Uri> imageArray = new ArrayList<Uri>();
+
+		myAdapter = new MyGroupAdapter(this.getBaseContext(), imageArray);
+
+		// groups.clearChoices();
+		Button loadImageBtn = null;
+		loadImageBtn = (Button) findViewById(R.id.loadimage);
+		registerForContextMenu(loadImageBtn);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		this.imageArray = new ArrayList<String>();
-		
-		
+
 		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
 				this, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -61,12 +79,10 @@ public class AddNewPersonActivity extends Activity {
 
 		Spinner s = (Spinner) findViewById(R.id.groupSpinner);
 		s.setAdapter(adapter);
-
-		// @ToDo nastavit defaultní selekt
-		// s.setSelection(2);
 		// Group selectedGroup = ((Application) getApplication()).selectedGroup;
 
-		/* start tlaèítka pro výbìr fotky z galerie */
+		/* start tlacitka pro vyber fotky z galerie */
+
 		Button buttonLoadImage = (Button) findViewById(R.id.loadimage);
 		textTargetUri = (TextView) findViewById(R.id.targeturi);
 		buttonLoadImage.setOnClickListener(new Button.OnClickListener() {
@@ -74,38 +90,61 @@ public class AddNewPersonActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(
-						Intent.ACTION_PICK,
-						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-				startActivityForResult(intent, 0);
+				/*
+				 * Intent intent = new Intent( Intent.ACTION_PICK,
+				 * android.provider
+				 * .MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				 * startActivityForResult(intent, 0);
+				 */
+				Button loadImageBtn = null;
+				loadImageBtn = (Button) findViewById(R.id.loadimage);
+				openContextMenu(loadImageBtn);
+
 			}
 		});
-		/* konec tlaèítka pro výbìr fotky z galerie */
+		/* konec tlacitka pro vyber fotky z galerie */
 
 		setGroupSelection();
-		
-		
-		
-		groups.clearChoices();
-		groups.setAdapter(new MyGroupAdapter(this.getBaseContext()),this.imageArray);
 
-		//groups.add("ds");
+		groups.setAdapter(myAdapter);
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		AdapterContextMenuInfo ami = (AdapterContextMenuInfo) menuInfo;
+		menu.setHeaderTitle("Add new photo");
+		menu.add(0, v.getId(), 0, "Gallery");
+		menu.add(0, v.getId(), 0, "Camera");
+	}
+
+	@Override
+	public boolean onContextItemSelected(final MenuItem item) {
+		if (item.getTitle() == "Gallery") {
+			Intent intent = new Intent(
+					Intent.ACTION_PICK,
+					android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+			startActivityForResult(intent, 0);
+		} else if (item.getTitle() == "Camera") {
+			Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+			File photo = new File(Environment.getExternalStorageDirectory(),
+					"Pic.jpg");
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
+			imageUri = Uri.fromFile(photo);
+			startActivityForResult(intent, 3);
+		} else {
+			return false;
+		}
+		return true;
 	}
 
 	/*
-	 * pøidá url do seznamu
+	 * metoda preda URI do adapteru
 	 */
-	public void add(String uri){
-		imageArray.add(uri);
-	}
-	
-	/*
-	 * metoda volana pridavacim tlacitkem pridava novou URI do listu obrazku
-	 */
-	private void addImageToGrid(Uri uri) {
-		// ToDo tady se namísto vložení do pole vloží do photoGrid
-		EditText nameField = (EditText) findViewById(R.id.editTextName);
-		nameField.setText(uri.toString());
+	public void addToAdapter(Uri uri) {
+		myAdapter.add(uri);
+		myAdapter.notifyDataSetChanged();
 	}
 
 	/*
@@ -120,9 +159,10 @@ public class AddNewPersonActivity extends Activity {
 			int position = 0;
 			for (Group g : groupContainer.getGroups()) {
 				if (g == selectedGroup) {
-					s.setSelection(position++);
+					s.setSelection(position);
 					break;
 				}
+				position++;
 			}
 		}
 	}
@@ -132,10 +172,33 @@ public class AddNewPersonActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 
-		if (resultCode == RESULT_OK) {
-			Uri targetUri = data.getData();
-			addImageToGrid(targetUri);
+		switch (requestCode) {
+		case 3:
+			if (resultCode == RESULT_OK) {
+				//Uri selectedImage = imageUri;
+				Log.d("", "photo taken");
+				Log.d("", imageUri.toString());
+				addToAdapter(imageUri);
+				/*
+				 * getContentResolver().notifyChange(selectedImage, null);
+				 * ImageView imageView = (ImageView)
+				 * findViewById(R.id.ImageView); ContentResolver cr =
+				 * getContentResolver(); Bitmap bitmap; try { bitmap =
+				 * android.provider.MediaStore.Images.Media .getBitmap(cr,
+				 * selectedImage);
+				 * 
+				 * imageView.setImageBitmap(bitmap); Toast.makeText(this,
+				 * selectedImage.toString(), Toast.LENGTH_LONG).show(); } catch
+				 * (Exception e) { Toast.makeText(this, "Failed to load",
+				 * Toast.LENGTH_SHORT) .show(); Log.e("Camera", e.toString()); }
+				 */
+			}
+		case 0:
+			if (resultCode == RESULT_OK) {
+				addToAdapter(data.getData());
+			}
 		}
+
 	}
 
 	/*
@@ -156,6 +219,14 @@ public class AddNewPersonActivity extends Activity {
 
 		Person person = new Person();
 		person.setName(personName);
+		myAdapter.getCount();
+
+		List<String> pathArray = new ArrayList<String>();
+		for (int i = 0; i < myAdapter.getCount(); i++) {
+			pathArray.add(myAdapter.getItem(i).toString());
+			// Log.d("",myAdapter.getItem(i).toString());
+		}
+		person.setPhotoPaths(this.getBaseContext(), pathArray);
 
 		GroupContainer groupContainer;
 		groupContainer = ((Application) getApplication()).getDatabase();
@@ -203,38 +274,38 @@ public class AddNewPersonActivity extends Activity {
 		alert.show();
 	}
 
+	public void myClickHandler(View v) {
+		Log.d("", " Prï¿½ve kliknuto");
+		Log.d("View", v.toString());
+		// @ToDo tato metoda musi odtranit položku z myAdapter
+	}
+
 	// http://xjaphx.wordpress.com/2011/06/12/custom-grid-view-of-applications/
 	// http://android-er.blogspot.com/2011/02/select-image-using-android-build-in.html
 
-class MyGroupAdapter extends ArrayAdapter<Group> {
-		
-		protected Context context;
-		
+	class MyGroupAdapter extends ArrayAdapter<Uri> {
 
-		public MyGroupAdapter(Context context,List<String> imageArray) {
-			super(AddNewPersonActivity.this, R.layout.addnewperson_row, imageArray);
+		protected Context context;
+
+		// private List<Uri> imageArray;
+
+		public MyGroupAdapter(Context context, List<Uri> imageArray) {
+			super(AddNewPersonActivity.this, R.layout.addnewperson_row,
+					imageArray);
 			this.context = context;
 		}
-		
 
-		
 		public View getView(int position, View convertView, ViewGroup parent) {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			View rowView = inflater.inflate(R.layout.addnewperson_row, parent, false);
-			TextView groupName = (TextView) rowView.findViewById(R.id.group_name);
-			TextView groupCount = (TextView) rowView.findViewById(R.id.group_count);
-			//ImageView groupIcon = (ImageView) rowView.findViewById(R.id.group_icon);
+			View rowView = inflater.inflate(R.layout.addnewperson_row, parent,
+					false);
+			ImageView groupIcon = (ImageView) rowView
+					.findViewById(R.id.photo_miniature);
+			groupIcon.setImageURI(super.getItem(position));
 
-			groupName.setText("text");
-			groupCount.setText("text");
-			/*
-			Bitmap b = g.getIcon();
-			if (b != null) {
-				groupIcon.setImageBitmap(b);
-			}
-			*/
 			return rowView;
 		}
 	}
+
 }

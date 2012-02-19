@@ -2,8 +2,11 @@
 <resources>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
-    <color name="blue_dark">#2f6699</color>
+    <color name="blue_dark">#ff2f6699</color>
     <color name="blue_light">#449def</color>
     <color name="green_dark">#53933f</color>
     <color name="green_light">#70c656</color>
+    <color name="right">#11ee11</color>
+    <color name="wrong">#ee1111</color>
+    <color name="radio_default">#000000</color>
 </resources>

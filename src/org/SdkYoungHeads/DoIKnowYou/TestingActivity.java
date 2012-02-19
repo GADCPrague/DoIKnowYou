@@ -1,5 +1,9 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
+import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -10,9 +14,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class TestingActivity extends Activity implements OnCheckedChangeListener {
@@ -21,39 +27,61 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.testing);
-		setChoices();
+		try {
+			setChoices();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		TextView tv = (TextView) findViewById(R.id.text);
+		tv.setText(tv.getText() + " " + ((Application)getApplication()).selectedGroup.getName());
 		
 		Button btn = (Button)findViewById(R.id.testingSubmit);
 		btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-            	check();
+            	try {
+					check();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
 		});
 	}
 	
-	public void setChoices() {
+	protected void finishTesting() {
+
+		finish();
+		Intent i = new Intent(this, TestResultsActivity.class);
+		startActivity(i);
+	}
+	
+	public void setChoices() throws IOException {
 		Tester tester = ((Application)getApplication()).currentTester; 
 		guessing = tester.getTestCase();
 		if (guessing == null) {
-			finish();
-			Intent i = new Intent(this, TestResultsActivity.class);
-			startActivity(i);
+			finishTesting();
 		} else {
 			RadioGroup rg = (RadioGroup)findViewById(R.id.testingChoices);
 			rg.removeAllViews();
 			
+			selected = null;
 			for (Person p: tester.getChoices()) {
 				RadioButton rb = new RadioButton(this);
 				rb.setText(p.getName());
-		
+				LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+				rb.setLayoutParams(params);
+				rb.setTextColor(R.color.radio_default);
+						
 				rg.addView(rb);
 				rg.setOnCheckedChangeListener(this);
 			}
 		
 			ImageView iw = (ImageView)findViewById(R.id.imageView1);
-			Bitmap bmp = guessing.getSomePhoto();
+			Bitmap bmp = guessing.getSomePhoto(getBaseContext());
 			if (bmp != null) {
-				iw.setImageBitmap(guessing.getSomePhoto());
+				iw.setImageBitmap(guessing.getSomePhoto(getBaseContext()));
 			}
 		}
 	}
@@ -63,24 +91,69 @@ public class TestingActivity extends Activity implements OnCheckedChangeListener
 		selected =  (RadioButton)paramRadioGroup.findViewById(paramInt);
 	}
 	
-	protected void check() {
+	protected boolean submitted;
+	
+	protected void enableAll() {
+		RadioGroup rg = (RadioGroup)findViewById(R.id.testingChoices);
+		for (int i=0; i<rg.getChildCount(); i++) {
+			RadioButton rb = (RadioButton)rg.getChildAt(i);
+			rb.setEnabled(true);
+		}
+		
+	}
+	
+	protected void disableAll() {
+		RadioGroup rg = (RadioGroup)findViewById(R.id.testingChoices);
+		for (int i=0; i<rg.getChildCount(); i++) {
+			RadioButton rb = (RadioButton)rg.getChildAt(i);
+			rb.setEnabled(false);
+		}
+	}
+	
+	protected void check() throws IOException {
+		
+		Button b = (Button)findViewById(R.id.testingSubmit);
+		if (submitted) {
+			TestingActivity.this.setChoices();
+			submitted = false;
+			b.setText(R.string.submit);
+			
+			enableAll();
+			
+			return;
+		}
 		if (selected == null) {
 			Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Please, make your guess.").
+			builder.setMessage(R.string.make_your_guess).
 			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
 	               public void onClick(DialogInterface dialog, int id) {
 	                    dialog.cancel();
 	               }
-	           }); // TODO: resource
+	           });
 			builder.show();
 			return;
 		}
 		Boolean ok = guessing.getName() == selected.getText();
 		if (!ok) {
-			Toast.makeText(getBaseContext(), guessing.getName(), 2000).show();
+			selected.setBackgroundResource(R.color.wrong);
+		} else {
+			selected.setBackgroundResource(R.color.right);
 		}
+		b.setText(R.string.submit);
+		
+		disableAll();
+		selected.invalidate();
+		
 		Tester t = ((Application)getApplication()).currentTester;
 		t.putResult(ok);
-		setChoices();
+		//RadioGroup rg = (RadioGroup)findViewById(R.id.testingChoices);
+		//rg.setEnabled(false);
+		
+		if (t.getTestCase() == null) finishTesting();
+		else {
+		b.setText(R.string.test_next_question);
+		
+		submitted = true;
+		}
 	}
 }

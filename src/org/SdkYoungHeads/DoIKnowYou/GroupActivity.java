@@ -1,4 +1,6 @@
 package org.SdkYoungHeads.DoIKnowYou;
+import java.io.IOException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -12,14 +14,19 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GroupActivity extends Activity {
+public class GroupActivity extends Activity implements OnItemClickListener {
 	protected ListView people;
+	protected Person currentlySelectedPerson;
 		
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,31 +37,82 @@ public class GroupActivity extends Activity {
 		TextView tv = (TextView)this.findViewById(R.id.group_name);
 		tv.setText(g.getName());
 
-		
 		people = (ListView) this.findViewById(R.id.list_of_people);
-
+		people.setOnItemClickListener(this);
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+		Application app = (Application)getApplication();
+		app.selectedPerson = app.selectedGroup.getPeople()[position];
+		Intent i = new Intent(this, PersonActivity.class);
+		startActivity(i);
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		refill();
+	}
+	
+	public void refill() {
+		people.clearChoices();
 		people.setAdapter(new MyPeopleAdapter(this.getBaseContext(), ((Application)getApplication()).selectedGroup));
-	        
 	    registerForContextMenu(people);
 	}
 	
 	@Override  
 	   public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
-	super.onCreateContextMenu(menu, v, menuInfo);  
+	super.onCreateContextMenu(menu, v, menuInfo); 
+	AdapterContextMenuInfo ami = (AdapterContextMenuInfo)menuInfo;
+    currentlySelectedPerson = ((Application)getApplication()).selectedGroup.getPeople()[ami.position];
 	    menu.setHeaderTitle("Person actions");  
-	    menu.add(0, v.getId(), 0, "Edit");
-	    menu.add(0, v.getId(), 0, "Delete");  
+	    menu.add(0, 0, 0, "Edit");
+	    menu.add(0, 1, 1, "Delete");  
 	}
 	
  @Override  
- public boolean onContextItemSelected(MenuItem item) {  
-     if(item.getTitle()=="Delete"){function1(item.getItemId());}   // TODO: make person deleting work
+ public boolean onContextItemSelected(final MenuItem item) {  
+     if(item.getTitle()=="Delete") {
+    	 new AlertDialog.Builder(this).setMessage(R.string.really_delete_person). // TODO: format
+		setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int id) {
+	        	try {
+					deleteSelectedPerson();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	           	   dialog.dismiss();
+	              }
+	           }).
+	        setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           }).show();
+     }
      else if (item.getTitle()=="Edit"){function1(item.getItemId());} // TODO: make person editing work
      else {return false;}  
  return true;  
  }  
  
- public void function1(int id){  
+ protected void deleteSelectedPerson() throws IllegalArgumentException, IllegalStateException, IOException {
+	 GroupContainer gc = ((Application)getApplication()).getDatabase();
+	 ((Application)getApplication()).selectedGroup.removePerson(currentlySelectedPerson);
+ 	currentlySelectedPerson = null;
+	gc.save(this);
+ 	refill();
+	
+}
+
+public void function1(int id){  
      Toast.makeText(this, "function 1 called", Toast.LENGTH_SHORT).show();  
  }  
 	
@@ -75,11 +133,24 @@ public class GroupActivity extends Activity {
 			View rowView = inflater.inflate(R.layout.group_row, parent, false);
 			
 			TextView name = (TextView) rowView.findViewById(R.id.person_name);
-//			ImageView groupIcon = (ImageView) rowView.findViewById(R.id.group_icon);
+			ImageView icon = (ImageView) rowView.findViewById(R.id.person_icon);
 //			ImageView groupArrow = (ImageView) rowView.findViewById(R.id.group_arrow);
 			
 			Person p = group.getPeople()[position];
 			name.setText(p.getName());
+			try {
+				if (p.getMainPhoto(getContext()) != null) {
+					try {
+						icon.setImageBitmap(p.getMainPhoto(getContext()));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			//GroupActivity.this.registerForContextMenu(rowView); <-- po tomhle nefunguje single click :(
 		
@@ -100,12 +171,12 @@ public class GroupActivity extends Activity {
 		
 		if (app.selectedGroup.getCount() < 2) {
 			Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("This group has too few members.").
+			builder.setMessage(R.string.too_few_members).
 			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
 	               public void onClick(DialogInterface dialog, int id) {
 	                    dialog.cancel();
 	               }
-	           }); // TODO: resource
+	           });
 			builder.show();
 			return;
 		} else {
