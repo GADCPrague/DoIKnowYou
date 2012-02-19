@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <ScrollView
+<LinearLayout
     android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
@@ -113,4 +113,4 @@ android:id="@+id/helpRL4">
         android:layout_marginLeft="10dp" 
         android:textColor="#000" />
     </RelativeLayout>
-    </ScrollView>
+    </LinearLayout>
