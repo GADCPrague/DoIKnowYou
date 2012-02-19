@@ -90,6 +90,15 @@ public class Person {
 		ensurePhotosLoaded();
 		return photos;
 	}
+	
+	public void setPhotoPaths(List<String> paths) {
+		photoPaths = paths;
+		photos = new Bitmap[0];
+	}
+	
+	public void claimPhotos() {
+		// TODO: jestli fotky nepatri me, zmensit a ulozit ke me.
+	}
 		
 	final static String NAME = "name";
 	final static String PATH = "path";

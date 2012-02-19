@@ -31,7 +31,6 @@ public class AddNewGroupActivity extends Activity {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		group = new Group();
-		// TODO: Tady vypsat seznam skupin...
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnewgroup);
 		
@@ -64,18 +63,19 @@ public class AddNewGroupActivity extends Activity {
         		GroupContainer gc = ((Application)getApplication()).getDatabase();
         		if (gc.getGroupByName(name.getText().toString()) != null) {
         			Builder builder = new AlertDialog.Builder(AddNewGroupActivity.this);
-        			builder.setMessage("A group with this name already exists. Please choose another one.").
+        			builder.setMessage(R.string.group_already_exists).
         			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
         	               public void onClick(DialogInterface dialog, int id) {
         	                    dialog.cancel();
         	               }
-        	           }); // TODO: resource
+        	           });
         			builder.show();
         			return;
         		}
             	gc.addGroup(group);
 				try {
 					gc.save(getBaseContext());
+					finish();
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -86,7 +86,6 @@ public class AddNewGroupActivity extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				finish();
         	}
         });
 	}

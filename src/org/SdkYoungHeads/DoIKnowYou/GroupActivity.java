@@ -1,6 +1,9 @@
 package org.SdkYoungHeads.DoIKnowYou;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -31,32 +34,38 @@ public class GroupActivity extends Activity {
 		people = (ListView) this.findViewById(R.id.list_of_people);
 
 		people.setAdapter(new MyPeopleAdapter(this.getBaseContext(), ((Application)getApplication()).selectedGroup));
-
-		/*
-		 * listener pro tlacitko na pridani nove osoby
-		 */
-		 Button next = (Button) findViewById(R.id.addNewPersonButton);
-	        next.setOnClickListener(new View.OnClickListener() {
-	            public void onClick(View view) {
-	                Intent myIntent = new Intent(view.getContext(), AddNewPersonActivity.class);
-	                startActivityForResult(myIntent, 0);
-	            }
-
-	        });
-
+	        
+	    registerForContextMenu(people);
 	}
 	
 	@Override  
 	   public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
 	super.onCreateContextMenu(menu, v, menuInfo);  
 	    menu.setHeaderTitle("Person actions");  
-	    menu.add(0, v.getId(), 0, "Edit");
-	    menu.add(0, v.getId(), 0, "Delete");  
+	    menu.add(0, 0, 0, "Edit");
+	    menu.add(0, 1, 1, "Delete");  
+	}
+	
+	public void deletePersonByMenuItem(MenuItem item) {
+		// TODO: delete the person!
 	}
 	
  @Override  
- public boolean onContextItemSelected(MenuItem item) {  
-     if(item.getTitle()=="Delete"){function1(item.getItemId());}   // TODO: make person deleting work
+ public boolean onContextItemSelected(final MenuItem item) {  
+     if(item.getTitle()=="Delete") {
+    	 new AlertDialog.Builder(this).setMessage(R.string.really_delete_person). // TODO: format
+		setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int id) {
+	           	   GroupActivity.this.deletePersonByMenuItem(item);
+	           	   dialog.dismiss();
+	              }
+	           }).
+	        setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           }).show();
+     }
      else if (item.getTitle()=="Edit"){function1(item.getItemId());} // TODO: make person editing work
      else {return false;}  
  return true;  
@@ -105,10 +114,23 @@ public class GroupActivity extends Activity {
 	
 	public void runTest(View view) {
 		Application app = ((Application)getApplication());
-		app.currentTester = new SimpleTester();
-		app.currentTester.setGroup(app.selectedGroup);
-		Intent i = new Intent(this, TestingActivity.class);
-		startActivity(i);
+		
+		if (app.selectedGroup.getCount() < 2) {
+			Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(R.string.too_few_members).
+			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           });
+			builder.show();
+			return;
+		} else {
+			app.currentTester = new SimpleTester();
+			app.currentTester.setGroup(app.selectedGroup);
+			Intent i = new Intent(this, TestingActivity.class);
+			startActivity(i);
+		}
 	}
 	
 	public void addPerson(View view) {

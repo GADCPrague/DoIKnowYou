@@ -1,4 +1,5 @@
-package org.SdkYoungHeads.DoIKnowYou;
+/*
+ * package org.SdkYoungHeads.DoIKnowYou;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,6 @@ public class SelectPersonsActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.selectpersons);
 		
@@ -98,10 +98,10 @@ class MyPersonAdapter extends ArrayAdapter<Person> {
 					Log.d("", "" + c.isChecked() + " " + position);
 				}
 			});
-			
 			personName.setText(persons[position].getName());
 
 			return rowView;
 		}
 	}
 }
+*/
