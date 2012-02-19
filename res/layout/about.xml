@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical" >
 
     <RelativeLayout
+        android:id="@+id/relativeLayout1"
         android:layout_width="fill_parent"
         android:layout_height="55dp"
         android:background="@color/blue_light"
@@ -25,11 +26,91 @@
             android:textSize="20dp" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="fill_parent"
+    <RelativeLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="text text text"
-        android:textColor="#fff" />
+        android:layout_below="@+id/relativeLayout1" android:id="@+id/helpRL">
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_toRightOf="@+id/imageView1"
+        android:text="Do I Know You? was written at Google DevCamp Prague 2012 by the SdkYoungHeads team."
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        android:layout_marginLeft="10dp" />
+
+</RelativeLayout>
+
+    <RelativeLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/helpRL"
+android:id="@+id/helpRL2">
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/group" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To create a new group of people you don't want to forget, press the New group icon at the top right corner of the main page."
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_toRightOf="@+id/imageView2"
+        android:layout_marginLeft="10dp" 
+        android:textColor="#000" />
+    </RelativeLayout>
+    
+    <RelativeLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/helpRL2"
+android:id="@+id/helpRL3">
+    
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/person" />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:text="To add a person, tap on the New person icon. You will be asked to enter the name or nickname of the person and to supply an image or two."
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_toRightOf="@+id/imageView3"
+        android:layout_marginLeft="10dp" 
+        android:textColor="#000" />
+    </RelativeLayout>
+    
+    <RelativeLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/helpRL3"
+android:id="@+id/helpRL4">
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/test" />
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imageView4"
+        android:text="To test your knowledge of a group, tap it and tap the Test icon. After you are shown an image of every member of the group, your score will be shown."
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginLeft="10dp" 
+        android:textColor="#000" />
+    </RelativeLayout>
+</RelativeLayout>
