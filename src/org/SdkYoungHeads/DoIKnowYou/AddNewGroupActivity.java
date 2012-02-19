@@ -34,6 +34,7 @@ public class AddNewGroupActivity extends Activity {
 		// TODO: Tady vypsat seznam skupin...
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnewgroup);
+		adapter.notifyDataSetInvalidated();
 		
 //		Person[] p = ((Application)getApplication()).selectedPersons;
 //		

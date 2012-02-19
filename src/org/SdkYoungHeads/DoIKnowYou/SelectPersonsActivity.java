@@ -86,9 +86,9 @@ class MyPersonAdapter extends ArrayAdapter<Person> {
 			
 //			ImageView personIcon = (ImageView) rowView.findViewById(R.id.group_icon);
 			TextView personName = (TextView) rowView.findViewById(R.id.person_name);
-			CheckBox check = (CheckBox) rowView.findViewById(R.id.check);
+//			CheckBox check = (CheckBox) rowView.findViewById(R.id.check);
 			
-			check.setOnClickListener(new OnClickListener() {
+//			check.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
