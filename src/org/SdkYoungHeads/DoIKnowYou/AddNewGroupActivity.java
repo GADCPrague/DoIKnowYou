@@ -59,9 +59,7 @@ public class AddNewGroupActivity extends Activity {
         Button addGroup = (Button) findViewById(R.id.createGroupBtn);
         addGroup.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View view) {
-        		group.setName(name.getText().toString());
-        		GroupContainer gc = ((Application)getApplication()).getDatabase();
-        		if(name.getText().toString() ==""){
+        		if(name.getText().toString().trim() ==""){
         			Builder builder = new AlertDialog.Builder(AddNewGroupActivity.this);
         			builder.setMessage(R.string.group_empty).
         			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
@@ -71,6 +69,10 @@ public class AddNewGroupActivity extends Activity {
         	           });
         			builder.show();
         		}
+        		
+        		group.setName(name.getText().toString().trim());
+        		GroupContainer gc = ((Application)getApplication()).getDatabase();
+        		
         		if (gc.getGroupByName(name.getText().toString()) != null) {
         			Builder builder = new AlertDialog.Builder(AddNewGroupActivity.this);
         			builder.setMessage(R.string.group_already_exists).

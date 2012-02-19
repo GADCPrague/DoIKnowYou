@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -213,6 +214,17 @@ public class AddNewPersonActivity extends Activity {
 			IllegalStateException, IOException {
 		final EditText nameField = (EditText) findViewById(R.id.editTextName);
 		String personName = nameField.getText().toString();
+		if("".equals(personName.trim())) {
+			Builder builder = new AlertDialog.Builder(AddNewPersonActivity.this);
+			builder.setMessage(R.string.name_not_set).
+			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           });
+			builder.show();
+			return;
+		}
 
 		final Spinner groupSpinner = (Spinner) findViewById(R.id.groupSpinner);
 		String groupName = groupSpinner.getSelectedItem().toString();
