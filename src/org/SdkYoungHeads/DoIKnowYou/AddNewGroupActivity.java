@@ -61,6 +61,16 @@ public class AddNewGroupActivity extends Activity {
         	public void onClick(View view) {
         		group.setName(name.getText().toString());
         		GroupContainer gc = ((Application)getApplication()).getDatabase();
+        		if(name.getText().toString() ==""){
+        			Builder builder = new AlertDialog.Builder(AddNewGroupActivity.this);
+        			builder.setMessage(R.string.group_empty).
+        			setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+        	               public void onClick(DialogInterface dialog, int id) {
+        	                    dialog.cancel();
+        	               }
+        	           });
+        			builder.show();
+        		}
         		if (gc.getGroupByName(name.getText().toString()) != null) {
         			Builder builder = new AlertDialog.Builder(AddNewGroupActivity.this);
         			builder.setMessage(R.string.group_already_exists).
