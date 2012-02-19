@@ -1,4 +1,6 @@
 package org.SdkYoungHeads.DoIKnowYou;
+import java.io.IOException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -57,17 +59,24 @@ public class GroupActivity extends Activity {
 	    menu.add(0, 1, 1, "Delete");  
 	}
 	
-	public void deletePersonByMenuItem(MenuItem item) {
-		// TODO: delete the person!
-	}
-	
  @Override  
  public boolean onContextItemSelected(final MenuItem item) {  
      if(item.getTitle()=="Delete") {
     	 new AlertDialog.Builder(this).setMessage(R.string.really_delete_person). // TODO: format
 		setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int id) {
-	        	deleteSelectedPerson();
+	        	try {
+					deleteSelectedPerson();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	           	   dialog.dismiss();
 	              }
 	           }).
@@ -82,9 +91,11 @@ public class GroupActivity extends Activity {
  return true;  
  }  
  
- protected void deleteSelectedPerson() {
- 	((Application)getApplication()).selectedGroup.removePerson(currentlySelectedPerson);
+ protected void deleteSelectedPerson() throws IllegalArgumentException, IllegalStateException, IOException {
+	 GroupContainer gc = ((Application)getApplication()).getDatabase();
+	 ((Application)getApplication()).selectedGroup.removePerson(currentlySelectedPerson);
  	currentlySelectedPerson = null;
+	gc.save(this);
  	refill();
 	
 }

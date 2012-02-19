@@ -1,5 +1,7 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -146,7 +148,18 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 			new AlertDialog.Builder(this).setMessage(R.string.really_delete_group).
 			setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	               public void onClick(DialogInterface dialog, int id) {
-	            	   ListOfGroupsActivity.this.deleteSelectedGroup();
+	            	   try {
+						ListOfGroupsActivity.this.deleteSelectedGroup();
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalStateException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 	            	   dialog.dismiss();
 	               }
 	           }).
@@ -164,9 +177,11 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
         return true;  
     }  
   
-    protected void deleteSelectedGroup() {
-    	((Application)getApplication()).getDatabase().removeGroup(currentlySelectedGroup);
+    protected void deleteSelectedGroup() throws IllegalArgumentException, IllegalStateException, IOException {
+    	GroupContainer gc = ((Application)getApplication()).getDatabase();
+    	gc.removeGroup(currentlySelectedGroup);
     	currentlySelectedGroup = null;
+		gc.save(this);
     	refill();
 	}
 
