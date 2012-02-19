@@ -30,7 +30,7 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="38dp"
             android:layout_toLeftOf="@+id/person_detail_narrow_right"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/icon_person" />
 
         <ImageView
             android:id="@+id/person_detail_narrow_right"

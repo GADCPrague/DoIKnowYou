@@ -19,6 +19,7 @@ import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Xml;
 
 public class GroupContainer {
@@ -48,7 +49,7 @@ public class GroupContainer {
 
 	public Group getGroupByName(String name) {
 		for (Group g : groups) {
-			if (g.getName() == name) {
+			if (g.getName().equals(name)) {
 				return g;
 			}
 		}
