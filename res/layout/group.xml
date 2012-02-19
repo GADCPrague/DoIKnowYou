@@ -19,13 +19,6 @@
 	        
 	         />
 
-        <Button
-            android:id="@+id/addNewPersonButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/button1"
-            android:text="@string/add_person" />
-
 	    <TextView
 	        android:id="@+id/group_name"
 	        android:layout_width="wrap_content"
