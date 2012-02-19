@@ -28,6 +28,7 @@
 	<string name="addPhoto">Add photo</string>
 	<string name="listPhoto">List of photos:</string>
 	<string name="group_already_exists">A group with this name already exists. Please choose another one.</string>
+	<string name="group_empty">The group name can not be empty!</string>
 	<string name="too_few_members">This group has too few members.</string>
 	<string name="make_your_guess">Please, make your guess.</string>
 	<string name="really_delete_group">Do you really want to delete this group?</string>
