@@ -110,6 +110,8 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 				groupIcon.setImageBitmap(b);
 			}
 			
+			rowView.setTag(g);
+			
 			// Change the icon for Windows and iPhone
 //			String s = values[position];
 //			if (s.startsWith("iPhone")) {
@@ -130,10 +132,13 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 		startActivity(i);
 	}
 
+	protected Group currentlySelectedGroup;
+	
 	@Override  
 	   public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
 	super.onCreateContextMenu(menu, v, menuInfo);  
 	    menu.setHeaderTitle("Group actions");  
+	    currentlySelectedGroup = (Group)v.getTag();
 	    menu.add(0, v.getId(), 0, "Edit");
 	    menu.add(0, v.getId(), 0, "Delete");  
 	}
@@ -144,8 +149,7 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 			new AlertDialog.Builder(this).setMessage(R.string.really_delete_group).
 			setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	               public void onClick(DialogInterface dialog, int id) {
-	            	   // TODO: delete the group!
-	            	   ListOfGroupsActivity.this.deleteGroupByMenuItem(item);
+	            	   ListOfGroupsActivity.this.deleteSelectedGroup();
 	            	   dialog.dismiss();
 	               }
 	           }).
@@ -163,9 +167,9 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
         return true;  
     }  
   
-    protected void deleteGroupByMenuItem(MenuItem item) {
-		// TODO Auto-generated method stub
-		
+    protected void deleteSelectedGroup() {
+    	((Application)getApplication()).getDatabase().removeGroup(currentlySelectedGroup);
+    	refill();
 	}
 
 	public void function1(int id){  
