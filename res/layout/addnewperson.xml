@@ -1,69 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
-
-    <LinearLayout
+	<LinearLayout 
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical" >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:background="@color/blue_light"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" >
 
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
             android:text="@string/addNewPerson"
-            android:textColor="#fff" />
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+    </RelativeLayout>
+        <EditText
+	        android:id="@+id/editTextName"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp"
+	        android:hint="@string/addNewPerson_textEdit"
+	        android:inputType="textPersonName" >
+	    </EditText>
+	
+	    <TextView
+	        android:id="@+id/textViewTitle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="7dp"
+	        android:layout_marginTop="10dp"
+	        android:text="@string/selectGroup"
+	        android:textSize="10pt" >
+	    </TextView>
+	
+	    <Spinner
+	        android:id="@+id/groupSpinner"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:drawSelectorOnTop="true"
+	        android:prompt="@string/addNewPerson_spinner" />
+	
+	    <Button
+	        android:id="@+id/loadimage"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/addPhoto" />
+	
+	    <TextView
+	        android:id="@+id/targeturi"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content" />
+	
+	    <TextView
+	        android:id="@+id/listPhoto"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="7dp"
+	        android:layout_marginTop="10dp"
+	        android:text="@string/listPhoto"
+	        android:textSize="10pt" >
+	    </TextView>
+	
+	    <ListView
+	        android:id="@+id/list_of_images"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:background="@color/white"
+	        android:divider="#fff" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/addNewPerson_description"
-        android:textSize="10pt" >
-    </TextView>
-
-    <EditText
-        android:id="@+id/editTextName"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/addNewPerson_textEdit"
-        android:inputType="textPersonName" >
-    </EditText>
-
-    <Spinner
-        android:id="@+id/groupSpinner"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:drawSelectorOnTop="true"
-        android:prompt="@string/addNewPerson_spinner" />
-
-    <Button
-        android:id="@+id/loadimage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="add" />
-
-    <TextView
-        android:id="@+id/targeturi"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-
-    <ListView
-        android:id="@+id/list_of_images"
-        android:layout_width="fill_parent"
-        android:layout_height="173dp"
-        android:layout_weight="1.02"
-        android:background="#000"
-        android:divider="#fff" />
 
     <Button
         android:id="@+id/buttonAddPerson"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
         android:onClick="addPerson"
         android:text="@string/addNewPerson_submit" />
 
-</LinearLayout>
+</RelativeLayout>
