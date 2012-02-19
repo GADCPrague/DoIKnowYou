@@ -9,6 +9,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class AddNewGroupActivity extends Activity {
         		String trimName = name.getText().toString().trim();
         		group.setName(trimName);
         		
-        		Log.d("","Pøidáváme skupiny");
+        		Log.d("","Pï¿½idï¿½vï¿½me skupiny");
         		Log.d("",trimName);
         		if("".equals(trimName)) {
         			Log.d("","Nullove jmeno skupiny");
