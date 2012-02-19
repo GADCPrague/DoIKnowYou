@@ -87,7 +87,7 @@ public class AddNewPersonActivity extends Activity {
 		
 		
 		groups.clearChoices();
-		groups.setAdapter(new MyGroupAdapter(this.getBaseContext()),this.imageArray);
+		//groups.setAdapter(new MyGroupAdapter(this.getBaseContext()),this.imageArray);
 
 		//groups.add("ds");
 	}
@@ -206,7 +206,7 @@ public class AddNewPersonActivity extends Activity {
 	// http://xjaphx.wordpress.com/2011/06/12/custom-grid-view-of-applications/
 	// http://android-er.blogspot.com/2011/02/select-image-using-android-build-in.html
 
-class MyGroupAdapter extends ArrayAdapter<Group> {
+class MyGroupAdapter extends ArrayAdapter<String> {
 		
 		protected Context context;
 		
