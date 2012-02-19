@@ -1,5 +1,7 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +13,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 
 public class Person {
 	private UUID uuid;
@@ -91,15 +95,30 @@ public class Person {
 		return photos;
 	}
 	
-	public void setPhotoPaths(List<String> paths) {
+	public void setPhotoPaths(Context context, List<String> paths) throws IOException {
+		for (String s: paths) {
+			Bitmap b = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(Uri.parse(s)));
+			int width = b.getWidth(), height = b.getHeight();
+			if (width > height) {
+				width = 50;
+				height = (int)(50 * ((double)height / (double)width));
+			} else {
+				height = 50;
+				width = (int)(50 * (double)(height) / (double)width);
+			}
+			
+			String name = UUID.randomUUID().toString() + ".jpg";
+			b = Bitmap.createScaledBitmap(b, width, height, true);
+			FileOutputStream fos = context.openFileOutput(name, Context.MODE_PRIVATE);
+			b.compress(Bitmap.CompressFormat.JPEG, 85, fos);
+			fos.close();
+			
+			s = name;
+		}
 		photoPaths = paths;
 		photos = new Bitmap[0];
 	}
-	
-	public void claimPhotos() {
-		// TODO: jestli fotky nepatri me, zmensit a ulozit ke me.
-	}
-		
+			
 	final static String NAME = "name";
 	final static String PATH = "path";
 	final static String UUID_ATTR = "uuid";
