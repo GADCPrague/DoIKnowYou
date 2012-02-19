@@ -1,7 +1,9 @@
 package org.SdkYoungHeads.DoIKnowYou;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -73,26 +75,6 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 		groups.setOnItemClickListener(this);
 	}
 	
-	@Override  
-	   public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
-	super.onCreateContextMenu(menu, v, menuInfo);  
-	    menu.setHeaderTitle("Group actions");  
-	    menu.add(0, v.getId(), 0, "Edit");
-	    menu.add(0, v.getId(), 0, "Delete");  
-	}
-	
-    @Override  
-    public boolean onContextItemSelected(MenuItem item) {  
-        if(item.getTitle()=="Delete"){function1(item.getItemId());}   // TODO: make group deleting work
-        else if (item.getTitle()=="Edit"){function1(item.getItemId());} // TODO: make group editing work
-        else {return false;}  
-    return true;  
-    }  
-  
-    public void function1(int id){  
-        Toast.makeText(this, "function 1 called", Toast.LENGTH_SHORT).show();  
-    }  
-	
 	class MyGroupAdapter extends ArrayAdapter<Group> {
 		
 		protected Context context;
@@ -123,10 +105,7 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 				groupIcon.setImageBitmap(b);
 			}
 			
-			//ListOfGroupsActivity.this.registerForContextMenu(rowView); <-- po tomhle nefunguje single click :(
-			
-			
-			
+			rowView.setTag(g);
 			// Change the icon for Windows and iPhone
 //			String s = values[position];
 //			if (s.startsWith("iPhone")) {
@@ -146,4 +125,48 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 		Intent i = new Intent(this, GroupActivity.class);
 		startActivity(i);
 	}
+
+	protected Group currentlySelectedGroup;
+	
+	@Override  
+	   public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
+	super.onCreateContextMenu(menu, v, menuInfo);  
+	    menu.setHeaderTitle("Group actions");  
+	    currentlySelectedGroup = (Group)v.getTag();
+	    menu.add(0, v.getId(), 0, "Edit");
+	    menu.add(0, v.getId(), 0, "Delete");  
+	}
+		
+    @Override  
+    public boolean onContextItemSelected(final MenuItem item) {  
+        if(item.getTitle()=="Delete") {
+			new AlertDialog.Builder(this).setMessage(R.string.really_delete_group).
+			setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	            	   ListOfGroupsActivity.this.deleteSelectedGroup();
+	            	   dialog.dismiss();
+	               }
+	           }).
+	        setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                    dialog.cancel();
+	               }
+	           }).show();
+        } else if (item.getTitle()=="Edit") {
+        	function1(item.getItemId());
+        } // TODO: make group editing work
+        else {
+        	return false;
+        }  
+        return true;  
+    }  
+  
+    protected void deleteSelectedGroup() {
+    	((Application)getApplication()).getDatabase().removeGroup(currentlySelectedGroup);
+    	refill();
+	}
+
+	public void function1(int id){  
+        Toast.makeText(this, "function 1 called", Toast.LENGTH_SHORT).show();  
+    }  
 }
