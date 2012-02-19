@@ -33,6 +33,7 @@ public class AddNewGroupActivity extends Activity {
 		group = new Group();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnewgroup);
+		adapter.notifyDataSetInvalidated();
 		
 //		Person[] p = ((Application)getApplication()).selectedPersons;
 //		
