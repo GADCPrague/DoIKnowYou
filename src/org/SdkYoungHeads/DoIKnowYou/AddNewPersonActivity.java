@@ -116,18 +116,20 @@ public class AddNewPersonActivity extends Activity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		AdapterContextMenuInfo ami = (AdapterContextMenuInfo) menuInfo;
 		menu.setHeaderTitle(R.string.addPhotoDialog_title);
-		menu.add(0, v.getId(), 0, R.string.imageFromGallery);
-		menu.add(0, v.getId(), 0, R.string.imageFromCamera);
+		//menu.add(0, v.getId(), 0, R.string.imageFromGallery);
+		//menu.add(0, v.getId(), 0, R.string.imageFromCamera);
+		menu.add(0, v.getId(), 0, "Gallery");
+		menu.add(0, v.getId(), 0, "Camera");
 	}
 
 	@Override
 	public boolean onContextItemSelected(final MenuItem item) {
-		if (item.getTitle().equals(R.string.imageFromCamera)) {
+		if (item.getTitle().equals("Gallery")) {
 			Intent intent = new Intent(
 					Intent.ACTION_PICK,
 					android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 			startActivityForResult(intent, 0);
-		} else if (item.getTitle().equals(R.string.imageFromGallery)) {
+		} else if (item.getTitle().equals("Camera")) {
 			Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 			File photo = new File(Environment.getExternalStorageDirectory(),
 					"Pic.jpg");
