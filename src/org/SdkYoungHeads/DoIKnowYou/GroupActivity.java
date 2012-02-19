@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,7 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GroupActivity extends Activity {
+public class GroupActivity extends Activity implements OnItemClickListener {
 	protected ListView people;
 	protected Person currentlySelectedPerson;
 		
@@ -36,6 +38,15 @@ public class GroupActivity extends Activity {
 		tv.setText(g.getName());
 
 		people = (ListView) this.findViewById(R.id.list_of_people);
+		people.setOnItemClickListener(this);
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+		Application app = (Application)getApplication();
+		app.selectedPerson = app.selectedGroup.getPeople()[position];
+		Intent i = new Intent(this, PersonActivity.class);
+		startActivity(i);
 	}
 	
 	@Override
