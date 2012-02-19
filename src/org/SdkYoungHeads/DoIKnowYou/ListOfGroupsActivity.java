@@ -81,14 +81,14 @@ public class ListOfGroupsActivity extends Activity implements OnItemClickListene
 			View rowView = inflater.inflate(R.layout.listofgroups_row, parent, false);
 			
 			TextView groupName = (TextView) rowView.findViewById(R.id.group_name);
-			TextView groupDescription = (TextView) rowView.findViewById(R.id.group_description);
+//			TextView groupDescription = (TextView) rowView.findViewById(R.id.group_description);
 			TextView groupCount = (TextView) rowView.findViewById(R.id.group_count);
 //			ImageView groupIcon = (ImageView) rowView.findViewById(R.id.group_icon);
 //			ImageView groupArrow = (ImageView) rowView.findViewById(R.id.group_arrow);
 			
 			Group g = gc.getGroups()[position];
 			groupName.setText(g.getName());
-			groupDescription.setText("[ Description ]");
+		//	groupDescription.setText("[ Description ]");
 			groupCount.setText(Integer.toString(g.getCount()));
 			
 		
