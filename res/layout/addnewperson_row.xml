@@ -2,21 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:background="@color/white" >
 
     <ImageView
         android:id="@+id/group_icon"
-        android:layout_width="32px"
-        android:layout_height="32px"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/ic_launcher" />
 
     <TextView
         android:id="@+id/photo_uri"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="26dp"
+        android:layout_marginRight="70dp"
         android:layout_toRightOf="@+id/group_icon"
         android:layout_centerVertical="true"
         android:text="[ name ]"
